@@ -6,3 +6,9 @@
 *{
     font-size:12px;
 }
+
+/* Navbar */
+.flex-center{
+    display:flex;
+    align-items:center
+}
