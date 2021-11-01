@@ -14,21 +14,36 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 			<div class="w-100" style="display: flex; justify-content: space-between; align-items: center;">
-				<div class="row d-inline-block">
+				<div class="row">
 					<a class="navbar-brand flex-center" href="#">
 						<img src="~/assets/images/revauct.jpg" width="30" height="30" class="mr-2 d-inline-block align-top" style="border-radius:50%" alt="">
 						Trang chủ
 					</a>
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Dropdown
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
 				</div> 
 				<div class="row flex-center">
-					<a class="mr-5 flex-center"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem;">Tan Loc</span></a>
+					<a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">Tan Loc</span>
+					</a>
+					<div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
+						<a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+						<a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+					</div>
 					<a class="mr-5"><i class="far fa-bell" style="font-size: 1.8rem;"></i></a>
 					<a class="mr-5"><i class="far fa-comment-dots" style="font-size: 1.8rem;"></i></a>
 					<a class="mr-5"><i class="far fa-star" style="font-size: 1.8rem;"></i></a>
 				</div>
-				<div class="row d-inline-block">
-					<a class="flex-center"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
-				</div>
+				@*<div class="row d-inline-block">
+					<a class="flex-center"></a>
+				</div>*@
 			</div>
 		</div>
 	</nav>
