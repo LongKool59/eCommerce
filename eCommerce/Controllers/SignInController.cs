@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace eCommerce.Areas.Admin.Controllers
+namespace eCommerce.Controllers
 {
     public class SignInController : Controller
     {
-        // GET: Admin/SignIn
+        // GET: SignIn
         public ActionResult SignIn()
         {
             return View();
