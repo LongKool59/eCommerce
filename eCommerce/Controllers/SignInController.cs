@@ -13,5 +13,13 @@ namespace eCommerce.Controllers
         {
             return View();
         }
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
