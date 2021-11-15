@@ -245,6 +245,7 @@ input {
         font-weight: normal;
     }
 
+.forms23-block-hny input.btn.loginhny-btn,
 .forms23-block-hny button.btn.loginhny-btn {
     width: 100%;
     padding: 15px 28px;
@@ -264,6 +265,7 @@ input {
     margin-top: 12px;
 }
 
+    .forms23-block-hny input.btn.loginhny-btn:hover,
     .forms23-block-hny button.btn.loginhny-btn:hover {
         background: #BD783A;
         color: #2B2022;
@@ -384,14 +386,17 @@ input {
         padding: 35px 20px;
     }
 }
+
 #check1 {
     border: 1px solid black;
     width: 15px;
     height: 15px;
 }
-input[type=file]{
-    display:none;
+
+input[type=file] {
+    display: none;
 }
+
 .upload-image {
     display: inline-block;
     background: linear-gradient(to right, orange, red);
@@ -400,6 +405,7 @@ input[type=file]{
     border-radius: 10px;
     margin-top: 1.7rem;
 }
+
 .dangKy {
     padding: 0.5rem 3rem;
     font-size: 1.5rem;
@@ -410,11 +416,13 @@ input[type=file]{
     background: linear-gradient(to bottom, #1665f4, #1ad6f4);
     color: white;
 }
+
 .dangNhap {
     text-decoration: none;
     color: rgba(0,0,0,.9);
     font-size: 1.2rem;
 }
+
     .dangNhap:hover {
         text-decoration: none;
         color: rgba(0,0,0,.9);

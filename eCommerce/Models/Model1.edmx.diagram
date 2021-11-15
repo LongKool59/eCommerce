@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f82e530bce6f423292c237e256d6a213" Name="Diagram1">
+        <EntityTypeShape EntityType="DauGiaModel.ChatRieng" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.DanhGia" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.DauGia" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.HinhAnh" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.Loai" Width="1.5" PointX="6" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.MucNang" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.NguoiDung" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.sysdiagram" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.ThongBao" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="DauGiaModel.FK_ChatRieng_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_ChatRieng_NguoiDung1" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_DanhGia_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_DanhGia_NguoiDung1" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_HinhAnh_DauGia" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_MucNang_DauGia" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_ThongBao_DauGia" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_MucNang_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_ThongBao_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.CT_DauGia" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
