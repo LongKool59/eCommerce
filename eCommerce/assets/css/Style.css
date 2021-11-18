@@ -76,3 +76,7 @@ footer button {
     border-radius: 15px;
     margin-bottom:5px;
 }
+.row{
+    margin-left:0;
+    margin-right:0;
+}
