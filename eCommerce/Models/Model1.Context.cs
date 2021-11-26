@@ -25,14 +25,15 @@ namespace eCommerce.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<ChatRieng> ChatRiengs { get; set; }
+        public DbSet<BienDongSoDu> BienDongSoDus { get; set; }
+        public DbSet<CT_TrangThai> CT_TrangThai { get; set; }
         public DbSet<DanhGia> DanhGias { get; set; }
         public DbSet<DauGia> DauGias { get; set; }
         public DbSet<HinhAnh> HinhAnhs { get; set; }
         public DbSet<Loai> Loais { get; set; }
         public DbSet<MucNang> MucNangs { get; set; }
         public DbSet<NguoiDung> NguoiDungs { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<ThongBao> ThongBaos { get; set; }
+        public DbSet<TrangThaiDauGia> TrangThaiDauGias { get; set; }
     }
 }

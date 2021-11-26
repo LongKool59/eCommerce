@@ -16,6 +16,7 @@ namespace eCommerce.Models
     {
         public DauGia()
         {
+            this.CT_TrangThai = new HashSet<CT_TrangThai>();
             this.HinhAnhs = new HashSet<HinhAnh>();
             this.MucNangs = new HashSet<MucNang>();
             this.ThongBaos = new HashSet<ThongBao>();
@@ -23,18 +24,22 @@ namespace eCommerce.Models
         }
     
         public int MaDauGia { get; set; }
-        public string MaNguoiBan { get; set; }
-        public string MaNguoiMua { get; set; }
+        public int MaNguoiBan { get; set; }
+        public Nullable<int> MaNguoiMua { get; set; }
         public string TenSanPham { get; set; }
         public string MoTa { get; set; }
         public int GiaBanDau { get; set; }
         public int MucNangToiThieu { get; set; }
-        public int GiaCuoi { get; set; }
+        public Nullable<int> GiaCuoi { get; set; }
         public System.DateTime NgayBatDau { get; set; }
         public System.DateTime NgayKetThuc { get; set; }
         public string ViTri { get; set; }
-        public string TrangThai { get; set; }
+        public Nullable<System.DateTime> NgayThanhToan { get; set; }
+        public System.DateTime NgayDang { get; set; }
     
+        public virtual ICollection<CT_TrangThai> CT_TrangThai { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
+        public virtual NguoiDung NguoiDung1 { get; set; }
         public virtual ICollection<HinhAnh> HinhAnhs { get; set; }
         public virtual ICollection<MucNang> MucNangs { get; set; }
         public virtual ICollection<ThongBao> ThongBaos { get; set; }

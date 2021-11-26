@@ -12,15 +12,19 @@ namespace eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChatRieng
+    public partial class TrangThaiDauGia
     {
-        public int MaChat { get; set; }
-        public int MaNguoiGui { get; set; }
-        public int MaNguoiNhan { get; set; }
-        public string TinNhan { get; set; }
-        public System.DateTime ThoiGian { get; set; }
+        public TrangThaiDauGia()
+        {
+            this.CT_TrangThai = new HashSet<CT_TrangThai>();
+        }
     
+        public int MaTrangThai { get; set; }
+        public string TenTrangThai { get; set; }
+        public System.DateTime Ngay { get; set; }
+        public int MaNguoiDung { get; set; }
+    
+        public virtual ICollection<CT_TrangThai> CT_TrangThai { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
-        public virtual NguoiDung NguoiDung1 { get; set; }
     }
 }
