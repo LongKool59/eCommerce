@@ -30,11 +30,6 @@ namespace eCommerce.Controllers
                     this.AddNotification("Sai email hoặc mật khẩu!", NotificationType.ERROR);
                     return View("Login");
                 }
-                if (taiKhoanHopLe.IsApproved == false)
-                {
-                    this.AddNotification("Tài khoản này đã bị vô hiệu hóa!", NotificationType.ERROR);
-                    return View("Login");
-                }
                 db.Configuration.ValidateOnSaveEnabled = false;
                 Session["HoTen"] = taiKhoanHopLe.HovaTen.ToString();
                 if (taiKhoanHopLe.IsAdmin == false)
@@ -66,11 +61,6 @@ namespace eCommerce.Controllers
                     if (emailHopLe == null)
                     {
                         this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
-                        return View("ForgotPassword");
-                    }
-                    if (emailHopLe.IsApproved == false)
-                    {
-                        this.AddNotification("Tài khoản này đã bị vô hiệu hóa. Không thể lấy lại mật khẩu!", NotificationType.ERROR);
                         return View("ForgotPassword");
                     }
 

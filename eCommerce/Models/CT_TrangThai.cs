@@ -12,12 +12,13 @@ namespace eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class CT_TrangThai
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int MaTrangThai { get; set; }
+        public int MaDauGia { get; set; }
+        public System.DateTime ThoiGian { get; set; }
+    
+        public virtual DauGia DauGia { get; set; }
+        public virtual TrangThaiDauGia TrangThaiDauGia { get; set; }
     }
 }

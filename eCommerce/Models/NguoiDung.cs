@@ -16,12 +16,15 @@ namespace eCommerce.Models
     {
         public NguoiDung()
         {
-            this.ChatRiengs = new HashSet<ChatRieng>();
-            this.ChatRiengs1 = new HashSet<ChatRieng>();
+            this.BienDongSoDus = new HashSet<BienDongSoDu>();
             this.DanhGias = new HashSet<DanhGia>();
             this.DanhGias1 = new HashSet<DanhGia>();
+            this.DauGias = new HashSet<DauGia>();
+            this.DauGias1 = new HashSet<DauGia>();
+            this.Loais = new HashSet<Loai>();
             this.MucNangs = new HashSet<MucNang>();
             this.ThongBaos = new HashSet<ThongBao>();
+            this.TrangThaiDauGias = new HashSet<TrangThaiDauGia>();
         }
     
         public int MaNguoiDung { get; set; }
@@ -35,11 +38,14 @@ namespace eCommerce.Models
         public bool IsApproved { get; set; }
         public int SoDuVi { get; set; }
     
-        public virtual ICollection<ChatRieng> ChatRiengs { get; set; }
-        public virtual ICollection<ChatRieng> ChatRiengs1 { get; set; }
+        public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
         public virtual ICollection<DanhGia> DanhGias { get; set; }
         public virtual ICollection<DanhGia> DanhGias1 { get; set; }
+        public virtual ICollection<DauGia> DauGias { get; set; }
+        public virtual ICollection<DauGia> DauGias1 { get; set; }
+        public virtual ICollection<Loai> Loais { get; set; }
         public virtual ICollection<MucNang> MucNangs { get; set; }
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
+        public virtual ICollection<TrangThaiDauGia> TrangThaiDauGias { get; set; }
     }
 }

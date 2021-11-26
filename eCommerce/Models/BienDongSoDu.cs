@@ -12,20 +12,14 @@ namespace eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Loai
+    public partial class BienDongSoDu
     {
-        public Loai()
-        {
-            this.DauGias = new HashSet<DauGia>();
-        }
-    
-        public int MaLoai { get; set; }
-        public string TenLoai { get; set; }
-        public bool TrangThai { get; set; }
+        public int MaBienDong { get; set; }
+        public int GiaTriBienDong { get; set; }
+        public bool LoaiBienDong { get; set; }
         public int MaNguoiDung { get; set; }
         public System.DateTime Ngay { get; set; }
     
         public virtual NguoiDung NguoiDung { get; set; }
-        public virtual ICollection<DauGia> DauGias { get; set; }
     }
 }
