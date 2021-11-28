@@ -9,6 +9,8 @@ using eCommerce.Extensions;
 using eCommerce.Models;
 using eCommerce.Models.ViewModels;
 using eCommerce.Areas;
+using System.IO;
+
 namespace eCommerce.Controllers
 {
     public class SignInController : Controller
@@ -32,7 +34,7 @@ namespace eCommerce.Controllers
                     return View("SignIn");
                 }
 
-                Session["HoTen"] = taiKhoanHopLe.HovaTen.ToString();
+                Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
                 if (taiKhoanHopLe.IsAdmin == false)
                     return View("SignIn");
                 return RedirectToAction("Index", "Admin/HomeAdmin");
@@ -45,6 +47,43 @@ namespace eCommerce.Controllers
         public ActionResult SignUp()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(NguoiDungViewModel nguoiDungViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(nguoiDungViewModel);
+
+            DauGiaEntities db = new DauGiaEntities();
+            var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
+            if (EmailHopLe != null)
+            {
+                this.AddNotification("Email này đã bị trùng. Vui lòng sử dụng email khác!", NotificationType.ERROR);
+                return View(nguoiDungViewModel);
+            }
+
+            //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
+            string fileName = Path.GetFileNameWithoutExtension(nguoiDungViewModel.ImageFile.FileName);
+            string extension = Path.GetExtension(nguoiDungViewModel.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            nguoiDungViewModel.HinhAnh = "~/UserImages/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
+            nguoiDungViewModel.ImageFile.SaveAs(fileName);
+
+            //gán các giá trị IsAdmin, IsApprove, SoDuVi là giá trị mặc định
+            nguoiDungViewModel.NgayDangKy = DateTime.Now;
+            nguoiDungViewModel.IsAdmin = false;
+            nguoiDungViewModel.IsApproved = false;
+            nguoiDungViewModel.SoDuVi = 0;
+
+            NguoiDung nguoiDung = nguoiDungViewModel;
+            db.NguoiDungs.Add(nguoiDung);
+            db.SaveChanges();
+
+            TempData["toastr-success"] = "Đăng kí thành công";
+            return RedirectToAction("SignIn");
         }
         public ActionResult ForgotPassword()
         {

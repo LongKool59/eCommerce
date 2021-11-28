@@ -14,10 +14,18 @@ namespace eCommerce.Models.ViewModels
 
         [DisplayName("Họ tên")]
         [Required(ErrorMessage = "Họ tên không được trống...")]
-        public string HovaTen { get; set; }
+        public string HoTen { get; set; }
         [DisplayName("Mật khẩu")]
         [Required(ErrorMessage = "Mật khẩu không được trống...")]
+        [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
         public string Password { get; set; }
+        [DisplayName("Xác nhận mật khẩu")]
+        [Required(ErrorMessage = "Xác nhận mật khẩu không được trống...", AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Xác nhận mật khẩu không khớp mật khẩu.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
+        public string ConfirmPassword { get; set; }
         [DisplayName("Email")]
         [Required(ErrorMessage = "Email không được để trống...")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ. Ví dụ: example@gmail.com")]
@@ -32,11 +40,14 @@ namespace eCommerce.Models.ViewModels
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Số điện thoại bắt đầu là 0, không bao gồm chữ, gồm 10 số. ")]
         public string SDT { get; set; }
         [DisplayName("Hình ảnh")]
-        [Required(ErrorMessage = "Hình ảnh không được trống...")]
+        //[Required(ErrorMessage = "Hình ảnh không được trống...")]
         public string HinhAnh { get; set; }
         [DisplayName("Địa chỉ")]
         [Required(ErrorMessage = "Địa chỉ không được trống...")]
         public string DiaChi { get; set; }
+        [DisplayName("Chứng minh nhân dân")]
+        [Required(ErrorMessage = "Số chứng minh nhân dân không được trống...")]
+        public string SoCMND { get; set; }
         [DisplayName("Ngày đăng kí")]
         public DateTime NgayDangKy { get; set; }
         [DisplayName("Is admin")]
@@ -44,13 +55,15 @@ namespace eCommerce.Models.ViewModels
         public bool IsApproved { get; set; }
         [DisplayName("Số dư ví")]
         public int SoDuVi { get; set; }
+        [Required(ErrorMessage = "Hình ảnh không được trống...")]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
         {
             return new NguoiDungViewModel
             {
                 MaNguoiDung = nguoiDung.MaNguoiDung,
-                HovaTen = nguoiDung.HovaTen,
+                HoTen = nguoiDung.HoTen,
                 Password = nguoiDung.Password,
                 Email = nguoiDung.Email,
                 SDT = nguoiDung.SDT,
@@ -60,7 +73,8 @@ namespace eCommerce.Models.ViewModels
                 IsApproved = nguoiDung.IsApproved,
                 SoDuVi = nguoiDung.SoDuVi,
                 NgaySinh = nguoiDung.NgaySinh,
-                HinhAnh = nguoiDung.HinhAnh
+                HinhAnh = nguoiDung.HinhAnh,
+                SoCMND = nguoiDung.SoCMND
             };
         }
 
@@ -69,7 +83,7 @@ namespace eCommerce.Models.ViewModels
             return new NguoiDung
             {
                 MaNguoiDung = nguoiDungViewModel.MaNguoiDung,
-                HovaTen = nguoiDungViewModel.HovaTen,
+                HoTen = nguoiDungViewModel.HoTen,
                 Password = nguoiDungViewModel.Password,
                 Email = nguoiDungViewModel.Email,
                 SDT = nguoiDungViewModel.SDT,
@@ -79,7 +93,8 @@ namespace eCommerce.Models.ViewModels
                 IsApproved = nguoiDungViewModel.IsApproved,
                 SoDuVi = nguoiDungViewModel.SoDuVi,
                 NgaySinh = nguoiDungViewModel.NgaySinh,
-                HinhAnh = nguoiDungViewModel.HinhAnh
+                HinhAnh = nguoiDungViewModel.HinhAnh,
+                SoCMND = nguoiDungViewModel.SoCMND
             };
         }
 
