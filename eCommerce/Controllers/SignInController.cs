@@ -35,6 +35,7 @@ namespace eCommerce.Controllers
                 }
 
                 Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
+                Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
                 if (taiKhoanHopLe.IsAdmin == false)
                     return View("SignIn");
                 return RedirectToAction("Index", "Admin/HomeAdmin");
