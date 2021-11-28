@@ -66,8 +66,6 @@ namespace eCommerce.Models.ViewModels
             };
         }
 
-        public virtual ICollection<ChatRieng> ChatRiengs { get; set; }
-        public virtual ICollection<ChatRieng> ChatRiengs1 { get; set; }
         public virtual ICollection<DanhGia> DanhGias { get; set; }
         public virtual ICollection<DanhGia> DanhGias1 { get; set; }
         public virtual ICollection<MucNang> MucNangs { get; set; }
