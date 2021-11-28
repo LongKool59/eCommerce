@@ -56,26 +56,23 @@ namespace eCommerce.Controllers
             DauGiaEntities db = new DauGiaEntities();
             if (command == "Gửi mail")
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    var emailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
-                    if (emailHopLe == null)
-                    {
-                        this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
-                        return View("ForgotPassword");
-                    }
+                    return View("ForgotPassword");
+                }
+                var emailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
+                if (emailHopLe == null)
+                {
+                    this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
+                    return View("ForgotPassword");
+                }
 
-                    string resetCode = Guid.NewGuid().ToString();
-                    TempData["resetCode"] = resetCode;
-                    TempData["email"] = nguoiDungViewModel.Email;
-                    SendResetPasswordLinkEmail(emailHopLe.Email, resetCode);
-                    this.AddNotification("Đã gửi mail. Vui lòng kiểm tra email!", NotificationType.SUCCESS);
-                    return View("ForgotPassword");
-                }
-                else
-                {
-                    return View("ForgotPassword");
-                }
+                string resetCode = Guid.NewGuid().ToString();
+                TempData["resetCode"] = resetCode;
+                TempData["email"] = nguoiDungViewModel.Email;
+                SendResetPasswordLinkEmail(emailHopLe.Email, resetCode);
+                this.AddNotification("Đã gửi mail. Vui lòng kiểm tra email!", NotificationType.SUCCESS);
+                return View("ForgotPassword");
             }
             else
                 return RedirectToAction("SignIn", "SignIn");

@@ -22,6 +22,8 @@ namespace eCommerce.Models.ViewModels
         public string Email { get; set; }
         [DisplayName("Số điện thoại")]
         public string SDT { get; set; }
+        [DisplayName("Hình ảnh")]
+        public string HinhAnh { get; set; }
         [DisplayName("Địa chỉ")]
         public string DiaChi { get; set; }
         [DisplayName("Ngày đăng kí")]

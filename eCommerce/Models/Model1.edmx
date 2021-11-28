@@ -95,6 +95,7 @@
           <Property Name="MaNguoiDung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HovaTen" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NgaySinh" Type="date" Nullable="false" />
+          <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar(max)" Nullable="false" />
           <Property Name="SDT" Type="nvarchar(max)" Nullable="false" />
@@ -405,7 +406,7 @@
           <Property Name="GiaTriBienDong" Type="Int32" Nullable="false" />
           <Property Name="LoaiBienDong" Type="Boolean" Nullable="false" />
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
-          <Property Name="Ngay" Type="DateTime" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_BienDongSoDu_NguoiDung" FromRole="BienDongSoDu" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="CT_LoaiDauGia">
@@ -425,7 +426,7 @@
           </Key>
           <Property Name="MaTrangThai" Type="Int32" Nullable="false" />
           <Property Name="MaDauGia" Type="Int32" Nullable="false" />
-          <Property Name="ThoiGian" Type="DateTime" Nullable="false" />
+          <Property Name="ThoiGian" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DauGia" Relationship="Self.FK_CT_TrangThai_DauGia" FromRole="CT_TrangThai" ToRole="DauGia" />
           <NavigationProperty Name="TrangThaiDauGia" Relationship="Self.FK_CT_TrangThai_TrangThaiDauGia" FromRole="CT_TrangThai" ToRole="TrangThaiDauGia" />
         </EntityType>
@@ -453,11 +454,11 @@
           <Property Name="GiaBanDau" Type="Int32" Nullable="false" />
           <Property Name="MucNangToiThieu" Type="Int32" Nullable="false" />
           <Property Name="GiaCuoi" Type="Int32" />
-          <Property Name="NgayBatDau" Type="DateTime" Nullable="false" />
-          <Property Name="NgayKetThuc" Type="DateTime" Nullable="false" />
+          <Property Name="NgayBatDau" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NgayKetThuc" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ViTri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgayThanhToan" Type="DateTime" />
-          <Property Name="NgayDang" Type="DateTime" Nullable="false" />
+          <Property Name="NgayThanhToan" Type="DateTime" Precision="3" />
+          <Property Name="NgayDang" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="CT_LoaiDauGia" Relationship="Self.FK_CT_LoaiDauGia_DauGia" FromRole="DauGia" ToRole="CT_LoaiDauGia" />
           <NavigationProperty Name="CT_TrangThai" Relationship="Self.FK_CT_TrangThai_DauGia" FromRole="DauGia" ToRole="CT_TrangThai" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DauGia_NguoiDung" FromRole="DauGia" ToRole="NguoiDung" />
@@ -483,7 +484,7 @@
           <Property Name="TenLoai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TrangThai" Type="Boolean" Nullable="false" />
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
-          <Property Name="Ngay" Type="DateTime" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="CT_LoaiDauGia" Relationship="Self.FK_CT_LoaiDauGia_Loai" FromRole="Loai" ToRole="CT_LoaiDauGia" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_Loai_NguoiDung" FromRole="Loai" ToRole="NguoiDung" />
         </EntityType>
@@ -494,7 +495,7 @@
           <Property Name="MaMucNang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
           <Property Name="MaDauGia" Type="Int32" Nullable="false" />
-          <Property Name="ThoiGian" Type="DateTime" Nullable="false" />
+          <Property Name="ThoiGian" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="GiaTri" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DauGia" Relationship="Self.FK_MucNang_DauGia" FromRole="MucNang" ToRole="DauGia" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_MucNang_NguoiDung" FromRole="MucNang" ToRole="NguoiDung" />
@@ -505,12 +506,13 @@
           </Key>
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HovaTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgaySinh" Type="DateTime" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SDT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgayDangKy" Type="DateTime" Nullable="false" />
+          <Property Name="NgayDangKy" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="SoDuVi" Type="Int32" Nullable="false" />
@@ -531,7 +533,7 @@
           <Property Name="MaThongBao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaDauGia" Type="Int32" Nullable="false" />
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
-          <Property Name="ThoiGian" Type="DateTime" Nullable="false" />
+          <Property Name="ThoiGian" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TinNhan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DauGia" Relationship="Self.FK_ThongBao_DauGia" FromRole="ThongBao" ToRole="DauGia" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_ThongBao_NguoiDung" FromRole="ThongBao" ToRole="NguoiDung" />
@@ -542,7 +544,7 @@
           </Key>
           <Property Name="MaTrangThai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenTrangThai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Ngay" Type="DateTime" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CT_TrangThai" Relationship="Self.FK_CT_TrangThai_TrangThaiDauGia" FromRole="TrangThaiDauGia" ToRole="CT_TrangThai" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TrangThaiDauGia_NguoiDung" FromRole="TrangThaiDauGia" ToRole="NguoiDung" />
@@ -917,6 +919,7 @@
                 <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
                 <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
@@ -966,6 +969,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
