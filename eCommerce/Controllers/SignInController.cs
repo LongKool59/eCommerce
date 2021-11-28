@@ -19,6 +19,7 @@ namespace eCommerce.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult CheckkSignIn(NguoiDungViewModel nguoiDungViewModel)
         {
             DauGiaEntities db = new DauGiaEntities();
@@ -28,17 +29,17 @@ namespace eCommerce.Controllers
                 if (taiKhoanHopLe == null)
                 {
                     this.AddNotification("Sai email hoặc mật khẩu!", NotificationType.ERROR);
-                    return View("Login");
+                    return View("SignIn");
                 }
-                db.Configuration.ValidateOnSaveEnabled = false;
+
                 Session["HoTen"] = taiKhoanHopLe.HovaTen.ToString();
                 if (taiKhoanHopLe.IsAdmin == false)
-                    return View("Login");
+                    return View("SignIn");
                 return RedirectToAction("Index", "Admin/HomeAdmin");
             }
             else
             {
-                return View("Login");
+                return View("SignIn");
             }
         }
         public ActionResult SignUp()
@@ -134,7 +135,6 @@ namespace eCommerce.Controllers
                         if (taiKhoan == null)
                             return View();
                         taiKhoan.Password = model.MatKhauMoi;
-                        db.Configuration.ValidateOnSaveEnabled = false;
                         db.SaveChanges();
                         TempData.Clear();
                         this.AddNotification("Mật khẩu được thay đổi thành công.", NotificationType.SUCCESS);
