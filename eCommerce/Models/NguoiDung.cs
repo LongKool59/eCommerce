@@ -28,8 +28,9 @@ namespace eCommerce.Models
         }
     
         public int MaNguoiDung { get; set; }
-        public string HovaTen { get; set; }
+        public string HoTen { get; set; }
         public System.DateTime NgaySinh { get; set; }
+        public string SoCMND { get; set; }
         public string HinhAnh { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
