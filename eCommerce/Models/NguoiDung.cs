@@ -40,6 +40,7 @@ namespace eCommerce.Models
         public bool IsAdmin { get; set; }
         public bool IsApproved { get; set; }
         public int SoDuVi { get; set; }
+        public bool IsRequesting { get; set; }
     
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
         public virtual ICollection<DanhGia> DanhGias { get; set; }

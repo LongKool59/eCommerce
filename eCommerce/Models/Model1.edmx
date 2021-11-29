@@ -105,6 +105,7 @@
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="SoDuVi" Type="int" Nullable="false" />
+          <Property Name="IsRequesting" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ThongBao">
           <Key>
@@ -518,6 +519,7 @@
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="SoDuVi" Type="Int32" Nullable="false" />
+          <Property Name="IsRequesting" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BienDongSoDus" Relationship="Self.FK_BienDongSoDu_NguoiDung" FromRole="NguoiDung" ToRole="BienDongSoDu" />
           <NavigationProperty Name="DanhGias" Relationship="Self.FK_DanhGia_NguoiDung" FromRole="NguoiDung" ToRole="DanhGia" />
           <NavigationProperty Name="DanhGias1" Relationship="Self.FK_DanhGia_NguoiDung1" FromRole="NguoiDung" ToRole="DanhGia" />
@@ -931,6 +933,7 @@
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="SoDuVi" ColumnName="SoDuVi" />
+                <ScalarProperty Name="IsRequesting" ColumnName="IsRequesting" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
