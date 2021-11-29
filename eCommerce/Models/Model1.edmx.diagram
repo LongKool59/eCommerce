@@ -4,18 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fa2b2d1a5f7140d6b53fba89bc687ab7" Name="Diagram1">
-        <EntityTypeShape EntityType="DauGiaModel.BienDongSoDu" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.CT_TrangThai" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+      <Diagram DiagramId="d97136060ba04196aaa86a206a7c443c" Name="Diagram1">
+        <EntityTypeShape EntityType="DauGiaModel.BienDongSoDu" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.CT_LoaiDauGia" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.CT_TrangThai" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DauGiaModel.DanhGia" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DauGiaModel.DauGia" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.HinhAnh" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.Loai" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.MucNang" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.NguoiDung" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.ThongBao" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.TrangThaiDauGia" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.HinhAnh" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.Loai" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.MucNang" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.NguoiDung" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.ThongBao" Width="1.5" PointX="8.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.TrangThaiDauGia" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
         <AssociationConnector Association="DauGiaModel.FK_BienDongSoDu_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_CT_LoaiDauGia_DauGia" ManuallyRouted="false" />
+        <AssociationConnector Association="DauGiaModel.FK_CT_LoaiDauGia_Loai" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_CT_TrangThai_DauGia" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_CT_TrangThai_TrangThaiDauGia" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_DanhGia_NguoiDung" ManuallyRouted="false" />
@@ -29,7 +32,6 @@
         <AssociationConnector Association="DauGiaModel.FK_MucNang_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_ThongBao_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_TrangThaiDauGia_NguoiDung" ManuallyRouted="false" />
-        <AssociationConnector Association="DauGiaModel.CT_LoaiDauGia" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

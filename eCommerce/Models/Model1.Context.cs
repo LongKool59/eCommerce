@@ -26,6 +26,7 @@ namespace eCommerce.Models
         }
     
         public DbSet<BienDongSoDu> BienDongSoDus { get; set; }
+        public DbSet<CT_LoaiDauGia> CT_LoaiDauGia { get; set; }
         public DbSet<CT_TrangThai> CT_TrangThai { get; set; }
         public DbSet<DanhGia> DanhGias { get; set; }
         public DbSet<DauGia> DauGias { get; set; }

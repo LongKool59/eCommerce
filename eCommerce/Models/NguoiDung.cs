@@ -28,7 +28,10 @@ namespace eCommerce.Models
         }
     
         public int MaNguoiDung { get; set; }
-        public string HovaTen { get; set; }
+        public string HoTen { get; set; }
+        public System.DateTime NgaySinh { get; set; }
+        public string SoCMND { get; set; }
+        public string HinhAnh { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string SDT { get; set; }
@@ -37,6 +40,7 @@ namespace eCommerce.Models
         public bool IsAdmin { get; set; }
         public bool IsApproved { get; set; }
         public int SoDuVi { get; set; }
+        public bool IsRequesting { get; set; }
     
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
         public virtual ICollection<DanhGia> DanhGias { get; set; }

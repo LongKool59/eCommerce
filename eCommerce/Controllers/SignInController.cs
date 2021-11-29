@@ -9,6 +9,8 @@ using eCommerce.Extensions;
 using eCommerce.Models;
 using eCommerce.Models.ViewModels;
 using eCommerce.Areas;
+using System.IO;
+
 namespace eCommerce.Controllers
 {
     public class SignInController : Controller
@@ -19,6 +21,7 @@ namespace eCommerce.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult CheckkSignIn(NguoiDungViewModel nguoiDungViewModel)
         {
             DauGiaEntities db = new DauGiaEntities();
@@ -28,22 +31,60 @@ namespace eCommerce.Controllers
                 if (taiKhoanHopLe == null)
                 {
                     this.AddNotification("Sai email hoặc mật khẩu!", NotificationType.ERROR);
-                    return View("Login");
+                    return View("SignIn");
                 }
-                db.Configuration.ValidateOnSaveEnabled = false;
-                Session["HoTen"] = taiKhoanHopLe.HovaTen.ToString();
+
+                Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
+                Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
                 if (taiKhoanHopLe.IsAdmin == false)
-                    return View("Login");
+                    return View("SignIn");
                 return RedirectToAction("Index", "Admin/HomeAdmin");
             }
             else
             {
-                return View("Login");
+                return View("SignIn");
             }
         }
         public ActionResult SignUp()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(NguoiDungViewModel nguoiDungViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(nguoiDungViewModel);
+
+            DauGiaEntities db = new DauGiaEntities();
+            var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
+            if (EmailHopLe != null)
+            {
+                this.AddNotification("Email này đã bị trùng. Vui lòng sử dụng email khác!", NotificationType.ERROR);
+                return View(nguoiDungViewModel);
+            }
+
+            //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
+            string fileName = Path.GetFileNameWithoutExtension(nguoiDungViewModel.ImageFile.FileName);
+            string extension = Path.GetExtension(nguoiDungViewModel.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            nguoiDungViewModel.HinhAnh = "~/UserImages/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
+            nguoiDungViewModel.ImageFile.SaveAs(fileName);
+
+            //gán các giá trị IsAdmin, IsApprove, SoDuVi là giá trị mặc định
+            nguoiDungViewModel.NgayDangKy = DateTime.Now;
+            nguoiDungViewModel.IsAdmin = false;
+            nguoiDungViewModel.IsApproved = false;
+            nguoiDungViewModel.SoDuVi = 0;
+
+            NguoiDung nguoiDung = nguoiDungViewModel;
+            db.NguoiDungs.Add(nguoiDung);
+            db.SaveChanges();
+
+            TempData["toastr-success"] = "Đăng kí thành công";
+            return RedirectToAction("SignIn");
         }
         public ActionResult ForgotPassword()
         {
@@ -55,26 +96,23 @@ namespace eCommerce.Controllers
             DauGiaEntities db = new DauGiaEntities();
             if (command == "Gửi mail")
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    var emailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
-                    if (emailHopLe == null)
-                    {
-                        this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
-                        return View("ForgotPassword");
-                    }
+                    return View("ForgotPassword");
+                }
+                var emailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
+                if (emailHopLe == null)
+                {
+                    this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
+                    return View("ForgotPassword");
+                }
 
-                    string resetCode = Guid.NewGuid().ToString();
-                    TempData["resetCode"] = resetCode;
-                    TempData["email"] = nguoiDungViewModel.Email;
-                    SendResetPasswordLinkEmail(emailHopLe.Email, resetCode);
-                    this.AddNotification("Đã gửi mail. Vui lòng kiểm tra email!", NotificationType.SUCCESS);
-                    return View("ForgotPassword");
-                }
-                else
-                {
-                    return View("ForgotPassword");
-                }
+                string resetCode = Guid.NewGuid().ToString();
+                TempData["resetCode"] = resetCode;
+                TempData["email"] = nguoiDungViewModel.Email;
+                SendResetPasswordLinkEmail(emailHopLe.Email, resetCode);
+                this.AddNotification("Đã gửi mail. Vui lòng kiểm tra email!", NotificationType.SUCCESS);
+                return View("ForgotPassword");
             }
             else
                 return RedirectToAction("SignIn", "SignIn");
@@ -134,7 +172,6 @@ namespace eCommerce.Controllers
                         if (taiKhoan == null)
                             return View();
                         taiKhoan.Password = model.MatKhauMoi;
-                        db.Configuration.ValidateOnSaveEnabled = false;
                         db.SaveChanges();
                         TempData.Clear();
                         this.AddNotification("Mật khẩu được thay đổi thành công.", NotificationType.SUCCESS);

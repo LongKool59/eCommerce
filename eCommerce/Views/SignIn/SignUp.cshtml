@@ -1,73 +1,92 @@
-﻿
+﻿@model eCommerce.Models.ViewModels.NguoiDungViewModel
 @{
-	ViewBag.Title = "SignUp";
-	Layout = "~/Views/Shared/_LayoutSignIn.cshtml";
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_LayoutSignIn.cshtml";
 }
 
 <div style="display: flex; flex-direction: column; min-height: 100vh;">
-	<nav class="navbar navbar-light justify-content-between" style="background-color:#FF985E">
-		<div class="container">
-			<a class="navbar-brand flex-center" href="#">
-				<img src="~/assets/images/revauct.jpg" width="30" height="30" class="mr-2 d-inline-block align-top" style="border-radius:50%" alt="">
-				Trang chủ
-			</a>
-			@Html.ActionLink("Đăng nhập","SignIn","SignIn", new { @class="dangNhap"})
-		</div>
-	</nav>
-	<div style="background-image: linear-gradient(0,rgb(69 182 234 / 82%),rgb(208 158 65 / 76%)),url(../../assets/images/gavel-auction-hammer-justice.jpg); background-size: cover; background-repeat: no-repeat; width: 100%; min-height: 100vh; background-position: center ">
-		<div class="container">
-			<h2 class="text-uppercase" style="text-align: center; margin: 2rem; font-size: -webkit-xxx-large; color: white; letter-spacing: 2px;">Đăng ký tại gooddeals</h2>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="hoTen">Họ tên</label>
-					<input type="text" class="form-control" id="hoTen" placeholder="Họ tên">
-				</div>
-				<div class="form-group col-md-6">
-					<label for="dateOfBirth">Ngày tháng năm sinh</label>
-					<input type="password" class="form-control" id="dateOfBirth" placeholder="Ngày tháng năm sinh">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="address">Địa chỉ</label>
-					<input type="email" class="form-control" id="address" placeholder="Địa chỉ">
-				</div>
-				<div class="form-group col-md-6">
-					<label for="idCMND">Số CMND</label>
-					<input type="password" class="form-control" id="idCMND" placeholder="Số CMND">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="phoneNumber">Số điện thoại</label>
-					<input type="email" class="form-control" id="phoneNumber" placeholder="Số điện thoại">
-				</div>
-				<div class="form-group col-md-6">
-					<input type="file" id="file" accept="image/*">
-					<div class="upload-image">
-						<i class="fas fa-cloud-upload-alt"></i>
-						<label for="file">Hình ảnh</label>
-					</div>
-				</div>
-			</div>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="email">Email</label>
-					<input type="email" class="form-control" id="email" placeholder="Email">
-				</div>
-				<div class="form-group col-md-6">
-					<label for="password">Mật khẩu</label>
-					<input type="password" class="form-control" id="password" placeholder="Mật khẩu">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="confirmPassword">Xác nhận mật khẩu</label>
-					<input type="password" class="form-control" id="confirmPassword" placeholder="Xác nhận mật khẩu">
-				</div>
-			</div>
-			<button class="dangKy" style="margin-left:40%; margin-top:3%">Đăng ký</button>
-		</div>
-	</div>
+    <nav class="navbar navbar-light justify-content-between" style="background-color:#FF985E">
+        <div class="container">
+            <a class="navbar-brand flex-center" href="#">
+                <img src="~/assets/images/revauct.jpg" width="30" height="30" class="mr-2 d-inline-block align-top" style="border-radius:50%" alt="">
+                Trang chủ
+            </a>
+            @Html.ActionLink("Đăng nhập", "SignIn", "SignIn", new { @class = "dangNhap" })
+        </div>
+    </nav>
+    <div style="background-image: linear-gradient(0,rgb(69 182 234 / 82%),rgb(208 158 65 / 76%)),url(../../assets/images/gavel-auction-hammer-justice.jpg); background-size: cover; background-repeat: no-repeat; width: 100%; min-height: 100vh; background-position: center ">
+        @using (Html.BeginForm("SignUp", "SignIn", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="container">
+                <h2 class="text-uppercase" style="text-align: center; margin: 2rem; font-size: -webkit-xxx-large; color: white; letter-spacing: 2px;">Đăng ký tại gooddeals</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.HoTen)
+                        @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập họ tên" } })
+                        @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.NgaySinh)
+                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập ngày sinh" } })
+                        @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.DiaChi)
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.SoCMND)
+                        @Html.EditorFor(model => model.SoCMND, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số chứng minh nhân dân" } })
+                        @Html.ValidationMessageFor(model => model.SoCMND, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.SDT)
+                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số điện thoại" } })
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="file" id="file" name="ImageFile" accept="image/*" size="40">
+                        <div class="upload-image">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <label for="file">Hình ảnh</label>
+                        </div>
+                        <p id="fileBoxName" style=" display: inline-block; color: black;"></p>
+                        <script type="text/javascript">
+                            document.getElementById('file').onchange = function () {
+                                document.getElementById('fileBoxName').innerHTML = this.value
+                            };
+                        </script>
+                        @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập email" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.ConfirmPassword)
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Nhập xác nhận mật khẩu" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <button type="submit" class="dangKy" style="margin-left:40%; margin-top:3%">Đăng ký</button>
+            </div>
+        }
+    </div>
 </div>

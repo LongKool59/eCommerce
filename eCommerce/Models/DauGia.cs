@@ -16,11 +16,11 @@ namespace eCommerce.Models
     {
         public DauGia()
         {
+            this.CT_LoaiDauGia = new HashSet<CT_LoaiDauGia>();
             this.CT_TrangThai = new HashSet<CT_TrangThai>();
             this.HinhAnhs = new HashSet<HinhAnh>();
             this.MucNangs = new HashSet<MucNang>();
             this.ThongBaos = new HashSet<ThongBao>();
-            this.Loais = new HashSet<Loai>();
         }
     
         public int MaDauGia { get; set; }
@@ -37,12 +37,12 @@ namespace eCommerce.Models
         public Nullable<System.DateTime> NgayThanhToan { get; set; }
         public System.DateTime NgayDang { get; set; }
     
+        public virtual ICollection<CT_LoaiDauGia> CT_LoaiDauGia { get; set; }
         public virtual ICollection<CT_TrangThai> CT_TrangThai { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
         public virtual NguoiDung NguoiDung1 { get; set; }
         public virtual ICollection<HinhAnh> HinhAnhs { get; set; }
         public virtual ICollection<MucNang> MucNangs { get; set; }
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
-        public virtual ICollection<Loai> Loais { get; set; }
     }
 }
