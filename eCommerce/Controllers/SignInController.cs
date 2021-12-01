@@ -91,19 +91,16 @@ namespace eCommerce.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult CheckForgotPassword(NguoiDungViewModel nguoiDungViewModel, string command)
         {
             DauGiaEntities db = new DauGiaEntities();
             if (command == "Gửi mail")
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("ForgotPassword");
-                }
                 var emailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
                 if (emailHopLe == null)
                 {
-                    this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.ERROR);
+                    this.AddNotification("Email không tồn tại. Vui lòng nhập lại!", NotificationType.WARNING);
                     return View("ForgotPassword");
                 }
 
