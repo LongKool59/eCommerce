@@ -93,3 +93,33 @@ footer button {
     margin-left:0;
     margin-right:0;
 }
+
+/*Start Home*/
+.bg-home {
+    background: linear-gradient( 135deg, #2daeec, #aaecec);
+    min-height: 90vh;
+    padding-top: 7%;
+}
+.home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.home-item {
+    border: 1px solid #0000001f;
+    width: 70%;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: #6e6e6e57 5px 5px 10px 0px;
+    margin-bottom:2rem;
+}
+.home-item{
+    cursor:pointer;
+    color:black;
+}
+    .home-item:hover {
+        color: white;
+        text-decoration: none;
+    }
+        /*End Home*/

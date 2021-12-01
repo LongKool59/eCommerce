@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh;">
+  <div style="display: flex; flex-direction: column; justify-content: space-between;">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container">
         <div class="w-100" style="display: flex; justify-content: space-between; align-items: center;">
@@ -50,12 +50,11 @@
         </div>
       </div>
     </nav>
-    <div class="container body-content">
+    <div class="body-content">
       @RenderBody()
     </div>
 
-    <hr />
-    <footer style="background-color: #FF985E;">
+    @*<footer style="background-color: #FF985E;">
       <div class="container">
         <div class="title-footer">
           <h2 style="font-family: 'Paprika', cursive;">Giá tốt</h2>
@@ -89,7 +88,7 @@
         </div>
         <p style="font-size: 1.3rem; padding: 0.5rem; font-weight: 500;">&copy; @DateTime.Now.Year - Bản quyền thuộc về GiaTot</p>
       </div>
-    </footer>
+    </footer>*@
   </div>
 
   @Scripts.Render("~/bundles/jquery")
