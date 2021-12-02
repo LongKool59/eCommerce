@@ -55,6 +55,7 @@ namespace eCommerce.Models.ViewModels
         public bool IsApproved { get; set; }
         [DisplayName("Số dư ví")]
         public int SoDuVi { get; set; }
+        public bool IsRequesting { get; set; }
         [Required(ErrorMessage = "Hình ảnh không được trống...")]
         public HttpPostedFileBase ImageFile { get; set; }
 

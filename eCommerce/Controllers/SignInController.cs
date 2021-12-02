@@ -78,6 +78,7 @@ namespace eCommerce.Controllers
             nguoiDungViewModel.IsAdmin = false;
             nguoiDungViewModel.IsApproved = false;
             nguoiDungViewModel.SoDuVi = 0;
+            nguoiDungViewModel.IsRequesting = false;
 
             NguoiDung nguoiDung = nguoiDungViewModel;
             db.NguoiDungs.Add(nguoiDung);
