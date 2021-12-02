@@ -93,12 +93,15 @@ footer button {
     margin-left:0;
     margin-right:0;
 }
-
+.body-content {
+    background: #f2f2f2;
+    min-height: 90vh;
+}
 /*Start Home*/
 .bg-home {
-    background: linear-gradient( 135deg, #2daeec, #aaecec);
+    
     min-height: 90vh;
-    padding-top: 7%;
+    padding-top: 2%;
 }
 .home {
     display: flex;
@@ -109,17 +112,54 @@ footer button {
 .home-item {
     border: 1px solid #0000001f;
     width: 70%;
-    padding: 2rem;
+    padding: 4rem;
     border-radius: 10px;
     box-shadow: #6e6e6e57 5px 5px 10px 0px;
     margin-bottom:2rem;
 }
-.home-item{
-    cursor:pointer;
-    color:black;
+.home-item {
+    cursor: pointer;
+    color: black;
+    transform: translateY(10%);
+    transition: transform .5s ease;
 }
     .home-item:hover {
-        color: white;
         text-decoration: none;
+        transform: translateY(0);
     }
         /*End Home*/
+/* start Manage user*/
+.manage-user {
+    background: white;
+    min-height: 85vh;
+    padding: 2rem;
+    position: relative;
+    margin: 2rem 0;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 5px #9a9a9a;
+}
+#CheckDefault {
+    font-size: 1.2rem;
+    width: 25px;
+    height: 25px;
+    margin-left: 0;
+    margin-top: 0;
+}
+.table td, .table th {
+    border-top: none;
+}
+.table-title {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+#bth-manage {
+    font-weight: 600;
+    background: linear-gradient( 150deg, #006ef6, #3ac1f4);
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 250px;
+    margin-right: 10px;
+}
+    /* end Manage user*/
