@@ -9,7 +9,10 @@
 
 /* Navbar */
 .navbar {
-    background-color: #FF985E
+    background-color: #FF985E;
+    position:fixed;
+    z-index:99;
+    width:100%;
 }
 .flex-center{
     display:flex;
@@ -25,18 +28,18 @@
     transform:translate(-50%, -50%);
 }
 
-button{
-    position:relative;
-    width:200px;
-    height:60px;
-    font-size:1.3rem;
-    background:none;
-    border:none;
-    box-shadow:none;
-    outline:none;
-    cursor:pointer;
+.manage {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
 }
-    button:focus {
+    .manage:focus {
         outline: none;
     }
 ul{
@@ -53,6 +56,7 @@ ul{
         transform: perspective(100px) rotateX(0deg);
         border: none;
         outline: none;
+        z-index: 2;
     }
 ul li{
     list-style: none;
@@ -96,12 +100,15 @@ footer button {
 .body-content {
     background: #f2f2f2;
     min-height: 90vh;
+    position: absolute;
+    min-width: 98.9vw;
+    top: 10%;
 }
 /*Start Home*/
 .bg-home {
     
     min-height: 90vh;
-    padding-top: 2%;
+    padding-top: 3%;
 }
 .home {
     display: flex;
@@ -136,7 +143,7 @@ footer button {
     position: relative;
     margin: 2rem 0;
     border-radius: 20px;
-    box-shadow: 5px 5px 10px 5px #9a9a9a;
+    box-shadow: 5px 5px 10px 5px #c8c4c46e;
 }
 #CheckDefault {
     font-size: 1.2rem;
@@ -161,5 +168,45 @@ footer button {
     font-size: 1.5rem;
     width: 250px;
     margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
 }
+.search-for {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-manage-user {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    align-items: center;
+}
+    .search-manage-user input[type=text] {
+        font-size: 1.5rem;
+        font-weight: 600;
+        height: 4rem;
+        line-height: 4rem;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+    }
+.btn-search i, .btn-redo i {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.btn-search, .btn-redo {
+    height: 4rem;
+    width: 100px;
+    border-radius: 50px;
+    margin-left: 20px;
+}
+.btn-search {
+    background: #00ff43;
+    color: white;
+}
+.btn-redo {
+    background: #ce6dff;
+    color:white;
+}
+
     /* end Manage user*/

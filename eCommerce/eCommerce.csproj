@@ -137,6 +137,13 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
+    <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.cs">
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.designer.cs">
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,6 +202,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />
     <Content Include="assets\images\1.jpg" />
