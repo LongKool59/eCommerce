@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BienDongSoDu">
           <Key>
             <PropertyRef Name="MaBienDong" />
@@ -106,6 +106,32 @@
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="SoDuVi" Type="int" Nullable="false" />
           <Property Name="IsRequesting" Type="bit" Nullable="false" />
+          <Property Name="MaQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaPhuong" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaTP" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Phuong">
+          <Key>
+            <PropertyRef Name="MaPhuong" />
+          </Key>
+          <Property Name="MaPhuong" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenPhuong" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quan">
+          <Key>
+            <PropertyRef Name="MaQuan" />
+          </Key>
+          <Property Name="MaQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaTP" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ThanhPho">
+          <Key>
+            <PropertyRef Name="MaTP" />
+          </Key>
+          <Property Name="MaTP" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TenTP" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="ThongBao">
           <Key>
@@ -282,6 +308,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NguoiDung_Phuong">
+          <End Role="Phuong" Type="Self.Phuong" Multiplicity="1" />
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phuong">
+              <PropertyRef Name="MaPhuong" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaPhuong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NguoiDung_Quan">
+          <End Role="Quan" Type="Self.Quan" Multiplicity="1" />
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quan">
+              <PropertyRef Name="MaQuan" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaQuan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NguoiDung_ThanhPho">
+          <End Role="ThanhPho" Type="Self.ThanhPho" Multiplicity="1" />
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhPho">
+              <PropertyRef Name="MaTP" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phuong_Quan">
+          <End Role="Quan" Type="Self.Quan" Multiplicity="1" />
+          <End Role="Phuong" Type="Self.Phuong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quan">
+              <PropertyRef Name="MaQuan" />
+            </Principal>
+            <Dependent Role="Phuong">
+              <PropertyRef Name="MaQuan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quan_Quan">
+          <End Role="ThanhPho" Type="Self.ThanhPho" Multiplicity="1" />
+          <End Role="Quan" Type="Self.Quan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhPho">
+              <PropertyRef Name="MaTP" />
+            </Principal>
+            <Dependent Role="Quan">
+              <PropertyRef Name="MaTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ThongBao_DauGia">
           <End Role="DauGia" Type="Self.DauGia" Multiplicity="1" />
           <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
@@ -328,6 +414,9 @@
           <EntitySet Name="Loai" EntityType="Self.Loai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MucNang" EntityType="Self.MucNang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phuong" EntityType="Self.Phuong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quan" EntityType="Self.Quan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThanhPho" EntityType="Self.ThanhPho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrangThaiDauGia" EntityType="Self.TrangThaiDauGia" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BienDongSoDu_NguoiDung" Association="Self.FK_BienDongSoDu_NguoiDung">
@@ -382,6 +471,26 @@
             <End Role="NguoiDung" EntitySet="NguoiDung" />
             <End Role="MucNang" EntitySet="MucNang" />
           </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_Phuong" Association="Self.FK_NguoiDung_Phuong">
+            <End Role="Phuong" EntitySet="Phuong" />
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_Quan" Association="Self.FK_NguoiDung_Quan">
+            <End Role="Quan" EntitySet="Quan" />
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_ThanhPho" Association="Self.FK_NguoiDung_ThanhPho">
+            <End Role="ThanhPho" EntitySet="ThanhPho" />
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phuong_Quan" Association="Self.FK_Phuong_Quan">
+            <End Role="Quan" EntitySet="Quan" />
+            <End Role="Phuong" EntitySet="Phuong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quan_Quan" Association="Self.FK_Quan_Quan">
+            <End Role="ThanhPho" EntitySet="ThanhPho" />
+            <End Role="Quan" EntitySet="Quan" />
+          </AssociationSet>
           <AssociationSet Name="FK_ThongBao_DauGia" Association="Self.FK_ThongBao_DauGia">
             <End Role="DauGia" EntitySet="DauGia" />
             <End Role="ThongBao" EntitySet="ThongBao" />
@@ -395,8 +504,7 @@
             <End Role="TrangThaiDauGia" EntitySet="TrangThaiDauGia" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -529,6 +637,12 @@
           <NavigationProperty Name="MucNangs" Relationship="Self.FK_MucNang_NguoiDung" FromRole="NguoiDung" ToRole="MucNang" />
           <NavigationProperty Name="ThongBaos" Relationship="Self.FK_ThongBao_NguoiDung" FromRole="NguoiDung" ToRole="ThongBao" />
           <NavigationProperty Name="TrangThaiDauGias" Relationship="Self.FK_TrangThaiDauGia_NguoiDung" FromRole="NguoiDung" ToRole="TrangThaiDauGia" />
+          <Property Name="MaQuan" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaPhuong" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaTP" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Phuong" Relationship="DauGiaModel.FK_NguoiDung_Phuong" FromRole="NguoiDung" ToRole="Phuong" />
+          <NavigationProperty Name="Quan" Relationship="DauGiaModel.FK_NguoiDung_Quan" FromRole="NguoiDung" ToRole="Quan" />
+          <NavigationProperty Name="ThanhPho" Relationship="DauGiaModel.FK_NguoiDung_ThanhPho" FromRole="NguoiDung" ToRole="ThanhPho" />
         </EntityType>
         <EntityType Name="ThongBao">
           <Key>
@@ -821,7 +935,120 @@
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
             <End Role="TrangThaiDauGia" EntitySet="TrangThaiDauGias" />
           </AssociationSet>
+          <EntitySet Name="Phuongs" EntityType="DauGiaModel.Phuong" />
+          <EntitySet Name="Quans" EntityType="DauGiaModel.Quan" />
+          <EntitySet Name="ThanhPhoes" EntityType="DauGiaModel.ThanhPho" />
+          <AssociationSet Name="FK_NguoiDung_Phuong" Association="DauGiaModel.FK_NguoiDung_Phuong">
+            <End Role="Phuong" EntitySet="Phuongs" />
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_Quan" Association="DauGiaModel.FK_NguoiDung_Quan">
+            <End Role="Quan" EntitySet="Quans" />
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_ThanhPho" Association="DauGiaModel.FK_NguoiDung_ThanhPho">
+            <End Role="ThanhPho" EntitySet="ThanhPhoes" />
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phuong_Quan" Association="DauGiaModel.FK_Phuong_Quan">
+            <End Role="Quan" EntitySet="Quans" />
+            <End Role="Phuong" EntitySet="Phuongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quan_Quan" Association="DauGiaModel.FK_Quan_Quan">
+            <End Role="ThanhPho" EntitySet="ThanhPhoes" />
+            <End Role="Quan" EntitySet="Quans" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Phuong">
+          <Key>
+            <PropertyRef Name="MaPhuong" />
+          </Key>
+          <Property Name="MaPhuong" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenPhuong" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaQuan" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDungs" Relationship="DauGiaModel.FK_NguoiDung_Phuong" FromRole="Phuong" ToRole="NguoiDung" />
+          <NavigationProperty Name="Quan" Relationship="DauGiaModel.FK_Phuong_Quan" FromRole="Phuong" ToRole="Quan" />
+        </EntityType>
+        <EntityType Name="Quan">
+          <Key>
+            <PropertyRef Name="MaQuan" />
+          </Key>
+          <Property Name="MaQuan" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenQuan" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaTP" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDungs" Relationship="DauGiaModel.FK_NguoiDung_Quan" FromRole="Quan" ToRole="NguoiDung" />
+          <NavigationProperty Name="Phuongs" Relationship="DauGiaModel.FK_Phuong_Quan" FromRole="Quan" ToRole="Phuong" />
+          <NavigationProperty Name="ThanhPho" Relationship="DauGiaModel.FK_Quan_Quan" FromRole="Quan" ToRole="ThanhPho" />
+        </EntityType>
+        <EntityType Name="ThanhPho">
+          <Key>
+            <PropertyRef Name="MaTP" />
+          </Key>
+          <Property Name="MaTP" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TenTP" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDungs" Relationship="DauGiaModel.FK_NguoiDung_ThanhPho" FromRole="ThanhPho" ToRole="NguoiDung" />
+          <NavigationProperty Name="Quans" Relationship="DauGiaModel.FK_Quan_Quan" FromRole="ThanhPho" ToRole="Quan" />
+        </EntityType>
+        <Association Name="FK_NguoiDung_Phuong">
+          <End Type="DauGiaModel.Phuong" Role="Phuong" Multiplicity="1" />
+          <End Type="DauGiaModel.NguoiDung" Role="NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phuong">
+              <PropertyRef Name="MaPhuong" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaPhuong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NguoiDung_Quan">
+          <End Type="DauGiaModel.Quan" Role="Quan" Multiplicity="1" />
+          <End Type="DauGiaModel.NguoiDung" Role="NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quan">
+              <PropertyRef Name="MaQuan" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaQuan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NguoiDung_ThanhPho">
+          <End Type="DauGiaModel.ThanhPho" Role="ThanhPho" Multiplicity="1" />
+          <End Type="DauGiaModel.NguoiDung" Role="NguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhPho">
+              <PropertyRef Name="MaTP" />
+            </Principal>
+            <Dependent Role="NguoiDung">
+              <PropertyRef Name="MaTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phuong_Quan">
+          <End Type="DauGiaModel.Quan" Role="Quan" Multiplicity="1" />
+          <End Type="DauGiaModel.Phuong" Role="Phuong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quan">
+              <PropertyRef Name="MaQuan" />
+            </Principal>
+            <Dependent Role="Phuong">
+              <PropertyRef Name="MaQuan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quan_Quan">
+          <End Type="DauGiaModel.ThanhPho" Role="ThanhPho" Multiplicity="1" />
+          <End Type="DauGiaModel.Quan" Role="Quan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhPho">
+              <PropertyRef Name="MaTP" />
+            </Principal>
+            <Dependent Role="Quan">
+              <PropertyRef Name="MaTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -920,6 +1147,9 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="DauGiaModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="MaTP" ColumnName="MaTP" />
+                <ScalarProperty Name="MaPhuong" ColumnName="MaPhuong" />
+                <ScalarProperty Name="MaQuan" ColumnName="MaQuan" />
                 <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
@@ -955,6 +1185,32 @@
                 <ScalarProperty Name="TenTrangThai" ColumnName="TenTrangThai" />
                 <ScalarProperty Name="Ngay" ColumnName="Ngay" />
                 <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phuongs">
+            <EntityTypeMapping TypeName="DauGiaModel.Phuong">
+              <MappingFragment StoreEntitySet="Phuong">
+                <ScalarProperty Name="MaQuan" ColumnName="MaQuan" />
+                <ScalarProperty Name="TenPhuong" ColumnName="TenPhuong" />
+                <ScalarProperty Name="MaPhuong" ColumnName="MaPhuong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quans">
+            <EntityTypeMapping TypeName="DauGiaModel.Quan">
+              <MappingFragment StoreEntitySet="Quan">
+                <ScalarProperty Name="MaTP" ColumnName="MaTP" />
+                <ScalarProperty Name="TenQuan" ColumnName="TenQuan" />
+                <ScalarProperty Name="MaQuan" ColumnName="MaQuan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThanhPhoes">
+            <EntityTypeMapping TypeName="DauGiaModel.ThanhPho">
+              <MappingFragment StoreEntitySet="ThanhPho">
+                <ScalarProperty Name="TenTP" ColumnName="TenTP" />
+                <ScalarProperty Name="MaTP" ColumnName="MaTP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
