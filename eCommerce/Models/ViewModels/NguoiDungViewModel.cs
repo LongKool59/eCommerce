@@ -52,12 +52,23 @@ namespace eCommerce.Models.ViewModels
         public DateTime NgayDangKy { get; set; }
         [DisplayName("Is admin")]
         public bool IsAdmin { get; set; }
+        [DisplayName("Đã được cấp quyền đăng đấu giá")]
         public bool IsApproved { get; set; }
         [DisplayName("Số dư ví")]
         public int SoDuVi { get; set; }
         public bool IsRequesting { get; set; }
         [Required(ErrorMessage = "Hình ảnh không được trống...")]
         public HttpPostedFileBase ImageFile { get; set; }
+        [DisplayName("Quận/Huyện")]
+        [Required(ErrorMessage = "Quận/Huyện không được trống...")]
+        public string MaQuan { get; set; }
+        [DisplayName("Phường/xã")]
+        [Required(ErrorMessage = "Phường/Xã không được trống...")]
+        public string MaPhuong { get; set; }
+        [DisplayName("Tỉnh/Thành phố")]
+        [Required(ErrorMessage = "Tỉnh/Thành phố không được trống...")]
+        public string MaTP { get; set; }
+        public bool IsChecked { get; set; }
 
         public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
         {
@@ -75,7 +86,11 @@ namespace eCommerce.Models.ViewModels
                 SoDuVi = nguoiDung.SoDuVi,
                 NgaySinh = nguoiDung.NgaySinh,
                 HinhAnh = nguoiDung.HinhAnh,
-                SoCMND = nguoiDung.SoCMND
+                SoCMND = nguoiDung.SoCMND,
+                IsRequesting = nguoiDung.IsRequesting,
+                MaPhuong = nguoiDung.MaPhuong,
+                MaQuan = nguoiDung.MaQuan,
+                MaTP = nguoiDung.MaTP,
             };
         }
 
@@ -95,13 +110,24 @@ namespace eCommerce.Models.ViewModels
                 SoDuVi = nguoiDungViewModel.SoDuVi,
                 NgaySinh = nguoiDungViewModel.NgaySinh,
                 HinhAnh = nguoiDungViewModel.HinhAnh,
-                SoCMND = nguoiDungViewModel.SoCMND
+                SoCMND = nguoiDungViewModel.SoCMND,
+                IsRequesting = nguoiDungViewModel.IsRequesting,
+                MaPhuong = nguoiDungViewModel.MaPhuong,
+                MaQuan = nguoiDungViewModel.MaQuan,
+                MaTP = nguoiDungViewModel.MaTP,
             };
         }
-
+        public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
         public virtual ICollection<DanhGia> DanhGias { get; set; }
         public virtual ICollection<DanhGia> DanhGias1 { get; set; }
         public virtual ICollection<MucNang> MucNangs { get; set; }
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
+        public virtual ICollection<DauGia> DauGias { get; set; }
+        public virtual ICollection<DauGia> DauGias1 { get; set; }
+        public virtual ICollection<Loai> Loais { get; set; }
+        public virtual ICollection<TrangThaiDauGia> TrangThaiDauGias { get; set; }
+        public virtual Phuong Phuong { get; set; }
+        public virtual Quan Quan { get; set; }
+        public virtual ThanhPho ThanhPho { get; set; }
     }
 }

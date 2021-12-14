@@ -1,0 +1,10 @@
+﻿@model eCommerce.Models.Quan
+
+<option value="">Chọn quận</option>
+@if (ViewBag.DSQuan != null)
+{
+    foreach (var item in ViewBag.DSQuan)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

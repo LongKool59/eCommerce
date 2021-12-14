@@ -191,7 +191,16 @@
     <Compile Include="Models\NguoiDung.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Phuong.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Quan.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResetPasswordModel.cs" />
+    <Compile Include="Models\ThanhPho.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThongBao.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -240,7 +249,7 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
-    <Content Include="Areas\Admin\Views\ManageUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageUser\DanhSachNguoiDung.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -276,6 +285,8 @@
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\SignIn\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_ToastrMessage.cshtml" />
+    <Content Include="Views\Shared\DropboxDSQuan.cshtml" />
+    <Content Include="Views\Shared\DropboxDSPhuong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

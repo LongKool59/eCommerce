@@ -47,18 +47,41 @@ namespace eCommerce.Controllers
         }
         public ActionResult SignUp()
         {
+            ViewBag.DSThanhPho = new SelectList(GetDSThanhPho(), "MaTP", "TenTP");
             return View();
         }
 
+        public List<ThanhPho> GetDSThanhPho()
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            List<ThanhPho> thanhPhos = db.ThanhPhoes.ToList();
+            return thanhPhos;
+        }
+
+        public ActionResult GetDSQuan(string MaTP)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            List<Quan> listQuan = db.Quans.Where(s => s.MaTP == MaTP).ToList();
+            ViewBag.DSQuan = new SelectList(listQuan, "MaQuan", "TenQuan");
+            return PartialView("DropboxDSQuan");
+        }
+        public ActionResult GetDSPhuong(string MaQuan)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            List<Phuong> listPhuong = db.Phuongs.Where(s => s.MaQuan == MaQuan).ToList();
+            ViewBag.DSPhuong = new SelectList(listPhuong, "MaPhuong", "TenPhuong");
+            return PartialView("DropboxDSPhuong");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SignUp(NguoiDungViewModel nguoiDungViewModel)
         {
+            ViewBag.DSThanhPho = new SelectList(GetDSThanhPho(), "MaTP", "TenTP");
             if (!ModelState.IsValid)
                 return View(nguoiDungViewModel);
 
             DauGiaEntities db = new DauGiaEntities();
-            var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).SingleOrDefault();
+            var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).FirstOrDefault();
             if (EmailHopLe != null)
             {
                 this.AddNotification("Email này đã bị trùng. Vui lòng sử dụng email khác!", NotificationType.ERROR);
