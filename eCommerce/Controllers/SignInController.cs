@@ -76,11 +76,15 @@ namespace eCommerce.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignUp(NguoiDungViewModel nguoiDungViewModel)
         {
+            DauGiaEntities db = new DauGiaEntities();
             ViewBag.DSThanhPho = new SelectList(GetDSThanhPho(), "MaTP", "TenTP");
             if (!ModelState.IsValid)
+            {
+                ViewBag.ListQuan = new SelectList(db.Quans.Where(s => s.MaTP == nguoiDungViewModel.MaTP).ToList(), "MaQuan", "TenQuan");
+                ViewBag.ListPhuong = new SelectList(db.Phuongs.Where(s => s.MaQuan == nguoiDungViewModel.MaQuan).ToList(), "MaPhuong", "TenPhuong");
                 return View(nguoiDungViewModel);
+            }
 
-            DauGiaEntities db = new DauGiaEntities();
             var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).FirstOrDefault();
             if (EmailHopLe != null)
             {
