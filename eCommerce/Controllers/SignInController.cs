@@ -22,28 +22,24 @@ namespace eCommerce.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckkSignIn(NguoiDungViewModel nguoiDungViewModel)
+        public ActionResult CheckSignIn(TaiKhoanViewModel nguoiDungViewModel)
         {
             DauGiaEntities db = new DauGiaEntities();
-            if (ModelState.IsValid)
-            {
-                var taiKhoanHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email && s.Password == nguoiDungViewModel.Password).SingleOrDefault();
-                if (taiKhoanHopLe == null)
-                {
-                    this.AddNotification("Sai email hoặc mật khẩu!", NotificationType.ERROR);
-                    return View("SignIn");
-                }
+            if (!ModelState.IsValid)
+                return View("SignIn");
 
-                Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
-                Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
-                if (taiKhoanHopLe.IsAdmin == false)
-                    return View("SignIn");
-                return RedirectToAction("Index", "Admin/HomeAdmin");
-            }
-            else
+            var taiKhoanHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email && s.Password == nguoiDungViewModel.Password).SingleOrDefault();
+            if (taiKhoanHopLe == null)
             {
+                this.AddNotification("Sai email hoặc mật khẩu!", NotificationType.WARNING);
                 return View("SignIn");
             }
+
+            Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
+            Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
+            if (taiKhoanHopLe.IsAdmin == false)
+                return View("SignIn");
+            return RedirectToAction("Index", "Admin/HomeAdmin");
         }
         public ActionResult SignUp()
         {
@@ -88,7 +84,7 @@ namespace eCommerce.Controllers
             var EmailHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email).FirstOrDefault();
             if (EmailHopLe != null)
             {
-                this.AddNotification("Email này đã bị trùng. Vui lòng sử dụng email khác!", NotificationType.ERROR);
+                this.AddNotification("Email này đã bị trùng. Vui lòng sử dụng email khác!", NotificationType.WARNING);
                 return View(nguoiDungViewModel);
             }
 
@@ -187,32 +183,27 @@ namespace eCommerce.Controllers
         {
             if (command == "Xác nhận")
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
+                    return View(model);
+
+                if (TempData["resetCode"] == null)
                 {
-                    if (TempData["resetCode"] != null)
-                    {
-                        DauGiaEntities db = new DauGiaEntities();
-                        string email = TempData["email"].ToString();
-                        var taiKhoan = db.NguoiDungs.Where(s => s.Email == email).SingleOrDefault();
-                        if (taiKhoan == null)
-                            return View();
-                        taiKhoan.Password = model.MatKhauMoi;
-                        db.SaveChanges();
-                        TempData.Clear();
-                        this.AddNotification("Mật khẩu được thay đổi thành công.", NotificationType.SUCCESS);
-                    }
-                    else
-                    {
-                        this.AddNotification("Phiên đặt lại mật khẩu đã hết hạn. Vui lòng thử lại!", NotificationType.ERROR);
-                    }
+                    this.AddNotification("Phiên đặt lại mật khẩu đã hết hạn. Vui lòng thử lại!", NotificationType.ERROR);
+                    return View(model);
                 }
+
+                DauGiaEntities db = new DauGiaEntities();
+                string email = TempData["email"].ToString();
+                var taiKhoan = db.NguoiDungs.Where(s => s.Email == email).SingleOrDefault();
+                if (taiKhoan == null)
+                    return View();
+                taiKhoan.Password = model.MatKhauMoi;
+                db.SaveChanges();
+                TempData["toastr-success"] = "Lấy lại mật khẩu thành công";
             }
-            else
-            {
-                TempData.Clear();
-                return RedirectToAction("SignIn", "SignIn");
-            }
-            return View(model);
+
+            TempData.Remove("resetCode");
+            return RedirectToAction("SignIn", "SignIn");
         }
 
         public ActionResult SignOut()

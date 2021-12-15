@@ -49,9 +49,6 @@
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.MaQuan)
                         @Html.DropDownListFor(s => s.MaQuan, ViewBag.ListQuan != null ? ViewBag.ListQuan as SelectList : new SelectList(""), "Chọn quận", new { @class = "form-control" })
-                        @*@Html.DropDownListFor(s => s.MaQuan, Model.MaQuan != null
-                            ? new SelectList(Model.MaQuan, ViewBag.Quan)
-                            : new SelectList(""), "Chọn quận", new { @class = "form-control" })*@
                         @Html.ValidationMessageFor(model => model.MaQuan, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-3">
@@ -112,39 +109,39 @@
                 </div>
                 <button type="submit" class="dangKy" style="margin-left:40%; margin-top:3%">Đăng ký</button>
             </div>
-            }
-        </div>
+        }
     </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $("#MaTP").change(function () {
-                var maTP = $(this).val()
-                debugger
-                $.ajax({
-                    type: "post",
-                    url: "/SignIn/GetDSQuan?MaTP=" + maTP,
-                    contentType: "html",
-                    success: function (response) {
-                        debugger
-                        $("#MaQuan").empty();
-                        $("#MaQuan").append(response)
-                    }
-                })
-            })
-            $("#MaQuan").change(function () {
-                var maQuan = $(this).val()
-                debugger
-                $.ajax({
-                    type: "post",
-                    url: "/SignIn/GetDSPhuong?MaQuan=" + maQuan,
-                    contentType: "html",
-                    success: function (response) {
-                        debugger
-                        $("#MaPhuong").empty();
-                        $("#MaPhuong").append(response)
-                    }
-                })
+<script>
+    $(document).ready(function () {
+        $("#MaTP").change(function () {
+            var maTP = $(this).val()
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SignIn/GetDSQuan?MaTP=" + maTP,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#MaQuan").empty();
+                    $("#MaQuan").append(response)
+                }
             })
         })
-    </script>
+        $("#MaQuan").change(function () {
+            var maQuan = $(this).val()
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SignIn/GetDSPhuong?MaQuan=" + maQuan,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#MaPhuong").empty();
+                    $("#MaPhuong").append(response)
+                }
+            })
+        })
+    })
+</script>
