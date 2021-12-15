@@ -292,8 +292,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="assets\admin\css\" />
-    <Folder Include="assets\admin\images\" />
     <Folder Include="assets\js\" />
     <Folder Include="UserImages\" />
   </ItemGroup>

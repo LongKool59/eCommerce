@@ -10,15 +10,15 @@
 
 <div class="container">
     <div class="manage-user">
-        <h2 style="text-align: center; text-transform: capitalize; letter-spacing: 1px; font-size: 3rem; margin: 3rem;">quản lý người dùng</h2>
+        <h2 class="header-list-view">quản lý người dùng</h2>
         <div>
             @using (Html.BeginForm("DanhSachNguoiDung", "ManageUser", FormMethod.Get))
             {
                 <div class="row search-for">
                     <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
-                    <input type="radio" id="html" name="loaiTimKiem" value="MaNguoiDung" style="font-size: 1.4rem; font-weight: 500; margin-left: 50px;">
+                    <input type="radio" id="html" name="loaiTimKiem" value="MaNguoiDung" style="margin-left: 50px;">
                     <label for="html" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Mã người dùng</label>
-                    <input type="radio" id="html1" name="loaiTimKiem" value="TenNguoiDung" style="font-size: 1.4rem; font-weight: 500; margin-left: 50px;">
+                    <input type="radio" id="html1" name="loaiTimKiem" value="TenNguoiDung" style="margin-left: 50px;">
                     <label for="html1" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Tên người dùng</label>
                 </div>
                 <div class="my-3 search-manage-user">
@@ -37,7 +37,7 @@
         <table class="table">
             <tr class="table-title">
                 <th>
-                    <input class="form-check-input" type="checkbox" value="" id="CheckDefault">
+                    <input type="checkbox" value="" id="CheckDefault">
                 </th>
                 <th>
                     <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã người dùng</p>
@@ -73,7 +73,7 @@
                         @Html.DisplayFor(modelItem => Model[i].Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model[i].NgayDangKy)
+                        @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => Model[i].IsApproved)
