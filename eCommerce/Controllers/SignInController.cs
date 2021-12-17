@@ -35,6 +35,12 @@ namespace eCommerce.Controllers
                 return View("SignIn");
             }
 
+            if (!taiKhoanHopLe.TrangThai)
+            {
+                this.AddNotification("Tài khoản của bạn đã bị vô hiệu hóa!", NotificationType.WARNING);
+                return View("SignIn");
+            }
+
             Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
             Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
             if (taiKhoanHopLe.IsAdmin == false)
@@ -102,6 +108,7 @@ namespace eCommerce.Controllers
             nguoiDungViewModel.IsApproved = false;
             nguoiDungViewModel.SoDuVi = 0;
             nguoiDungViewModel.IsRequesting = false;
+            nguoiDungViewModel.TrangThai = true;
 
             NguoiDung nguoiDung = nguoiDungViewModel;
             db.NguoiDungs.Add(nguoiDung);
