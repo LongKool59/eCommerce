@@ -40,6 +40,9 @@
         <AssociationConnector Association="DauGiaModel.FK_NguoiDung_ThanhPho" />
         <AssociationConnector Association="DauGiaModel.FK_Phuong_Quan" />
         <AssociationConnector Association="DauGiaModel.FK_Quan_Quan" />
+        <EntityTypeShape EntityType="DauGiaModel.YeuThich" Width="1.5" PointX="10.25" PointY="10.375" />
+        <AssociationConnector Association="DauGiaModel.FK_YeuThich_DauGia" />
+        <AssociationConnector Association="DauGiaModel.FK_YeuThich_NguoiDung" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

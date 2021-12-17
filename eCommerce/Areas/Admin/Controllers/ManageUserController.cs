@@ -7,6 +7,7 @@ using PagedList;
 using eCommerce.Models;
 using eCommerce.Models.ViewModels;
 using eCommerce.Extensions;
+using System.Net;
 
 namespace eCommerce.Areas.Admin.Controllers
 {
@@ -51,5 +52,19 @@ namespace eCommerce.Areas.Admin.Controllers
             nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
             return View("DanhSachNguoiDung", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
         }
+        public ActionResult ChiTietNguoiDung(int? id)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            NguoiDung nguoiDung = db.NguoiDungs.Find(id);
+            if (nguoiDung == null)
+                return HttpNotFound();
+
+            NguoiDungViewModel nguoiDungViewModel = nguoiDung;
+            return View(nguoiDungViewModel);
+        }
+
+
     }
 }

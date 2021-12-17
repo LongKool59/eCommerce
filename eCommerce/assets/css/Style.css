@@ -160,9 +160,23 @@ footer button {
     font-size: 3rem;
     margin: 3rem;
 }
+
+.dl-horizontal dt,
+.dl-horizontal dd,
+.dl-horizontal dd a {
+    font-size: 16px;
+}
+
+.bottom-function-button {
+    bottom: 0;
+    float: none;
+    clear: both;
+    position: relative;
+}
 /*end General*/
 /* start Manage user*/
 .manage-user {
+    overflow: auto;
     background: white;
     min-height: 85vh;
     padding: 2rem;
@@ -274,4 +288,49 @@ i.fas.fa-pen-alt::before {
     color: white;
 }
 
+#btn-delete {
+    cursor:pointer;
+    font-weight: 600;
+    background: #FF4040;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 150px;
+    margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
+    color:white;
+}
+
+#btn-back {
+    cursor:pointer;
+    font-weight: 600;
+    background: #95A2F6;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 150px;
+    margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
+    color:white;
+}
+
 /* end Manage user*/
+
+/* start Chi tiết */
+.column-1 {
+    float: left
+}
+
+    .column-1.right {
+        width: 40%
+    }
+
+    .column-1.left {
+        width: 60%
+    }
+
+.detail-info-view {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+/* end Chi tiết */

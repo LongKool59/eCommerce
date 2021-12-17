@@ -1,0 +1,131 @@
+﻿@model eCommerce.Models.ViewModels.NguoiDungViewModel
+
+@{
+    ViewBag.Title = "ChiTietNguoiDung";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="detail-info-view">
+    <h2>THÔNG TIN NGƯỜI DÙNG</h2>
+
+    <div class="column-1 left">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SoCMND)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoCMND)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhuongViewModel.TenPhuong)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phuong.TenPhuong)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.QuanViewModel.TenQuan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quan.TenQuan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ThanhPhoViewModel.TenTP)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ThanhPho.TenTP)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NgayDangKy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayDangKy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsApproved)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsApproved)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsAdmin)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SoDuVi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoDuVi)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="column-1 right">
+        <img src="@Url.Content(Model.HinhAnh)" alt="Hình nhân viên" height="370" width="370" style="border-radius: 50%" />
+    </div>
+    <div class="bottom-function-button">
+        @if (!Model.IsAdmin)
+        {
+            <button id="btn-delete" onclick="location.href='/'">Vô hiệu hóa</button>
+        }
+        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachNguoiDung'">Quay lại</button>
+    </div>
+</div>

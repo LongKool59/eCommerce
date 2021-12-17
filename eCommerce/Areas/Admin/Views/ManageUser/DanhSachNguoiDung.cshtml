@@ -8,101 +8,96 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="manage-user">
-        <h2 class="header-list-view">quản lý người dùng</h2>
-        <div>
-            @using (Html.BeginForm("DanhSachNguoiDung", "ManageUser", FormMethod.Get))
-            {
-                <div class="row search-for">
-                    <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
-                    <input type="radio" id="html" name="loaiTimKiem" value="MaNguoiDung" style="margin-left: 50px;">
-                    <label for="html" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Mã người dùng</label>
-                    <input type="radio" id="html1" name="loaiTimKiem" value="TenNguoiDung" style="margin-left: 50px;">
-                    <label for="html1" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Tên người dùng</label>
-                </div>
-                <div class="my-3 search-manage-user">
-                    <input type="text" class="form-control" placeholder="Nhập từ khóa để tìm kiếm">
-                    <button class="btn btn-search" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-
-                    <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachNguoiDung", "ManageUser")'">
-                        <i class="fas fa-redo"></i>
-                    </button>
-                </div>
-            }
+<h2 class="header-list-view">quản lý người dùng</h2>
+<div>
+    @using (Html.BeginForm("DanhSachNguoiDung", "ManageUser", FormMethod.Get))
+    {
+        <div class="row search-for">
+            <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
+            <input type="radio" id="html" name="loaiTimKiem" value="MaNguoiDung" style="margin-left: 50px;">
+            <label for="html" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Mã người dùng</label>
+            <input type="radio" id="html1" name="loaiTimKiem" value="TenNguoiDung" style="margin-left: 50px;">
+            <label for="html1" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Tên người dùng</label>
         </div>
-        @Html.Partial("_Notifications")
-        <table class="table">
-            <tr class="table-title">
-                <th>
-                    <input type="checkbox" value="" id="CheckDefault">
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã người dùng</p>
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên người dùng</p>
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Email</p>
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng ký</p>
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Đăng đấu giá</p>
-                </th>
-                <th>
-                    <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
-                </th>
-            </tr>
+        <div class="my-3 search-manage-user">
+            <input type="text" class="form-control" placeholder="Nhập từ khóa để tìm kiếm">
+            <button class="btn btn-search" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
 
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-                <tr>
-                    <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model[i].MaNguoiDung)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model[i].HoTen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model[i].Email)
-                    </td>
-                    <td>
-                        @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model[i].IsApproved)
-                    </td>
-                    <td>
-                        <a href='@Url.Action("Details","NhanVien", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-eye"></i></a>
-                        <a href='@Url.Action("Edit","NhanVien", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-pen-alt"></i></a>
-
-                    </td>
-                </tr>
-            }
-        </table>
-        <div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
-            <button id="bth-manage">Vô hiệu hóa</button>
-            <button id="bth-manage">Xóa quyền đăng đấu giá</button>
-            <button id="bth-manage">Khôi phục mật khẩu</button>
-            <button id="bth-manage">Cấp quyền đăng đấu giá</button>
+            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachNguoiDung", "ManageUser")'">
+                <i class="fas fa-redo"></i>
+            </button>
         </div>
-    </div>
-
-    @Html.PagedListPager(Model,
-          page => Url.Action("Index", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
-          new PagedListRenderOptions()
-          {
-              Display = PagedListDisplayMode.IfNeeded,
-              DisplayPageCountAndCurrentLocation = true,
-
-          })
+    }
 </div>
+@Html.Partial("_Notifications")
+<table class="table">
+    <tr class="table-title">
+        <th>
+            <input type="checkbox" value="" id="CheckDefault">
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã người dùng</p>
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên người dùng</p>
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Email</p>
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng ký</p>
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Đăng đấu giá</p>
+        </th>
+        <th>
+            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
+        </th>
+    </tr>
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <tr>
+            <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i].MaNguoiDung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i].HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i].Email)
+            </td>
+            <td>
+                @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => Model[i].IsApproved)
+            </td>
+            <td>
+                <a href='@Url.Action("ChiTietNguoiDung","ManageUser", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-eye"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
+    <button id="bth-manage">Vô hiệu hóa</button>
+    <button id="bth-manage">Xóa quyền đăng đấu giá</button>
+    <button id="bth-manage">Khôi phục mật khẩu</button>
+    <button id="bth-manage">Cấp quyền đăng đấu giá</button>
+</div>
+
+@Html.PagedListPager(Model,
+      page => Url.Action("Index", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
+      new PagedListRenderOptions()
+      {
+          Display = PagedListDisplayMode.IfNeeded,
+          DisplayPageCountAndCurrentLocation = true,
+
+      })
 
 @*@foreach (var item in Model) {
         <tr>

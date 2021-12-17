@@ -50,7 +50,7 @@ namespace eCommerce.Models.ViewModels
         public string SoCMND { get; set; }
         [DisplayName("Ngày đăng kí")]
         public DateTime NgayDangKy { get; set; }
-        [DisplayName("Is admin")]
+        [DisplayName("Quyền admin")]
         public bool IsAdmin { get; set; }
         [DisplayName("Đã được cấp quyền đăng đấu giá")]
         public bool IsApproved { get; set; }
@@ -69,7 +69,8 @@ namespace eCommerce.Models.ViewModels
         [Required(ErrorMessage = "Tỉnh/Thành phố không được trống...")]
         public string MaTP { get; set; }
         public bool IsChecked { get; set; }
-
+        [DisplayName("Trạng thái")]
+        public bool TrangThai { get; set; }
         public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
         {
             return new NguoiDungViewModel
@@ -91,6 +92,10 @@ namespace eCommerce.Models.ViewModels
                 MaPhuong = nguoiDung.MaPhuong,
                 MaQuan = nguoiDung.MaQuan,
                 MaTP = nguoiDung.MaTP,
+                Phuong = nguoiDung.Phuong,
+                Quan = nguoiDung.Quan,
+                ThanhPho = nguoiDung.ThanhPho,
+                TrangThai = nguoiDung.TrangThai,
             };
         }
 
@@ -115,6 +120,10 @@ namespace eCommerce.Models.ViewModels
                 MaPhuong = nguoiDungViewModel.MaPhuong,
                 MaQuan = nguoiDungViewModel.MaQuan,
                 MaTP = nguoiDungViewModel.MaTP,
+                Phuong = nguoiDungViewModel.Phuong,
+                Quan = nguoiDungViewModel.Quan,
+                ThanhPho = nguoiDungViewModel.ThanhPho,
+                TrangThai = nguoiDungViewModel.TrangThai,
             };
         }
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
@@ -129,5 +138,9 @@ namespace eCommerce.Models.ViewModels
         public virtual Phuong Phuong { get; set; }
         public virtual Quan Quan { get; set; }
         public virtual ThanhPho ThanhPho { get; set; }
+
+        public virtual PhuongViewModel PhuongViewModel { get; set; }
+        public virtual QuanViewModel QuanViewModel { get; set; }
+        public virtual ThanhPhoViewModel ThanhPhoViewModel { get; set; }
     }
 }
