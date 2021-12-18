@@ -43,6 +43,9 @@ namespace eCommerce.Controllers
 
             Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
             Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
+            string linkHinhAnh = taiKhoanHopLe.HinhAnh.ToString();
+            string formatLink = linkHinhAnh.Remove(0, 1); //bỏ ký tự ~  vị trí đầu tiên của link hình ảnh
+            Session["HinhAnh"] = formatLink;
             if (taiKhoanHopLe.IsAdmin == false)
                 return View("SignIn");
             return RedirectToAction("Index", "Admin/HomeAdmin");
@@ -95,9 +98,8 @@ namespace eCommerce.Controllers
             }
 
             //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
-            string fileName = Path.GetFileNameWithoutExtension(nguoiDungViewModel.ImageFile.FileName);
             string extension = Path.GetExtension(nguoiDungViewModel.ImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            string fileName = DateTime.Now.ToString("yymmssfff") + extension;
             nguoiDungViewModel.HinhAnh = "~/UserImages/" + fileName;
             fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
             nguoiDungViewModel.ImageFile.SaveAs(fileName);
