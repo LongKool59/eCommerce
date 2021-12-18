@@ -124,8 +124,27 @@
     <div class="bottom-function-button">
         @if (!Model.IsAdmin)
         {
-            <button id="btn-delete" onclick="location.href='/'">Vô hiệu hóa</button>
+            if (Model.TrangThai == true)
+            {
+                <button id="btn-delete" onclick="XoaNguoiDung()">Vô hiệu hóa</button>
+            }
+            else
+            {
+                <button id="btn-enable-user" onclick="KichHoatNguoiDung()">Kích hoạt</button>
+            }
         }
-        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachNguoiDung'">Quay lại</button>
+        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachNguoiDung?page=@TempData["page"]&loaiTimKiem=@TempData["loaiTimKiem"]&tenTimKiem=@TempData["tenTimKiem"]'">Quay lại</button>
     </div>
 </div>
+
+<script type="text/javascript">
+    function XoaNguoiDung() {
+        location.href='/Admin/ManageUser/XoaNguoiDung?id=@Model.MaNguoiDung'
+        alert("Vô hiệu hóa người dùng thành công.")
+    }
+
+    function KichHoatNguoiDung() {
+        location.href='/Admin/ManageUser/KichHoatNguoiDung?id=@Model.MaNguoiDung'
+        alert("Kích hoạt người dùng thành công.")
+    }
+</script>

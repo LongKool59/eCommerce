@@ -19,11 +19,11 @@ namespace eCommerce.Areas.Admin.Controllers
             DauGiaEntities db = new DauGiaEntities();
             int pageNumber = page ?? 1;
             int pageSize = 10;
-            IQueryable<NguoiDung> nguoiDungs;
+            IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.OrderBy(x => x.HoTen);
             List<NguoiDungViewModel> nguoiDungViewModels; ;
             TempData["loaiTimKiem"] = loaiTimKiem;
             TempData["tenTimKiem"] = tenTimKiem;
-
+            TempData["page"] = page;
             try
             {
                 switch (loaiTimKiem)
@@ -48,7 +48,6 @@ namespace eCommerce.Areas.Admin.Controllers
             {
                 this.AddNotification("Có lỗi xảy ra. Vui lòng thực hiện tìm kiếm lại!", NotificationType.ERROR);
             }
-            nguoiDungs = db.NguoiDungs.OrderBy(x => x.HoTen);
             nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
             return View("DanhSachNguoiDung", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
         }
@@ -65,6 +64,74 @@ namespace eCommerce.Areas.Admin.Controllers
             return View(nguoiDungViewModel);
         }
 
+        public ActionResult XoaNguoiDung(int? id)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            NguoiDung nguoiDung = db.NguoiDungs.Find(id);
+            nguoiDung.TrangThai = false;
+            db.SaveChanges();
+            return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
 
+        public ActionResult KichHoatNguoiDung(int? id)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            NguoiDung nguoiDung = db.NguoiDungs.Find(id);
+            nguoiDung.TrangThai = true;
+            db.SaveChanges();
+            return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult HandleDelete(List<NguoiDungViewModel> nguoiDungViewModels, string submit)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            db.Configuration.ValidateOnSaveEnabled = false;
+            var checkIsChecked = nguoiDungViewModels.Where(x => x.IsChecked == true).ToList();
+            if (checkIsChecked == null)
+            {
+                this.AddNotification("Vui lòng chọn người dùng để thực hiện.!", NotificationType.ERROR);
+                return RedirectToAction("Index");
+            }
+            if (submit == "XoaNguoiDung")
+            {
+                foreach (var nguoiDung in checkIsChecked)
+                {
+                    int maNguoiDung = nguoiDung.MaNguoiDung;
+                    NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
+                    if (nguoi != null)
+                        if (!nguoi.IsAdmin)
+                            nguoi.TrangThai = false;
+                }
+                db.SaveChanges();
+                this.AddNotification("Vô hiệu hóa người dùng thành công.", NotificationType.SUCCESS);
+                return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+            }
+            if (submit == "XoaQuyenDangDauGia")
+            {
+                foreach (var nguoiDung in checkIsChecked)
+                {
+                    int maNguoiDung = nguoiDung.MaNguoiDung;
+                    NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
+                    if (nguoi != null)
+                        nguoi.IsApproved = false;
+                }
+                db.SaveChanges();
+                this.AddNotification("Xóa quyền đăng đấu giá thành công.", NotificationType.SUCCESS);
+                return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+            }
+
+            foreach (var nguoiDung in checkIsChecked)
+            {
+                int maNguoiDung = nguoiDung.MaNguoiDung;
+                NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
+                if (nguoi != null)
+                    nguoi.Password = nguoi.NgaySinh.Day.ToString() + nguoi.NgaySinh.Month.ToString() + nguoi.NgaySinh.Year.ToString();
+            }
+            db.SaveChanges();
+            this.AddNotification("Khôi phục mật khẩu thành công.", NotificationType.SUCCESS);
+            return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
     }
 }

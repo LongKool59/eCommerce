@@ -32,73 +32,76 @@
     }
 </div>
 @Html.Partial("_Notifications")
-<table class="table">
-    <tr class="table-title">
-        <th>
-            <input type="checkbox" value="" id="CheckDefault">
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã người dùng</p>
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên người dùng</p>
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Email</p>
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng ký</p>
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Đăng đấu giá</p>
-        </th>
-        <th>
-            <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
-        </th>
-    </tr>
-
-    @for (int i = 0; i < Model.Count(); i++)
-    {
-        <tr>
-            <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
-            <td>
-                @Html.DisplayFor(modelItem => Model[i].MaNguoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model[i].HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model[i].Email)
-            </td>
-            <td>
-                @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
-            </td>
-            <td>
-
-                @Html.DisplayFor(modelItem => Model[i].IsApproved)
-            </td>
-            <td>
-                <a href='@Url.Action("ChiTietNguoiDung","ManageUser", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-eye"></i></a>
-            </td>
+@using (Html.BeginForm("HandleDelete", "ManageUser", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr class="table-title">
+            <th>
+                <input type="checkbox" value="" id="CheckDefault">
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã người dùng</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên người dùng</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Email</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng ký</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Đăng đấu giá</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
+            </th>
         </tr>
-    }
-</table>
-<div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
-    <button id="bth-manage">Vô hiệu hóa</button>
-    <button id="bth-manage">Xóa quyền đăng đấu giá</button>
-    <button id="bth-manage">Khôi phục mật khẩu</button>
-    <button id="bth-manage">Cấp quyền đăng đấu giá</button>
-</div>
 
-@Html.PagedListPager(Model,
-      page => Url.Action("Index", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
-      new PagedListRenderOptions()
-      {
-          Display = PagedListDisplayMode.IfNeeded,
-          DisplayPageCountAndCurrentLocation = true,
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].MaNguoiDung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Email)
+                </td>
+                <td>
+                    @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
+                </td>
+                <td>
 
-      })
+                    @Html.DisplayFor(modelItem => Model[i].IsApproved)
+                </td>
+                <td>
+                    <a href='@Url.Action("ChiTietNguoiDung","ManageUser", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-eye"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
 
+    @Html.PagedListPager(Model,
+          page => Url.Action("Index", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
+          new PagedListRenderOptions()
+          {
+              Display = PagedListDisplayMode.IfNeeded,
+              DisplayPageCountAndCurrentLocation = true,
+
+          })
+    <div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
+        <button id="bth-manage" type="submit" name="submit" value="XoaNguoiDung">Vô hiệu hóa</button>
+        <button id="bth-manage" type="submit" name="submit" value="XoaQuyenDangDauGia">Xóa quyền đăng đấu giá</button>
+        <button id="bth-manage" type="submit" name="submit" value="KhoiPhucMatKhau">Khôi phục mật khẩu</button>
+        <button id="bth-manage">Cấp quyền đăng đấu giá</button>
+    </div>
+}
 @*@foreach (var item in Model) {
         <tr>
             <td>
