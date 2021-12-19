@@ -99,7 +99,7 @@ namespace eCommerce.Controllers
 
             //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
             string extension = Path.GetExtension(nguoiDungViewModel.ImageFile.FileName);
-            string fileName = DateTime.Now.ToString("yymmssfff") + extension;
+            string fileName = DateTime.Now.ToString("ddMMyyyymmssfff") + extension;
             nguoiDungViewModel.HinhAnh = "~/UserImages/" + fileName;
             fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
             nguoiDungViewModel.ImageFile.SaveAs(fileName);

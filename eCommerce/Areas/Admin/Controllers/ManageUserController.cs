@@ -15,7 +15,7 @@ namespace eCommerce.Areas.Admin.Controllers
     public class ManageUserController : Controller
     {
         // GET: Admin/ManageUser
-        public ActionResult DanhSachNguoiDung(int? page, string loaiTimKiem, string tenTimKiem)
+        public ActionResult DanhSachNguoiDung(int? page, string loaiTimKiem, string tenTimKiem, string submit)
         {
             DauGiaEntities db = new DauGiaEntities();
             int pageNumber = page ?? 1;
@@ -27,6 +27,14 @@ namespace eCommerce.Areas.Admin.Controllers
             TempData["page"] = page;
             try
             {
+                if (submit != null && loaiTimKiem == null)
+                {
+                    if (tenTimKiem != "")
+                        this.AddNotification("Vui lòng chọn loại tìm kiếm!", NotificationType.WARNING);
+                    else
+                        this.AddNotification("Vui lòng chọn loại tìm kiếm và nhập từ khóa tìm kiếm!", NotificationType.WARNING);
+                }
+
                 switch (loaiTimKiem)
                 {
                     case "MaNguoiDung":
@@ -54,6 +62,7 @@ namespace eCommerce.Areas.Admin.Controllers
         }
         public ActionResult ChiTietNguoiDung(int? id)
         {
+            TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -67,6 +76,7 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult XoaNguoiDung(int? id)
         {
+            TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             NguoiDung nguoiDung = db.NguoiDungs.Find(id);
             nguoiDung.TrangThai = false;
@@ -76,11 +86,17 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult KichHoatNguoiDung(int? id)
         {
+            TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             NguoiDung nguoiDung = db.NguoiDungs.Find(id);
             nguoiDung.TrangThai = true;
             db.SaveChanges();
-            return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+            return RedirectToAction("DanhSachNguoiDung", new
+            {
+                page = TempData["page"],
+                loaiTimKiem = TempData["loaiTimKiem"],
+                tenTimKiem = TempData["tenTimKiem"]
+            });
         }
 
         [HttpPost]
@@ -90,14 +106,21 @@ namespace eCommerce.Areas.Admin.Controllers
             DauGiaEntities db = new DauGiaEntities();
             db.Configuration.ValidateOnSaveEnabled = false;
             var checkIsChecked = nguoiDungViewModels.Where(x => x.IsChecked == true).ToList();
-            if (checkIsChecked == null)
+            if (checkIsChecked.Count == 0)
             {
-                this.AddNotification("Vui lòng chọn người dùng để thực hiện.!", NotificationType.ERROR);
-                return RedirectToAction("Index");
+                this.AddNotification("Vui lòng chọn người dùng để thực hiện.!", NotificationType.WARNING);
+                return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
             }
             if (submit == "XoaNguoiDung")
             {
-                foreach (var nguoiDung in checkIsChecked)
+                //lọc danh sách người dùng có trạng thái là true
+                var listTrangThai = checkIsChecked.Where(s => s.TrangThai == true).ToList();
+                if (listTrangThai.Count == 0)
+                {
+                    this.AddNotification("Vui lòng chọn người dùng có trạng thái là đang hoạt động.!", NotificationType.WARNING);
+                    return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+                }
+                foreach (var nguoiDung in listTrangThai)
                 {
                     int maNguoiDung = nguoiDung.MaNguoiDung;
                     NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
@@ -111,7 +134,14 @@ namespace eCommerce.Areas.Admin.Controllers
             }
             if (submit == "XoaQuyenDangDauGia")
             {
-                foreach (var nguoiDung in checkIsChecked)
+                //lọc danh sách người dùng có quyền đăng đấu giá là true
+                var listApproved = checkIsChecked.Where(s => s.TrangThai == true).ToList();
+                if (listApproved.Count == 0)
+                {
+                    this.AddNotification("Vui lòng chọn người dùng đang có quyền đăng đấu giá.!", NotificationType.WARNING);
+                    return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+                }
+                foreach (var nguoiDung in listApproved)
                 {
                     int maNguoiDung = nguoiDung.MaNguoiDung;
                     NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
