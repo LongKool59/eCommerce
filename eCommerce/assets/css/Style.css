@@ -48,7 +48,7 @@
         outline: none;
     }
 
-ul {
+ul#menu-list {
     position: absolute;
     margin: 0;
     padding: 0;
@@ -59,18 +59,18 @@ ul {
     transition: .5s;
 }
 
-    ul.active {
+    ul#menu-list.active {
         transform: perspective(100px) rotateX(0deg);
         border: none;
         outline: none;
         z-index: 2;
     }
 
-    ul li {
+    ul#menu-list li {
         list-style: none;
     }
 
-        ul li a {
+        ul#menu-list li a {
             display: block;
             padding: 10px;
             text-align: center;
@@ -81,7 +81,7 @@ ul {
             transition: .5s;
         }
 
-            ul li a:hover {
+            ul#menu-list li a:hover {
                 background: #2196f3;
             }
 /*footer*/
@@ -289,12 +289,47 @@ i.fas.fa-pen-alt::before {
 }
 
 #btn-delete {
-    cursor: pointer;
     font-weight: 600;
     background: #FF4040;
     border-radius: 30px;
     font-size: 1.5rem;
-    width: 150px;
+    width: 250px;
+    margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
+    color: white;
+}
+
+#btn-delete-approved-permission {
+    font-weight: 600;
+    background: #FF8540;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 250px;
+    margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
+    color: white;
+}
+
+#btn-approved-permission {
+    font-weight: 600;
+    background: #B95DFF;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 250px;
+    margin-right: 10px;
+    padding: 0.7rem;
+    border: none;
+    color: white;
+}
+
+#btn-reset-password {
+    font-weight: 600;
+    background: #0A97B7;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    width: 250px;
     margin-right: 10px;
     padding: 0.7rem;
     border: none;
@@ -314,7 +349,7 @@ i.fas.fa-pen-alt::before {
     color: white;
 }
 
-#btn-enable-user {
+#btn-enable-user, #btn-save {
     cursor: pointer;
     font-weight: 600;
     background: #06DC94;
@@ -326,6 +361,23 @@ i.fas.fa-pen-alt::before {
     border: none;
     color: white;
 }
+.pagination a {
+     color: black; 
+     float: left; 
+     padding: 8px 16px; 
+     text-decoration: none; 
+     transition: background-color .3s; 
+}
+.pagination li.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
 /* end Manage user*/
 /* start Chi tiết */
 .column-1 {

@@ -4,13 +4,13 @@
 @model IPagedList<eCommerce.Models.ViewModels.NguoiDungViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "DanhSachCapQuyen";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="header-list-view">quản lý người dùng</h2>
+<h2 class="header-list-view">CẤP QUYỀN ĐĂNG ĐẤU GIÁ</h2>
 <div>
-    @using (Html.BeginForm("DanhSachNguoiDung", "ManageUser", FormMethod.Get))
+    @using (Html.BeginForm("DanhSachCapQuyen", "ManageUser", FormMethod.Get))
     {
         <div class="row search-for">
             <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
@@ -25,14 +25,14 @@
                 <i class="fas fa-search"></i>
             </button>
 
-            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachNguoiDung", "ManageUser")'">
+            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachCapQuyen", "ManageUser")'">
                 <i class="fas fa-redo"></i>
             </button>
         </div>
     }
 </div>
 @Html.Partial("_Notifications")
-@using (Html.BeginForm("HandleDelete", "ManageUser", FormMethod.Post))
+@using (Html.BeginForm("CapQuyenDangDauGiaTheoList", "ManageUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -88,69 +88,15 @@
     </table>
 
     @Html.PagedListPager(Model,
-          page => Url.Action("DanhSachNguoiDung", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
+          page => Url.Action("DanhSachCapQuyen", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
           new PagedListRenderOptions()
           {
               Display = PagedListDisplayMode.IfNeeded,
               DisplayPageCountAndCurrentLocation = true,
 
           })
-    <div>
-        <button id="btn-delete" type="submit" name="submit" value="XoaNguoiDung">Vô hiệu hóa</button>
-        <button id="btn-delete-approved-permission" type="submit" name="submit" value="XoaQuyenDangDauGia">Xóa quyền đăng đấu giá</button>
-        <button id="btn-reset-password" type="submit" name="submit" value="KhoiPhucMatKhau">Khôi phục mật khẩu</button>
-        <button id="btn-approved-permission" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen">Cấp quyền đăng đấu giá</button>
+    <div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
+        <button id="bth-save" type="submit">Duyệt</button>
+        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen?page=@TempData["page"]&loaiTimKiem=@TempData["loaiTimKiem"]&tenTimKiem=@TempData["tenTimKiem"]'">Quay lại</button>
     </div>
 }
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNguoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoCMND)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDangKy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDuVi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsRequesting)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }*@
-

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using PagedList.Mvc;
 using eCommerce.Models;
 using eCommerce.Models.ViewModels;
 using eCommerce.Extensions;
@@ -132,6 +133,44 @@ namespace eCommerce.Areas.Admin.Controllers
             db.SaveChanges();
             this.AddNotification("Khôi phục mật khẩu thành công.", NotificationType.SUCCESS);
             return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
+
+        public ActionResult DanhSachCapQuyen(int? page, string loaiTimKiem, string tenTimKiem)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderBy(x => x.HoTen);
+            List<NguoiDungViewModel> nguoiDungViewModels; ;
+            TempData["loaiTimKiem"] = loaiTimKiem;
+            TempData["tenTimKiem"] = tenTimKiem;
+            TempData["page"] = page;
+            try
+            {
+                switch (loaiTimKiem)
+                {
+                    case "MaNguoiDung":
+                        {
+                            if (tenTimKiem == "" || tenTimKiem == null)
+                                this.AddNotification("Vui lòng nhập từ khóa để tìm kiếm theo mã người dùng!", NotificationType.WARNING);
+                            nguoiDungs = db.NguoiDungs.Where(s => s.MaNguoiDung.ToString().Contains(tenTimKiem) && s.IsRequesting == true).OrderBy(s => s.HoTen);
+                            break;
+                        }
+                    case "TenNguoiDung":
+                        {
+                            if (tenTimKiem == "" || tenTimKiem == null)
+                                this.AddNotification("Vui lòng nhập từ khóa để tìm kiếm theo tên người dùng!", NotificationType.WARNING);
+                            nguoiDungs = db.NguoiDungs.Where(s => s.HoTen.Contains(tenTimKiem) && s.IsRequesting == true).OrderBy(s => s.HoTen);
+                            break;
+                        }
+                }
+            }
+            catch
+            {
+                this.AddNotification("Có lỗi xảy ra. Vui lòng thực hiện tìm kiếm lại!", NotificationType.ERROR);
+            }
+            nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
+            return View("DanhSachNguoiDung", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
         }
     }
 }
