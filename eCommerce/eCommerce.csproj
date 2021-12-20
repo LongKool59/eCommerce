@@ -220,6 +220,7 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Views\ManageUser\ChiTietNguoiDung.cshtml" />
     <Content Include="Areas\Admin\Views\ManageUser\DanhSachCapQuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageUser\ChiTietYeuCau.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />

@@ -50,13 +50,13 @@
                 <p style="font-size: 1.3rem; margin-bottom: 0rem;">Email</p>
             </th>
             <th>
-                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng ký</p>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Số CMND</p>
             </th>
             <th>
-                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Đăng đấu giá</p>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Số điện thoại</p>
             </th>
             <th>
-                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng kí</p>
             </th>
         </tr>
 
@@ -66,22 +66,22 @@
                 <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].MaNguoiDung)
+                    @Html.HiddenFor(modelItem => Model[i].MaNguoiDung)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model[i].HoTen)
+                    <a href="/Admin/ManageUser/ChiTietYeuCau?id=@Model[i].MaNguoiDung"> @Html.DisplayFor(modelItem => Model[i].HoTen)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].Email)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => Model[i].SoCMND)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].SDT)
+                </td>
+                <td>
                     @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))
-                </td>
-                <td>
-
-                    @Html.DisplayFor(modelItem => Model[i].IsApproved)
-                </td>
-                <td>
-                    <a href='@Url.Action("ChiTietNguoiDung","ManageUser", new { id = Model[i].MaNguoiDung })' style="color:black"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
         }

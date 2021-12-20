@@ -105,14 +105,6 @@ namespace eCommerce.Areas.Admin.Controllers
         {
             DauGiaEntities db = new DauGiaEntities();
             db.Configuration.ValidateOnSaveEnabled = false;
-            if (submit == "CapQuyenDangDauGia")
-            {
-                //int pageNumber = page ?? 1;
-                int pageSize = 10;
-                IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderBy(x => x.HoTen);
-                nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
-                return View("DanhSachCapQuyen", nguoiDungViewModels.ToPagedList(1, pageSize));
-            }
 
             //kiểm tra danh sách những người dùng được chọn
             var checkIsChecked = nguoiDungViewModels.Where(x => x.IsChecked == true).ToList();
@@ -181,7 +173,7 @@ namespace eCommerce.Areas.Admin.Controllers
             DauGiaEntities db = new DauGiaEntities();
             int pageNumber = page ?? 1;
             int pageSize = 10;
-            IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderBy(x => x.HoTen);
+            IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true && s.TrangThai == true).OrderBy(x => x.HoTen);
             List<NguoiDungViewModel> nguoiDungViewModels; ;
             TempData["_loaiTimKiem"] = loaiTimKiem;
             TempData["_tenTimKiem"] = tenTimKiem;
@@ -221,11 +213,58 @@ namespace eCommerce.Areas.Admin.Controllers
             nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
             return View("DanhSachCapQuyen", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CapQuyenTheoDanhSach(List<NguoiDungViewModel> nguoiDungViewModels, string submit)
-        //{
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CapQuyenTheoDanhSach(List<NguoiDungViewModel> nguoiDungViewModels, string submit)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            db.Configuration.ValidateOnSaveEnabled = false;
 
-        //}
+            //kiểm tra danh sách những người dùng được chọn
+            var checkIsChecked = nguoiDungViewModels.Where(x => x.IsChecked == true).ToList();
+            if (checkIsChecked.Count == 0)
+            {
+                this.AddNotification("Vui lòng chọn người dùng để thực hiện.!", NotificationType.WARNING);
+                return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+            }
+
+            foreach (var nguoiDung in checkIsChecked)
+            {
+                int maNguoiDung = nguoiDung.MaNguoiDung;
+                NguoiDung nguoi = db.NguoiDungs.Where(s => s.MaNguoiDung == maNguoiDung).FirstOrDefault();
+                if (nguoi != null)
+                {
+                    nguoi.IsApproved = true;
+                    nguoi.IsRequesting = false;
+                }
+            }
+            db.SaveChanges();
+            this.AddNotification("Cấp quyền đăng đấu giá cho người dùng thành công.", NotificationType.SUCCESS);
+            return RedirectToAction("DanhSachCapQuyen", new { page = TempData["_page"], loaiTimKiem = TempData["_loaiTimKiem"], tenTimKiem = TempData["_tenTimKiem"] });
+        }
+
+        public ActionResult ChiTietYeuCau(int? id)
+        {
+            TempData.Keep();
+            DauGiaEntities db = new DauGiaEntities();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            NguoiDung nguoiDung = db.NguoiDungs.Find(id);
+            if (nguoiDung == null)
+                return HttpNotFound();
+
+            NguoiDungViewModel nguoiDungViewModel = nguoiDung;
+            return View(nguoiDungViewModel);
+        }
+
+        public ActionResult DuyetYeuCau(int? id)
+        {
+            TempData.Keep();
+            DauGiaEntities db = new DauGiaEntities();
+            NguoiDung nguoiDung = db.NguoiDungs.Find(id);
+            nguoiDung.TrangThai = false;
+            db.SaveChanges();
+            return RedirectToAction("DanhSachCapQuyen", new { page = TempData["_page"], loaiTimKiem = TempData["_loaiTimKiem"], tenTimKiem = TempData["_tenTimKiem"] });
+        }
     }
 }
