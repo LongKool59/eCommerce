@@ -136,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAuctionTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
     <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.cs">
       <DependentUpon>_Layout.cshtml</DependentUpon>
@@ -207,6 +208,7 @@
     <Compile Include="Models\TrangThaiDauGia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\LoaiDauGiaViewModel.cs" />
     <Compile Include="Models\ViewModels\NguoiDungViewModel.cs" />
     <Compile Include="Models\ViewModels\PhuongViewModel.cs" />
     <Compile Include="Models\ViewModels\QuanViewModel.cs" />
@@ -221,6 +223,7 @@
     <Content Include="Areas\Admin\Views\ManageUser\ChiTietNguoiDung.cshtml" />
     <Content Include="Areas\Admin\Views\ManageUser\DanhSachCapQuyen.cshtml" />
     <Content Include="Areas\Admin\Views\ManageUser\ChiTietYeuCau.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuctionType\DanhSachLoaiDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />
