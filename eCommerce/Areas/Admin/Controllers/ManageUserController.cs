@@ -105,6 +105,16 @@ namespace eCommerce.Areas.Admin.Controllers
         {
             DauGiaEntities db = new DauGiaEntities();
             db.Configuration.ValidateOnSaveEnabled = false;
+            if (submit == "CapQuyenDangDauGia")
+            {
+                //int pageNumber = page ?? 1;
+                int pageSize = 10;
+                IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderBy(x => x.HoTen);
+                nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
+                return View("DanhSachCapQuyen", nguoiDungViewModels.ToPagedList(1, pageSize));
+            }
+
+            //kiểm tra danh sách những người dùng được chọn
             var checkIsChecked = nguoiDungViewModels.Where(x => x.IsChecked == true).ToList();
             if (checkIsChecked.Count == 0)
             {
@@ -165,18 +175,27 @@ namespace eCommerce.Areas.Admin.Controllers
             return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
         }
 
-        public ActionResult DanhSachCapQuyen(int? page, string loaiTimKiem, string tenTimKiem)
+        public ActionResult DanhSachCapQuyen(int? page, string loaiTimKiem, string tenTimKiem, string submit)
         {
+            TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             int pageNumber = page ?? 1;
             int pageSize = 10;
             IQueryable<NguoiDung> nguoiDungs = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderBy(x => x.HoTen);
             List<NguoiDungViewModel> nguoiDungViewModels; ;
-            TempData["loaiTimKiem"] = loaiTimKiem;
-            TempData["tenTimKiem"] = tenTimKiem;
-            TempData["page"] = page;
+            TempData["_loaiTimKiem"] = loaiTimKiem;
+            TempData["_tenTimKiem"] = tenTimKiem;
+            TempData["_page"] = page;
             try
             {
+                if (submit != null && loaiTimKiem == null)
+                {
+                    if (tenTimKiem != "")
+                        this.AddNotification("Vui lòng chọn loại tìm kiếm!", NotificationType.WARNING);
+                    else
+                        this.AddNotification("Vui lòng chọn loại tìm kiếm và nhập từ khóa tìm kiếm!", NotificationType.WARNING);
+                }
+
                 switch (loaiTimKiem)
                 {
                     case "MaNguoiDung":
@@ -200,7 +219,13 @@ namespace eCommerce.Areas.Admin.Controllers
                 this.AddNotification("Có lỗi xảy ra. Vui lòng thực hiện tìm kiếm lại!", NotificationType.ERROR);
             }
             nguoiDungViewModels = nguoiDungs.ToList().ConvertAll<NguoiDungViewModel>(s => s);
-            return View("DanhSachNguoiDung", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
+            return View("DanhSachCapQuyen", nguoiDungViewModels.ToPagedList(pageNumber, pageSize));
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CapQuyenTheoDanhSach(List<NguoiDungViewModel> nguoiDungViewModels, string submit)
+        //{
+
+        //}
     }
 }

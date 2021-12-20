@@ -101,58 +101,8 @@
         <button id="btn-delete" type="submit" name="submit" value="XoaNguoiDung">Vô hiệu hóa</button>
         <button id="btn-delete-approved-permission" type="submit" name="submit" value="XoaQuyenDangDauGia">Xóa quyền đăng đấu giá</button>
         <button id="btn-reset-password" type="submit" name="submit" value="KhoiPhucMatKhau">Khôi phục mật khẩu</button>
-        <button id="btn-approved-permission" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen">Cấp quyền đăng đấu giá</button>
+        <a href="/Admin/ManageUser/DanhSachCapQuyen" id="btn-approved-permission">
+            Cấp quyền đăng đấu giá
+        </a>
     </div>
 }
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNguoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoCMND)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDangKy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDuVi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsRequesting)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }*@
-

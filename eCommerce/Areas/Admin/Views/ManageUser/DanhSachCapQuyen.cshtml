@@ -21,7 +21,7 @@
         </div>
         <div class="my-3 search-manage-user">
             <input type="text" class="form-control" placeholder="Nhập từ khóa để tìm kiếm" name="tenTimKiem">
-            <button class="btn btn-search" type="submit">
+            <button class="btn btn-search" type="submit" name="submit" value="btnTimKiem">
                 <i class="fas fa-search"></i>
             </button>
 
@@ -32,7 +32,7 @@
     }
 </div>
 @Html.Partial("_Notifications")
-@using (Html.BeginForm("CapQuyenDangDauGiaTheoList", "ManageUser", FormMethod.Post))
+@using (Html.BeginForm("CapQuyenTheoDanhSach", "ManageUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -95,8 +95,8 @@
               DisplayPageCountAndCurrentLocation = true,
 
           })
-    <div style="display: flex; justify-content: center; position: absolute; bottom: 5%; left: 4%; ">
-        <button id="bth-save" type="submit">Duyệt</button>
-        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen?page=@TempData["page"]&loaiTimKiem=@TempData["loaiTimKiem"]&tenTimKiem=@TempData["tenTimKiem"]'">Quay lại</button>
+    <div style="display:flex; margin-left: 12px;">
+        <button id="btn-save" type="submit" name="Duyet">Duyệt</button>
+        <a id="btn-back" href="/Admin/ManageUser/DanhSachNguoiDung?page=@TempData["page"]&loaiTimKiem=@TempData["loaiTimKiem"]&tenTimKiem=@TempData["tenTimKiem"]">Quay lại</a>
     </div>
 }

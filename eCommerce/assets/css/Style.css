@@ -233,7 +233,7 @@ i.fas.fa-pen-alt::before {
     justify-content: space-around;
     align-content: center;
 }*/
-#bth-manage {
+#btn-manage {
     font-weight: 600;
     background: linear-gradient( 150deg, #006ef6, #3ac1f4);
     border-radius: 30px;
@@ -289,6 +289,7 @@ i.fas.fa-pen-alt::before {
 }
 
 #btn-delete {
+    cursor: pointer;
     font-weight: 600;
     background: #FF4040;
     border-radius: 30px;
@@ -301,6 +302,7 @@ i.fas.fa-pen-alt::before {
 }
 
 #btn-delete-approved-permission {
+    cursor: pointer;
     font-weight: 600;
     background: #FF8540;
     border-radius: 30px;
@@ -313,6 +315,7 @@ i.fas.fa-pen-alt::before {
 }
 
 #btn-approved-permission {
+    cursor: pointer;
     font-weight: 600;
     background: #B95DFF;
     border-radius: 30px;
@@ -322,9 +325,15 @@ i.fas.fa-pen-alt::before {
     padding: 0.7rem;
     border: none;
     color: white;
+    text-align: center
+}
+
+#btn-approved-permission:hover{
+    text-decoration:none;
 }
 
 #btn-reset-password {
+    cursor: pointer;
     font-weight: 600;
     background: #0A97B7;
     border-radius: 30px;
@@ -347,6 +356,11 @@ i.fas.fa-pen-alt::before {
     padding: 0.7rem;
     border: none;
     color: white;
+    text-align:center;
+}
+
+#btn-back:hover{
+    text-decoration:none
 }
 
 #btn-enable-user, #btn-save {
@@ -362,26 +376,28 @@ i.fas.fa-pen-alt::before {
     color: white;
 }
 
-.pagination{
-    justify-content:center;
+.pagination {
+    justify-content: center;
 }
 
-.pagination a {
-     color: black; 
-     float: left; 
-     padding: 8px 16px; 
-     text-decoration: none; 
-     transition: background-color .3s; 
-}
-.pagination li.active {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-}
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 5px;
-}
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+    .pagination li.active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
 
 /* end Manage user*/
 /* start Chi tiết */
