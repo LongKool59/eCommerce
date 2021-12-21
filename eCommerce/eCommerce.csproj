@@ -224,6 +224,8 @@
     <Content Include="Areas\Admin\Views\ManageUser\DanhSachCapQuyen.cshtml" />
     <Content Include="Areas\Admin\Views\ManageUser\ChiTietYeuCau.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuctionType\DanhSachLoaiDauGia.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuctionType\ChiTietLoaiDauGia.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuctionType\SuaLoaiDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />

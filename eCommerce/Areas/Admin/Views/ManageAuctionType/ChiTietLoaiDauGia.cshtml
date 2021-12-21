@@ -1,0 +1,57 @@
+﻿@model eCommerce.Models.ViewModels.LoaiDauGiaViewModel
+
+@{
+    ViewBag.Title = "ChiTietLoaiDauGia";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="detail-info-view">
+    <h2>THÔNG TIN LOẠI ĐẤU GIÁ</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLoai)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TenLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ngay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ngay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaNguoiDung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NguoiDung.HoTen)
+        </dd>
+
+    </dl>
+    <p>
+        <button id="btn-save" onclick="location.href='/Admin/ManageAuctionType/SuaLoaiDauGia?id=@Model.MaLoai'">Sửa</button>
+        <button id="btn-back" onclick="location.href='/Admin/ManageAuctionType/DanhSachLoaiDauGia?page=@TempData["page"]&loaiTimKiem=@TempData["loaiTimKiem"]&tenTimKiem=@TempData["tenTimKiem"]'">Quay lại</button>
+    </p>
+</div>

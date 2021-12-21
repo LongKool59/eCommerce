@@ -62,7 +62,7 @@
                     @Html.HiddenFor(modelItem => Model[i].MaLoai)
                 </td>
                 <td>
-                    <a href="/Admin/ManageUser/ChiTietLoaiDauGia?id=@Model[i].MaLoai"> @Html.DisplayFor(modelItem => Model[i].TenLoai)</a>
+                    <a href="/Admin/ManageAuctionType/ChiTietLoaiDauGia?id=@Model[i].MaLoai"> @Html.DisplayFor(modelItem => Model[i].TenLoai)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].TrangThai)
@@ -82,7 +82,7 @@
               Display = PagedListDisplayMode.IfNeeded,
               DisplayPageCountAndCurrentLocation = true,
           })
-    <div style="display: flex; justify-content: space-around;">
+    <div style="display: flex; margin-left: 3%;">
         <button id="btn-delete" type="submit" name="submit" value="XoaLoaiDauGia">Vô hiệu hóa</button>
         <a href="/Admin/ManageAuctionType/DanhSachLoaiDauGia" id="btn-approved-permission">
             Thêm loại đấu giá

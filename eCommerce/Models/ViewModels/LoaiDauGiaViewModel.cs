@@ -23,6 +23,7 @@ namespace eCommerce.Models.ViewModels
         [DisplayName("Người sửa")]
         public int MaNguoiDung { get; set; }
         [DisplayName("Ngày sửa")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime Ngay { get; set; }
 
         public bool IsChecked { get; set; }

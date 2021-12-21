@@ -4,7 +4,9 @@ using eCommerce.Models.ViewModels;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -73,16 +75,81 @@ namespace eCommerce.Areas.Admin.Controllers
                 this.AddNotification("Vui lòng chọn loại đấu giá để thực hiện.!", NotificationType.WARNING);
                 return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
             }
-            foreach (var loaiDauGia in checkIsChecked)
+            var listApproved = checkIsChecked.Where(s => s.TrangThai == true).ToList();
+            if (listApproved.Count == 0)
+            {
+                this.AddNotification("Vui lòng loại đấu giá đang còn sử dụng.!", NotificationType.WARNING);
+                return RedirectToAction("DanhSachNguoiDung", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+            }
+            foreach (var loaiDauGia in listApproved)
             {
                 int maLoai = loaiDauGia.MaLoai;
                 Loai loai = db.Loais.Where(s => s.MaLoai == maLoai).FirstOrDefault();
                 if (loai != null)
+                {
                     loai.TrangThai = false;
+                    loai.MaNguoiDung = Convert.ToInt32(Session["MaNguoiDung"]);
+                    loai.Ngay = DateTime.Now;
+                }
             }
 
             db.SaveChanges();
             this.AddNotification("Vô hiệu hóa loại đấu giá thành công.", NotificationType.SUCCESS);
+            return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
+
+        public ActionResult ChiTietLoaiDauGia(int? id)
+        {
+            TempData.Keep();
+            DauGiaEntities db = new DauGiaEntities();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Loai loai = db.Loais.Find(id);
+            if (loai == null)
+                return HttpNotFound();
+
+            LoaiDauGiaViewModel loaiDauGiaViewModel = loai;
+            return View(loaiDauGiaViewModel);
+        }
+
+        public ActionResult SuaLoaiDauGia(int? id)
+        {
+            TempData.Keep();
+            DauGiaEntities db = new DauGiaEntities();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Loai loai = db.Loais.Find(id);
+            if (loai == null)
+            {
+                return HttpNotFound();
+            }
+            LoaiDauGiaViewModel loaiDauGiaViewModel = loai;
+            return View(loaiDauGiaViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuaLoaiDauGia(LoaiDauGiaViewModel loaiDauGiaViewModel, string submit)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            if (!ModelState.IsValid)
+                return View(loaiDauGiaViewModel);
+            if (submit == "Luu")
+            {
+                Loai loai = db.Loais.Where(s => s.MaLoai == loaiDauGiaViewModel.MaLoai).SingleOrDefault();
+                if (loai != null)
+                {
+                    loai.TenLoai = loaiDauGiaViewModel.TenLoai;
+                    loai.TrangThai = loaiDauGiaViewModel.TrangThai;
+                    loai.Ngay = DateTime.Now;
+                    loai.MaNguoiDung = Convert.ToInt32(Session["MaNguoiDung"]);
+                    db.Entry(loai).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
             return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
         }
     }
