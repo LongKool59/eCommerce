@@ -152,5 +152,26 @@ namespace eCommerce.Areas.Admin.Controllers
 
             return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
         }
+
+        //public ActionResult ThemLoaiDauGia()
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ThemLoaiDauGia(string txtTenLoai)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            Loai loai = new Loai();
+            loai.TenLoai = txtTenLoai;
+            loai.TrangThai = true;
+            loai.Ngay = DateTime.Now;
+            loai.MaNguoiDung = Convert.ToInt32(Session["MaNguoiDung"]);
+            db.Loais.Add(loai);
+            db.SaveChanges();
+            this.AddNotification("Thêm loại đấu giá thành công.", NotificationType.SUCCESS);
+            return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
+        }
     }
 }
