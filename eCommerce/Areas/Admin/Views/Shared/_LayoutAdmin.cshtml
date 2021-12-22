@@ -41,11 +41,21 @@
                             <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
                             <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
                         </div>
-                        <a style=""><i class="far fa-bell" style="font-size: 1.8rem;"></i></a>
+                        <div>
+                            <button class="notification">
+                                <i class="far fa-bell" style="font-size: 1.8rem;"></i>
+                                <span class="txt-notification">4</span>
+                            </button>
+                            <ul class="notification-ul">
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    @*<div class="row d-inline-block">
-                          <a class="flex-center"></a>
-                        </div>*@
                 </div>
             </div>
         </nav>
@@ -100,6 +110,11 @@
         $(document).ready(function () {
             $('button.manage').click(function () {
                 $('ul#menu-list').toggleClass('active')
+            })
+        })
+        $(document).ready(function () {
+            $('.notification').click(function () {
+                $('.notification-ul').toggleClass('active')
             })
         })
     </script>

@@ -22,7 +22,7 @@
 }
 
 .dangXuat {
-    left: 70%;
+    left: 62%;
 }
 
 .dropdown {
@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 
-    .manage:focus {
+    .manage:focus, .notification:focus {
         outline: none;
     }
 
@@ -84,6 +84,65 @@ ul#menu-list {
             ul#menu-list li a:hover {
                 background: #2196f3;
             }
+
+.fa-bell {
+    position: relative;
+}
+
+.txt-notification {
+    position: absolute;
+    top: 15%;
+}
+
+.notification {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.notification-ul {
+    list-style: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background: #ccc;
+    transform-origin: top;
+    transform: perspective(100px) rotateX(-90deg);
+    transition: .5s;
+}
+
+    .notification-ul.active {
+        transform: perspective(100px) rotateX(0deg);
+        border: none;
+        outline: none;
+        z-index: 2;
+        margin-top: 7px;
+    }
+
+
+    .notification-ul li a {
+        display: block;
+        padding: 10px;
+        text-align: left;
+        text-decoration: none;
+        background: #ffffff;
+        color: #009d4d;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(0,0,0,.2);
+        transition: .5s;
+    }
+
+        .notification-ul li a:hover {
+            background: #e1e2e3;
+            border-radius: 15px;
+        }
 /*footer*/
 footer h2 {
     font-size: 3rem;
@@ -113,15 +172,15 @@ footer button {
 
 .body-content {
     background: #f2f2f2;
-    min-height: 90vh;
+    min-height: 100vh;
     position: absolute;
-    min-width: 98.9vw;
-    top: 10%;
+    min-width: 100%;
+    top: 5%;
 }
 /*Start Home*/
 .bg-home {
     min-height: 90vh;
-    padding-top: 3%;
+    padding-top: 5%;
 }
 
 .home {
@@ -172,8 +231,8 @@ footer button {
     font-weight: 600;
 }
 
-input.form-control{
-    font-size:1.5rem
+input.form-control {
+    font-size: 1.5rem
 }
 
 .bottom-function-button {
@@ -190,7 +249,7 @@ input.form-control{
     min-height: 85vh;
     padding: 2rem;
     position: relative;
-    margin: 2rem 0;
+    margin: 5rem 0 2rem 0;
     border-radius: 20px;
     box-shadow: 5px 5px 10px 5px #c8c4c46e;
 }
@@ -311,7 +370,7 @@ i.fas.fa-pen-alt::before {
 }
 
 #btn-delete-main-page {
-    width:250px
+    width: 250px
 }
 
 #btn-delete-approved-permission {
@@ -341,9 +400,9 @@ i.fas.fa-pen-alt::before {
     text-align: center
 }
 
-#btn-approved-permission:hover{
-    text-decoration:none;
-}
+    #btn-approved-permission:hover {
+        text-decoration: none;
+    }
 
 #btn-reset-password {
     cursor: pointer;
@@ -369,12 +428,12 @@ i.fas.fa-pen-alt::before {
     padding: 0.7rem;
     border: none;
     color: white;
-    text-align:center;
+    text-align: center;
 }
 
-#btn-back:hover{
-    text-decoration:none
-}
+    #btn-back:hover {
+        text-decoration: none
+    }
 
 #btn-enable-user, #btn-save {
     cursor: pointer;
