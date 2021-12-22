@@ -435,7 +435,7 @@ i.fas.fa-pen-alt::before {
         text-decoration: none
     }
 
-#btn-enable-user, #btn-save {
+#btn-enable-user, #btn-save, #btn-save-disabled {
     cursor: pointer;
     font-weight: 600;
     background: #06DC94;
@@ -446,6 +446,11 @@ i.fas.fa-pen-alt::before {
     padding: 0.7rem;
     border: none;
     color: white;
+}
+
+#btn-save-disabled {
+    cursor: default;
+    background: #ccc;
 }
 
 .pagination {

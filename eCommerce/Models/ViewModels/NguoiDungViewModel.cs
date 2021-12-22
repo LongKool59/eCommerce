@@ -71,6 +71,8 @@ namespace eCommerce.Models.ViewModels
         public bool IsChecked { get; set; }
         [DisplayName("Trạng thái")]
         public bool TrangThai { get; set; }
+
+        public DateTime? TimeRequesting { get; set; }
         public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
         {
             return new NguoiDungViewModel
@@ -96,6 +98,7 @@ namespace eCommerce.Models.ViewModels
                 Quan = nguoiDung.Quan,
                 ThanhPho = nguoiDung.ThanhPho,
                 TrangThai = nguoiDung.TrangThai,
+                TimeRequesting = nguoiDung.TimeRequesting,
             };
         }
 
@@ -124,6 +127,7 @@ namespace eCommerce.Models.ViewModels
                 Quan = nguoiDungViewModel.Quan,
                 ThanhPho = nguoiDungViewModel.ThanhPho,
                 TrangThai = nguoiDungViewModel.TrangThai,
+                TimeRequesting = nguoiDungViewModel.TimeRequesting,
             };
         }
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eCommerce.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,16 @@ namespace eCommerce.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        [HttpGet]
+        public JsonResult ThongBaoDSNguoiDung()
+        {
+            NotificationComponents NC = new NotificationComponents();
+            var list = NC.GetNguoiDungs(true);
+            //DauGiaEntities db = new DauGiaEntities();
+            //var list = db.NguoiDungs.Where(s => s.IsRequesting == true).OrderByDescending(s => s.TimeRequesting).ToList();
+            //update session here for get only new added contacts (notification)
+            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

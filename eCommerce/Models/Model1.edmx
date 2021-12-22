@@ -110,6 +110,7 @@
           <Property Name="MaPhuong" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="MaTP" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="TrangThai" Type="bit" Nullable="false" />
+          <Property Name="TimeRequesting" Type="datetime" />
         </EntityType>
         <EntityType Name="Phuong">
           <Key>
@@ -689,6 +690,7 @@
           <NavigationProperty Name="ThanhPho" Relationship="DauGiaModel.FK_NguoiDung_ThanhPho" FromRole="NguoiDung" ToRole="ThanhPho" />
           <Property Name="TrangThai" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="YeuThiches" Relationship="DauGiaModel.FK_YeuThich_NguoiDung" FromRole="NguoiDung" ToRole="YeuThich" />
+          <Property Name="TimeRequesting" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ThongBao">
           <Key>
@@ -1237,6 +1239,7 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="DauGiaModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="TimeRequesting" ColumnName="TimeRequesting" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaTP" ColumnName="MaTP" />
                 <ScalarProperty Name="MaPhuong" ColumnName="MaPhuong" />

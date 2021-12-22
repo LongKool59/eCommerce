@@ -125,7 +125,14 @@
     <div class="bottom-function-button">
         @if (!Model.IsAdmin)
         {
-            <button id="btn-save" onclick="DuyetYeuCau()">Duyệt</button>
+            if (!Model.IsApproved)
+            {
+                <button id="btn-save" onclick="DuyetYeuCau()">Duyệt</button>
+            }
+            else
+            {
+                <button id="btn-save-disabled">Đã duyệt</button>
+            }
         }
         <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen?page=@TempData["_page"]&loaiTimKiem=@TempData["_loaiTimKiem"]&tenTimKiem=@TempData["_tenTimKiem"]'">Quay lại</button>
     </div>
