@@ -1,4 +1,4 @@
-﻿
+﻿@model eCommerce.Models.ViewModels.TaiKhoanViewModel
 @{
     Layout = "~/Views/Shared/_LayoutSignIn.cshtml";
     ViewBag.Title = "SignIn";
@@ -16,7 +16,12 @@
                         </div>
                     </div>
                     <div class="bottom-content">
-                        <form action="/SignIn/CheckkSignIn" method="post">
+                        @*@using (Html.BeginForm("CheckSignIn", "SignIn", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.TextBoxFor(model => model.Email, new { style = "field-validation-error", placeholder = "Nhập tên tài khoản" })
+                            }*@
+                        <form action="/SignIn/CheckSignIn" method="post">
                             <input type="email" name="email" class="input-form" placeholder="Email"
                                    required="required" />
                             <input type="password" name="password" class="input-form"

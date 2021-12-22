@@ -1,0 +1,162 @@
+﻿
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .modal.open {
+            display: flex;
+        }
+
+    .modal-container {
+        background: white;
+        width: 900px;
+        max-width: calc(100% - 32px);
+        min-height: 200px;
+        position: relative;
+        animation: modalFadeIn ease 0.4s;
+        border-radius: .3rem
+    }
+
+    .modal-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 12px 12px 8px 12px;
+        font-size: 24px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .modal-close-icon {
+        font-size: 2.5rem
+    }
+
+    .modal-close:hover {
+        color: black;
+        background-color: #ccc;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        padding: 47px 16px;
+        color: white;
+        background: #009688;
+        text-align: center;
+        font-size: 30px;
+        letter-spacing: 5px;
+        justify-content: center;
+    }
+
+    .modal-body {
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .modal-label {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .modal-input {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #ccc;
+        margin-bottom: 16px;
+    }
+
+    #buy-ticket {
+        padding: 16px;
+        font-size: 15px;
+        width: 100%;
+        background: #009688;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+    }
+
+        #buy-ticket:hover {
+            color: black;
+            background: #ccc;
+            cursor: pointer;
+        }
+
+    @@keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-140px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+@using (Html.BeginForm("ThemLoaiDauGia", "ManageAuctionType", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-close js-modal-close">
+                <i class="modal-close-icon fas fa-times"></i>
+            </div>
+            <header class="modal-header">
+                THÊM LOẠI ĐẤU GIÁ
+            </header>
+            <div class="modal-body">
+                <label for="txtTenLoai" class="modal-label">
+                    Tên loại đấu giá
+                </label>
+                <input id="txtTenLoai"
+                       type="text"
+                       class="modal-input"
+                       placeholder="Nhập tên loại đấu giá"
+                       name="txtTenLoai"
+                       required />
+
+                <button id="buy-ticket">
+                    Thêm
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    const btnThemLoai = document.querySelector(".btn-them-loai-dau-gia")
+    const modal = document.querySelector(".js-modal");
+    const modalClose = document.querySelector(".js-modal-close");
+    const modalContainer = document.querySelector(".js-modal-container");
+    // hàm hiển thị modal thêm loại(thêm class open vào modal)
+    function showBuyTickets() {
+        modal.classList.add("open");
+    }
+    // hàm ẩn modal thêm loại (gỡ class open vào modal)
+    function hideBuyTickets() {
+        modal.classList.remove("open");
+    }
+
+    // Nghe hành vi click vào nút thêm loại đấu giá
+    btnThemLoai.addEventListener("click", showBuyTickets);
+
+    // Nghe hành vi click vào nút close
+    modalClose.addEventListener("click", hideBuyTickets);
+
+    modal.addEventListener("click", hideBuyTickets);
+
+    modalContainer.addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
+</script>

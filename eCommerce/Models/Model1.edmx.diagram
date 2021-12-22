@@ -32,6 +32,17 @@
         <AssociationConnector Association="DauGiaModel.FK_MucNang_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_ThongBao_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_TrangThaiDauGia_NguoiDung" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DauGiaModel.Phuong" Width="1.5" PointX="5.25" PointY="8.25" />
+        <EntityTypeShape EntityType="DauGiaModel.Quan" Width="1.5" PointX="7.5" PointY="10.25" />
+        <EntityTypeShape EntityType="DauGiaModel.ThanhPho" Width="1.5" PointX="0.625" PointY="19.25" />
+        <AssociationConnector Association="DauGiaModel.FK_NguoiDung_Phuong" />
+        <AssociationConnector Association="DauGiaModel.FK_NguoiDung_Quan" />
+        <AssociationConnector Association="DauGiaModel.FK_NguoiDung_ThanhPho" />
+        <AssociationConnector Association="DauGiaModel.FK_Phuong_Quan" />
+        <AssociationConnector Association="DauGiaModel.FK_Quan_Quan" />
+        <EntityTypeShape EntityType="DauGiaModel.YeuThich" Width="1.5" PointX="10.25" PointY="10.375" />
+        <AssociationConnector Association="DauGiaModel.FK_YeuThich_DauGia" />
+        <AssociationConnector Association="DauGiaModel.FK_YeuThich_NguoiDung" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

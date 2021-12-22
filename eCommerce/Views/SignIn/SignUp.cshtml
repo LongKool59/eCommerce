@@ -33,15 +33,28 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.DiaChi)
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ" } })
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ, tên đường" } })
                         @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.SoCMND)
-                        @Html.EditorFor(model => model.SoCMND, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số chứng minh nhân dân" } })
-                        @Html.ValidationMessageFor(model => model.SoCMND, "", new { @class = "text-danger" })
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.MaTP)
+                        @if (ViewBag.DSThanhPho != null)
+                        {
+                            @Html.DropDownListFor(s => s.MaTP, ViewBag.DSThanhPho as SelectList, "Chọn thành phố", new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessageFor(model => model.MaTP, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.MaQuan)
+                        @Html.DropDownListFor(s => s.MaQuan, ViewBag.ListQuan != null ? ViewBag.ListQuan as SelectList : new SelectList(""), "Chọn quận", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaQuan, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.MaPhuong)
+                        @Html.DropDownListFor(s => s.MaPhuong, ViewBag.ListPhuong != null ? ViewBag.ListPhuong as SelectList : new SelectList(""), "Chọn phường", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaPhuong, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-row">
@@ -50,6 +63,13 @@
                         @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số điện thoại" } })
                         @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
                     </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.SoCMND)
+                        @Html.EditorFor(model => model.SoCMND, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số chứng minh nhân dân" } })
+                        @Html.ValidationMessageFor(model => model.SoCMND, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-6">
                         <input type="file" id="file" name="ImageFile" accept="image/*" size="40">
                         <div class="upload-image">
@@ -72,6 +92,8 @@
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập email" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.Password)
                         @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu" })
@@ -85,8 +107,42 @@
                         @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <button type="submit" class="dangKy" style="margin-left:40%; margin-top:3%">Đăng ký</button>
+                @Html.Partial("_Notifications")
+                <button type="submit" class="dangKy" style="margin-left: 40%; margin-top: 3%; margin-bottom: 5%;">Đăng ký</button>
             </div>
         }
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#MaTP").change(function () {
+            var maTP = $(this).val()
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SignIn/GetDSQuan?MaTP=" + maTP,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#MaQuan").empty();
+                    $("#MaQuan").append(response)
+                }
+            })
+        })
+        $("#MaQuan").change(function () {
+            var maQuan = $(this).val()
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SignIn/GetDSPhuong?MaQuan=" + maQuan,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#MaPhuong").empty();
+                    $("#MaPhuong").append(response)
+                }
+            })
+        })
+    })
+</script>

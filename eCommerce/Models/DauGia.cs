@@ -22,6 +22,7 @@ namespace eCommerce.Models
             this.HinhAnhs = new HashSet<HinhAnh>();
             this.MucNangs = new HashSet<MucNang>();
             this.ThongBaos = new HashSet<ThongBao>();
+            this.YeuThiches = new HashSet<YeuThich>();
         }
     
         public int MaDauGia { get; set; }
@@ -50,5 +51,7 @@ namespace eCommerce.Models
         public virtual ICollection<MucNang> MucNangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YeuThich> YeuThiches { get; set; }
     }
 }

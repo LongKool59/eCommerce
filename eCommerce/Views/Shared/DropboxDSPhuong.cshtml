@@ -1,0 +1,9 @@
+﻿@model eCommerce.Models.Phuong
+<option value="">Chọn phường</option>
+@if (ViewBag.DSPhuong != null)
+{
+    foreach (var item in ViewBag.DSPhuong)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

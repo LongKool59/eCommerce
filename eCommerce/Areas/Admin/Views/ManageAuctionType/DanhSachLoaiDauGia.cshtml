@@ -1,0 +1,93 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<eCommerce.Models.ViewModels.LoaiDauGiaViewModel>
+
+@{
+    ViewBag.Title = "DanhSachLoaiDauGia";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="header-list-view">QUẢN LÝ LOẠI ĐẤU GIÁ</h2>
+<div>
+    @using (Html.BeginForm("DanhSachLoaiDauGia", "ManageAuctionType", FormMethod.Get))
+    {
+        <div class="row search-for">
+            <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
+            <input type="radio" id="html" name="loaiTimKiem" value="MaLoaiDauGia" style="margin-left: 50px;">
+            <label for="html" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Mã loại đấu giá</label>
+            <input type="radio" id="html1" name="loaiTimKiem" value="TenLoaiDauGia" style="margin-left: 50px;">
+            <label for="html1" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Tên loại đấu giá</label>
+        </div>
+        <div class="my-3 search-manage-user">
+            <input type="text" class="form-control" placeholder="Nhập từ khóa để tìm kiếm" name="tenTimKiem">
+            <button class="btn btn-search" type="submit" name="submit" value="btnTimKiem">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachNguoiDung", "ManageUser")'">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    }
+</div>
+@Html.Partial("_Notifications")
+@using (Html.BeginForm("HandleDelete", "ManageAuctionType", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr class="table-title">
+            <th>
+                <input type="checkbox" value="" id="CheckDefault">
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã loại đấu giá</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên loại đấu giá</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Trạng thái</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Chức năng</p>
+            </th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].MaLoai)
+                    @Html.HiddenFor(modelItem => Model[i].MaLoai)
+                </td>
+                <td>
+                    <a href="/Admin/ManageAuctionType/ChiTietLoaiDauGia?id=@Model[i].MaLoai"> @Html.DisplayFor(modelItem => Model[i].TenLoai)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].TrangThai)
+                    @Html.HiddenFor(modelItem => Model[i].TrangThai)
+                </td>
+                <td>
+                    <a href='@Url.Action("SuaLoaiDauGia","ManageAuctionType", new { id = Model[i].MaLoai })' class="btn-edit" style="color:black"><i class="fas fa-pen-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model,
+          page => Url.Action("DanhSachLoaiDauGia", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
+          new PagedListRenderOptions()
+          {
+              Display = PagedListDisplayMode.IfNeeded,
+              DisplayPageCountAndCurrentLocation = true,
+          })
+    <div style="display: flex; margin-left: 3%;">
+        <button id="btn-delete" type="submit" name="submit" value="XoaLoaiDauGia">Vô hiệu hóa</button>
+        <a @*href="/Admin/ManageAuctionType/DanhSachLoaiDauGia"*@ id="btn-approved-permission" class="btn-them-loai-dau-gia">
+            Thêm loại đấu giá
+        </a>
+    </div>
+
+}
+@Html.Partial("_ModalThemLoaiDauGia")

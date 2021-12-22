@@ -26,6 +26,7 @@ namespace eCommerce.Models
             this.MucNangs = new HashSet<MucNang>();
             this.ThongBaos = new HashSet<ThongBao>();
             this.TrangThaiDauGias = new HashSet<TrangThaiDauGia>();
+            this.YeuThiches = new HashSet<YeuThich>();
         }
     
         public int MaNguoiDung { get; set; }
@@ -42,6 +43,10 @@ namespace eCommerce.Models
         public bool IsApproved { get; set; }
         public int SoDuVi { get; set; }
         public bool IsRequesting { get; set; }
+        public string MaQuan { get; set; }
+        public string MaPhuong { get; set; }
+        public string MaTP { get; set; }
+        public bool TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
@@ -61,5 +66,10 @@ namespace eCommerce.Models
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrangThaiDauGia> TrangThaiDauGias { get; set; }
+        public virtual Phuong Phuong { get; set; }
+        public virtual Quan Quan { get; set; }
+        public virtual ThanhPho ThanhPho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YeuThich> YeuThiches { get; set; }
     }
 }
