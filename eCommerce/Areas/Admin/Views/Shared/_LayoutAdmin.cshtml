@@ -30,16 +30,18 @@
                         <ul id="menu-list">
                             <li><a href="/Admin/ManageUser/DanhSachNguoiDung">Người dùng</a></li>
                             <li><a href="/Admin/ManageAuction/DanhSachDauGia">Buổi đấu giá</a></li>
-                            <li><a href="/Admin/ManageAuctionType/DanhSanhLoaiDauGia">Loại đấu giá</a></li>
+                            <li><a href="/Admin/ManageAuctionType/DanhSachLoaiDauGia">Loại đấu giá</a></li>
                         </ul>
                     </div>
                     <div class="row flex-center">
-                        <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
-                        </a>
-                        <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
-                            <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
-                            <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                        <div class="avatar-info">
+                            <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
+                            </a>
+                            <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
+                                <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+                                <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                            </div>
                         </div>
                         <div class="notification-box">
                             <button class="notification">

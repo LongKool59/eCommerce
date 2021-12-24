@@ -21,8 +21,13 @@
     align-items: center
 }
 
+.avatar-info{
+    position:relative;
+}
+
 .dangXuat {
-    left: 68%;
+    top: 142%;
+    left: -38%;
 }
 
 .dropdown {
