@@ -41,18 +41,12 @@
                             <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
                             <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
                         </div>
-                        <div>
+                        <div class="notification-box">
                             <button class="notification">
                                 <i class="far fa-bell" style="font-size: 1.8rem;"></i>
                                 <span class="txt-notification">&nbsp;</span>
                             </button>
                             <ul class="notification-ul">
-                                @*<li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Long vùa gửi yêu cầu trở thành approved user</a></li>
-                                    <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                    <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                    <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                    <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                    <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>*@
                             </ul>
                         </div>
                     </div>
@@ -75,45 +69,68 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('button.manage').click(function () {
+            $('button.manage').click(function (e) {
+                e.stopPropagation()
                 $('ul#menu-list').toggleClass('active')
             })
 
-            $('.notification').click(function () {
+            $('.notification').click(function (e) {
+                e.stopPropagation()
                 $('.notification-ul').toggleClass('active')
-                var count = 0;
+                var count = 0
                 updateNotification();
 
                 if (count > 0) {
                     updateNotification();
                 }
                 count = parseInt($('span.txt-notification').html()) || 0;
-                $('span.txt-notification', this).html('&nbsp;');
+                $('span.txt-notification', this).html('&nbsp;')
             })
 
-            //hide notifications and some navbar menus
-            //$('html').click(function () {
-            // $('ul#menu-list').toggleClass('active')
-            //    $('.notification-ul').toggleClass('active')
-            //})
+            //hide notification and menu
+            $('html').click(function (e) {
+                if ($('ul#menu-list').hasClass("active")) {
+                    $('ul#menu-list').removeClass("active")
+                }
+                if ($('.notification-ul').hasClass("active")) {
+                    $('.notification-ul').removeClass("active")
+                }
+            })
 
+            //substract two dates
+            function SubstractTwoDates(TimeRequesting) {
+                if (TimeRequesting == null) {
+                    return undefined
+                }
+                var dateTimeNow = new Date()
+                var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
+                var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
+                if (substract <= 24) {
+                    let time = substract + " giờ trước";
+                    return time
+                }
+                var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
+                    dateTimeJSObject.getUTCDate() +
+                    "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
+                    ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
+                return str
+            }
             //update notification
             function updateNotification() {
                 $('.notification-ul').empty()
                 $('.notification-ul').append($('<li>Loading...</li>'))
-                debugger
                 $.ajax({
                     type: 'GET',
                     url: '/Admin/HomeAdmin/ThongBaoDSNguoiDung',
                     success: function (response) {
-                        debugger
                         $('.notification-ul').empty();
                         if (response.length == 0) {
                             $('.notification-ul').append($('<li>No data available</li>'));
                         }
                         $.each(response, function (index, value) {
                             $('.notification-ul').append($(
-                                '<li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%; margin-right:10px" />' + value.HoTen + ' (' + value.MaNguoiDung + ') vùa gửi yêu cầu trở thành approved user</a></li>'
+                                @*'<li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%; margin-right:10px" />' + value.HoTen + ' (' + value.MaNguoiDung + ') vùa gửi yêu cầu trở thành approved user</a></li>'*@
+                                ' <li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" /><div class="notification-text"><div class="notification-header">' + value.HoTen + ' (' + value.MaNguoiDung + ') vừa gửi một yêu cầu cấp quyền đăng đấu giá</div><div class="notification-time">' + SubstractTwoDates(value.TimeRequesting) +' </div> </div></a></li>'
                             ));
                         });
                     },
