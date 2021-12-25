@@ -148,8 +148,8 @@ namespace eCommerce.Areas.Admin.Controllers
                     db.Entry(loai).State = EntityState.Modified;
                     db.SaveChanges();
                 }
+                this.AddNotification("Sửa loại đấu giá thành công.", NotificationType.SUCCESS);
             }
-
             return RedirectToAction("DanhSachLoaiDauGia", new { page = TempData["page"], loaiTimKiem = TempData["loaiTimKiem"], tenTimKiem = TempData["tenTimKiem"] });
         }
 

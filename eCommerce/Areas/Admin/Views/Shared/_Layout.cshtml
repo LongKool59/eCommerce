@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/css/Style.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -39,8 +40,8 @@
                                 <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
                             </a>
                             <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
-                                <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                                <a class="dropdown-item" href="/Admin/HomeAdmin/ThongTinCaNhan?id=@Session["MaNguoiDung"]"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+                                <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
                             </div>
                         </div>
                         <div class="notification-box">
@@ -58,6 +59,8 @@
         <div class="body-content">
             <div class="container">
                 <div class="manage-user">
+                    @*<a href="~/Views/Shared/_ToastrMessage.cshtml">~/Views/Shared/_ToastrMessage.cshtml</a>*@
+                    @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
                     @RenderBody()
                 </div>
             </div>

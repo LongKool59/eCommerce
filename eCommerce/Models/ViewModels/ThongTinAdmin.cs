@@ -7,7 +7,7 @@ using System.Web;
 
 namespace eCommerce.Models.ViewModels
 {
-    public class NguoiDungViewModel
+    public class ThongTinAdmin
     {
         [DisplayName("Mã người dùng")]
         public int MaNguoiDung { get; set; }
@@ -20,12 +20,6 @@ namespace eCommerce.Models.ViewModels
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
         public string Password { get; set; }
-        [DisplayName("Xác nhận mật khẩu")]
-        [Required(ErrorMessage = "Xác nhận mật khẩu không được trống...", AllowEmptyStrings = false)]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Xác nhận mật khẩu không khớp mật khẩu.")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
-        public string ConfirmPassword { get; set; }
         [DisplayName("Email")]
         [Required(ErrorMessage = "Email không được để trống...")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ. Ví dụ: example@gmail.com")]
@@ -72,9 +66,9 @@ namespace eCommerce.Models.ViewModels
         public bool TrangThai { get; set; }
 
         public DateTime? TimeRequesting { get; set; }
-        public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
+        public static implicit operator ThongTinAdmin(NguoiDung nguoiDung)
         {
-            return new NguoiDungViewModel
+            return new ThongTinAdmin
             {
                 MaNguoiDung = nguoiDung.MaNguoiDung,
                 HoTen = nguoiDung.HoTen,
@@ -101,32 +95,32 @@ namespace eCommerce.Models.ViewModels
             };
         }
 
-        public static implicit operator NguoiDung(NguoiDungViewModel nguoiDungViewModel)
+        public static implicit operator NguoiDung(ThongTinAdmin thongTinAdmin)
         {
             return new NguoiDung
             {
-                MaNguoiDung = nguoiDungViewModel.MaNguoiDung,
-                HoTen = nguoiDungViewModel.HoTen,
-                Password = nguoiDungViewModel.Password,
-                Email = nguoiDungViewModel.Email,
-                SDT = nguoiDungViewModel.SDT,
-                DiaChi = nguoiDungViewModel.DiaChi,
-                NgayDangKy = nguoiDungViewModel.NgayDangKy,
-                IsAdmin = nguoiDungViewModel.IsAdmin,
-                IsApproved = nguoiDungViewModel.IsApproved,
-                SoDuVi = nguoiDungViewModel.SoDuVi,
-                NgaySinh = nguoiDungViewModel.NgaySinh,
-                HinhAnh = nguoiDungViewModel.HinhAnh,
-                SoCMND = nguoiDungViewModel.SoCMND,
-                IsRequesting = nguoiDungViewModel.IsRequesting,
-                MaPhuong = nguoiDungViewModel.MaPhuong,
-                MaQuan = nguoiDungViewModel.MaQuan,
-                MaTP = nguoiDungViewModel.MaTP,
-                Phuong = nguoiDungViewModel.Phuong,
-                Quan = nguoiDungViewModel.Quan,
-                ThanhPho = nguoiDungViewModel.ThanhPho,
-                TrangThai = nguoiDungViewModel.TrangThai,
-                TimeRequesting = nguoiDungViewModel.TimeRequesting,
+                MaNguoiDung = thongTinAdmin.MaNguoiDung,
+                HoTen = thongTinAdmin.HoTen,
+                Password = thongTinAdmin.Password,
+                Email = thongTinAdmin.Email,
+                SDT = thongTinAdmin.SDT,
+                DiaChi = thongTinAdmin.DiaChi,
+                NgayDangKy = thongTinAdmin.NgayDangKy,
+                IsAdmin = thongTinAdmin.IsAdmin,
+                IsApproved = thongTinAdmin.IsApproved,
+                SoDuVi = thongTinAdmin.SoDuVi,
+                NgaySinh = thongTinAdmin.NgaySinh,
+                HinhAnh = thongTinAdmin.HinhAnh,
+                SoCMND = thongTinAdmin.SoCMND,
+                IsRequesting = thongTinAdmin.IsRequesting,
+                MaPhuong = thongTinAdmin.MaPhuong,
+                MaQuan = thongTinAdmin.MaQuan,
+                MaTP = thongTinAdmin.MaTP,
+                Phuong = thongTinAdmin.Phuong,
+                Quan = thongTinAdmin.Quan,
+                ThanhPho = thongTinAdmin.ThanhPho,
+                TrangThai = thongTinAdmin.TrangThai,
+                TimeRequesting = thongTinAdmin.TimeRequesting,
             };
         }
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }

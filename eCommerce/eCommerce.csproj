@@ -171,6 +171,7 @@
     <Compile Include="Models\BienDongSoDu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CT_LoaiDauGia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -233,6 +234,7 @@
     <Compile Include="Models\ViewModels\QuanViewModel.cs" />
     <Compile Include="Models\ViewModels\TaiKhoanViewModel.cs" />
     <Compile Include="Models\ViewModels\ThanhPhoViewModel.cs" />
+    <Compile Include="Models\ViewModels\ThongTinAdmin.cs" />
     <Compile Include="Models\YeuThich.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -248,6 +250,9 @@
     <Content Include="Areas\Admin\Views\ManageAuctionType\DanhSachLoaiDauGia.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuctionType\ChiTietLoaiDauGia.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuctionType\SuaLoaiDauGia.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\ThongTinCaNhan.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />
@@ -255,6 +260,7 @@
     <Content Include="assets\images\2.jpg" />
     <Content Include="assets\images\admin_index.jpg" />
     <Content Include="assets\images\gavel-auction-hammer-justice.jpg" />
+    <Content Include="assets\js\GetDSQuan_Phuong.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -297,6 +303,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\Shared\_ModalThemLoaiDauGia.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ModalDoiMatKhau.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ToastrMessage.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -331,7 +339,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="assets\js\" />
     <Folder Include="UserImages\" />
   </ItemGroup>
   <ItemGroup>

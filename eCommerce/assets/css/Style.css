@@ -21,8 +21,8 @@
     align-items: center
 }
 
-.avatar-info{
-    position:relative;
+.avatar-info {
+    position: relative;
 }
 
 .dangXuat {
@@ -99,8 +99,8 @@ ul#menu-list {
     top: 15%;
 }
 
-.notification-box{
-    position:relative;
+.notification-box {
+    position: relative;
 }
 
 .notification {
@@ -148,7 +148,7 @@ ul#menu-list {
         font-weight: 700;
         border-bottom: 1px solid rgba(0,0,0,.2);
         transition: .5s;
-        align-items:center
+        align-items: center
     }
 
         .notification-ul li a:hover {
@@ -156,16 +156,16 @@ ul#menu-list {
             border-radius: 15px;
         }
 
-.notification-ul li a img{
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    margin-right:10px
-}
+        .notification-ul li a img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px
+        }
 
-.notification-ul .notification-time{
-    margin-top:5%
-}
+    .notification-ul .notification-time {
+        margin-top: 5%
+    }
 /*footer*/
 footer h2 {
     font-size: 3rem;
@@ -440,7 +440,7 @@ i.fas.fa-pen-alt::before {
     color: white;
 }
 
-#btn-back {
+#btn-back, #btn-enable-user, #btn-save, #btn-save-disabled, #btn-change-password {
     cursor: pointer;
     font-weight: 600;
     background: #95A2F6;
@@ -459,16 +459,11 @@ i.fas.fa-pen-alt::before {
     }
 
 #btn-enable-user, #btn-save, #btn-save-disabled {
-    cursor: pointer;
-    font-weight: 600;
     background: #06DC94;
-    border-radius: 30px;
-    font-size: 1.5rem;
-    width: 150px;
-    margin-right: 10px;
-    padding: 0.7rem;
-    border: none;
-    color: white;
+}
+
+#btn-change-password {
+    background: #0A97B7;
 }
 
 #btn-save-disabled {
