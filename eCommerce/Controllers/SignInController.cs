@@ -47,7 +47,7 @@ namespace eCommerce.Controllers
             string formatLink = linkHinhAnh.Remove(0, 1); //bỏ ký tự ~  vị trí đầu tiên của link hình ảnh
             Session["HinhAnh"] = formatLink;
             if (taiKhoanHopLe.IsAdmin == false)
-                return View("SignIn");
+                return RedirectToAction("Home", "User/Home");
             return RedirectToAction("Index", "Admin/HomeAdmin");
         }
         public ActionResult SignUp()
