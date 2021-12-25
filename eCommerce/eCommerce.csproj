@@ -303,7 +303,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\Shared\_ModalThemLoaiDauGia.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_ModalDoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ToastrMessage.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
