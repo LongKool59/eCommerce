@@ -236,6 +236,7 @@ namespace eCommerce.Areas.Admin.Controllers
                 {
                     nguoi.IsApproved = true;
                     nguoi.IsRequesting = false;
+                    nguoi.TimeRequesting = null;
                 }
             }
             db.SaveChanges();
@@ -262,7 +263,7 @@ namespace eCommerce.Areas.Admin.Controllers
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             NguoiDung nguoiDung = db.NguoiDungs.Find(id);
-            nguoiDung.TrangThai = false;
+            nguoiDung.IsRequesting = false;
             db.SaveChanges();
             return RedirectToAction("DanhSachCapQuyen", new { page = TempData["_page"], loaiTimKiem = TempData["_loaiTimKiem"], tenTimKiem = TempData["_tenTimKiem"] });
         }

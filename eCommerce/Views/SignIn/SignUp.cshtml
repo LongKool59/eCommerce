@@ -81,6 +81,7 @@
                             document.getElementById('file').onchange = function () {
                                 document.getElementById('fileBoxName').innerHTML = this.value
                             };
+
                         </script>
                         @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
                     </div>
@@ -113,36 +114,45 @@
         }
     </div>
 </div>
-
+<script src="~/assets/js/GetDSQuan_Phuong.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#MaTP").change(function () {
-            var maTP = $(this).val()
-            debugger
-            $.ajax({
-                type: "post",
-                url: "/SignIn/GetDSQuan?MaTP=" + maTP,
-                contentType: "html",
-                success: function (response) {
-                    debugger
-                    $("#MaQuan").empty();
-                    $("#MaQuan").append(response)
-                }
-            })
-        })
-        $("#MaQuan").change(function () {
-            var maQuan = $(this).val()
-            debugger
-            $.ajax({
-                type: "post",
-                url: "/SignIn/GetDSPhuong?MaQuan=" + maQuan,
-                contentType: "html",
-                success: function (response) {
-                    debugger
-                    $("#MaPhuong").empty();
-                    $("#MaPhuong").append(response)
-                }
-            })
-        })
-    })
+    $('.dangKy').bind("click", function () {
+        var imgVal = $('#file').val();
+        if (imgVal == '') {
+            alert("Vui lòng chọn hình ảnh");
+            return false;
+        }
+    });
 </script>
+@*<script>
+        $(document).ready(function () {
+            $("#MaTP").change(function () {
+                var maTP = $(this).val()
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/SignIn/GetDSQuan?MaTP=" + maTP,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#MaQuan").empty();
+                        $("#MaQuan").append(response)
+                    }
+                })
+            })
+            $("#MaQuan").change(function () {
+                var maQuan = $(this).val()
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/SignIn/GetDSPhuong?MaQuan=" + maQuan,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#MaPhuong").empty();
+                        $("#MaPhuong").append(response)
+                    }
+                })
+            })
+        })
+    </script>*@

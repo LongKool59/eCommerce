@@ -6,10 +6,11 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="~/assets/css/Style.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/css/Style.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
@@ -30,29 +31,25 @@
                         <ul id="menu-list">
                             <li><a href="/Admin/ManageUser/DanhSachNguoiDung">Người dùng</a></li>
                             <li><a href="/Admin/ManageAuction/DanhSachDauGia">Buổi đấu giá</a></li>
-                            <li><a href="/Admin/ManageAuctionType/DanhSanhLoaiDauGia">Loại đấu giá</a></li>
+                            <li><a href="/Admin/ManageAuctionType/DanhSachLoaiDauGia">Loại đấu giá</a></li>
                         </ul>
                     </div>
                     <div class="row flex-center">
-                        <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
-                        </a>
-                        <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
-                            <a class="dropdown-item" href="#"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
-                            <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                        <div class="avatar-info">
+                            <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
+                            </a>
+                            <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
+                                <a class="dropdown-item" href="/Admin/HomeAdmin/ThongTinCaNhan?id=@Session["MaNguoiDung"]"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+                                <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                            </div>
                         </div>
-                        <div>
+                        <div class="notification-box">
                             <button class="notification">
                                 <i class="far fa-bell" style="font-size: 1.8rem;"></i>
-                                <span class="txt-notification">4</span>
+                                <span class="txt-notification">&nbsp;</span>
                             </button>
                             <ul class="notification-ul">
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
-                                <li><a href="#"><img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%; margin-right:10px" /> Link 2</a></li>
                             </ul>
                         </div>
                     </div>
@@ -60,62 +57,110 @@
             </div>
         </nav>
         <div class="body-content">
+            @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
             @RenderBody()
         </div>
-
-        @*<footer style="background-color: #FF985E;">
-              <div class="container">
-                <div class="title-footer">
-                  <h2 style="font-family: 'Paprika', cursive;">Giá tốt</h2>
-                  <h5 style="font-family: 'Paprika', cursive;">Hãy chọn giá tốt vì túi tiền bạn</h5>
-                </div>
-                <div class="row" style="padding: 1rem 0; border-top: 1px solid #80808057; border-bottom: 1px solid #80808057; ">
-                  <div class="col-4">
-                    <h5 style=" font-size: 2rem; margin-bottom: 1rem;">Tags</h5>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                    <button style="width:30%">Đồ cổ</button>
-                  </div>
-                  <div class="col-4">
-                    <h5 style=" font-size: 2rem; margin-bottom: 1rem;" class="text-center">Kết nối với chúng tôi trên:</h5>
-                    <div class="icon-footer" style="margin: 0px 24%;">
-                      <i class="fab fa-facebook-square" style="font-size: 2.5rem; margin-right: 1rem;"></i>
-                      <i class="fab fa-instagram" style="font-size: 2.5rem; margin-right: 1rem;"></i>
-                      <i class="fab fa-twitter-square" style="font-size: 2.5rem; margin-right: 1rem;"></i>
-                      <i class="fas fa-gamepad" style="font-size: 2.5rem; margin-right: 1rem;"></i>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <h5 style=" font-size: 2rem; margin-bottom: 1rem;">Địa chỉ liên hệ:</h5>
-                    <p style="font-size: 1.2rem; font-weight: 500;">Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
-                    <p style="font-size: 1.2rem; font-weight: 500;">giaodien@gmail.com</p>
-                  </div>
-                </div>
-                <p style="font-size: 1.3rem; padding: 0.5rem; font-weight: 500;">&copy; @DateTime.Now.Year - Bản quyền thuộc về GiaTot</p>
-              </div>
-            </footer>*@
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $('button.manage').click(function () {
+            $('button.manage').click(function (e) {
+                e.stopPropagation()
                 $('ul#menu-list').toggleClass('active')
             })
-        })
-        $(document).ready(function () {
-            $('.notification').click(function () {
+
+            $('.notification').click(function (e) {
+                e.stopPropagation()
                 $('.notification-ul').toggleClass('active')
+                var count = 0
+                updateNotification();
+
+                if (count > 0) {
+                    updateNotification();
+                }
+                count = parseInt($('span.txt-notification').html()) || 0;
+                $('span.txt-notification', this).html('&nbsp;')
             })
+
+            //hide notification and menu
+            $('html').click(function (e) {
+                if ($('ul#menu-list').hasClass("active")) {
+                    $('ul#menu-list').removeClass("active")
+                }
+                if ($('.notification-ul').hasClass("active")) {
+                    $('.notification-ul').removeClass("active")
+                }
+            })
+
+            //substract two dates
+            function SubstractTwoDates(TimeRequesting) {
+                if (TimeRequesting == null) {
+                    return undefined
+                }
+                var dateTimeNow = new Date()
+                var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
+                var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
+                if (substract <= 24) {
+                    let time = substract + " giờ trước";
+                    return time
+                }
+                var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
+                    dateTimeJSObject.getUTCDate() +
+                    "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
+                    ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
+                return str
+            }
+            //update notification
+            function updateNotification() {
+                $('.notification-ul').empty()
+                $('.notification-ul').append($('<li>Loading...</li>'))
+                $.ajax({
+                    type: 'GET',
+                    url: '/Admin/HomeAdmin/ThongBaoDSNguoiDung',
+                    success: function (response) {
+                        $('.notification-ul').empty();
+                        if (response.length == 0) {
+                            $('.notification-ul').append($('<li>No data available</li>'));
+                        }
+                        $.each(response, function (index, value) {
+                            $('.notification-ul').append($(
+                                @*'<li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%; margin-right:10px" />' + value.HoTen + ' (' + value.MaNguoiDung + ') vùa gửi yêu cầu trở thành approved user</a></li>'*@
+                                ' <li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" /><div class="notification-text"><div class="notification-header">' + value.HoTen + ' (' + value.MaNguoiDung + ') vừa gửi một yêu cầu cấp quyền đăng đấu giá</div><div class="notification-time">' + SubstractTwoDates(value.TimeRequesting) +' </div> </div></a></li>'
+                            ));
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+            function updateNotificationCount() {
+                var count = 0;
+                count = parseInt($('span.txt-notification').html()) || 0;
+                count++;
+                $('span.txt-notification').html(count);
+            }
+            // signalr js code for start hub and send receive notification
+            var notificationHub = $.connection.notificationHub;
+            $.connection.hub.start().done(function () {
+                console.log('Notification hub started');
+            });
+            //signalr method for push server message to client
+            notificationHub.client.notify = function (message) {
+                if (message && message.toLowerCase() == "added") {
+                    updateNotification();
+                    updateNotificationCount();
+                }
+            }
         })
     </script>
 </body>

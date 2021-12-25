@@ -1,12 +1,11 @@
 ﻿@model eCommerce.Models.ViewModels.NguoiDungViewModel
-
 @{
-    ViewBag.Title = "ChiTietYeuCau";
+    ViewBag.Title = "ThongTinCaNhan";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="detail-info-view">
-    <h2>YÊU CẦU CỦA NGƯỜI DÙNG</h2>
+    <h2>THÔNG TIN NGƯỜI DÙNG</h2>
 
     <div class="column-1 left">
         <dl class="dl-horizontal">
@@ -123,25 +122,18 @@
         <img src="@Url.Content(Model.HinhAnh)" alt="Hình nhân viên" height="370" width="370" style="border-radius: 50%" />
     </div>
     <div class="bottom-function-button">
-        @if (!Model.IsAdmin)
-        {
-            if (!Model.IsApproved)
-            {
-                <button id="btn-save" onclick="DuyetYeuCau()">Duyệt</button>
-            }
-            else
-            {
-                <button id="btn-save-disabled">Đã duyệt</button>
-            }
-        }
-        <button id="btn-back" onclick="location.href='/Admin/ManageUser/DanhSachCapQuyen?page=@TempData["_page"]&loaiTimKiem=@TempData["_loaiTimKiem"]&tenTimKiem=@TempData["_tenTimKiem"]'">Quay lại</button>
+        <button id="btn-save" onclick="SuaThongTin()">Sửa thông tin</button>
+        <button id="btn-change-password" onclick="DoiMatKhau()">Đổi mật khẩu</button>
+        <button id="btn-back" onclick="location.href='/Admin/HomeAdmin/Index'">Quay lại</button>
     </div>
 </div>
-
 <script type="text/javascript">
-    function DuyetYeuCau() {
-        location.href ='/Admin/ManageUser/DuyetYeuCau?id=@Model.MaNguoiDung'
-        alert("Duyệt yêu cầu thành công.")
+    function SuaThongTin() {
+        location.href ='/Admin/HomeAdmin/SuaThongTinCaNhan?id=@Model.MaNguoiDung'
+    }
+
+    function DoiMatKhau() {
+        location.href ='/Admin/HomeAdmin/DoiMatKhau'
     }
 </script>
 

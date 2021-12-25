@@ -47,6 +47,7 @@ namespace eCommerce.Models
         public string MaPhuong { get; set; }
         public string MaTP { get; set; }
         public bool TrangThai { get; set; }
+        public Nullable<System.DateTime> TimeRequesting { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BienDongSoDu> BienDongSoDus { get; set; }
