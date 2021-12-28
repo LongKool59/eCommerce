@@ -1,0 +1,126 @@
+﻿@model eCommerce.Areas.User.Models.NguoiDungViewModel
+@using eCommerce.Models;
+@{
+    ViewBag.Title = "Index";
+            Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>NguoiDungViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaNguoiDung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaNguoiDung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoCMND)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoCMND)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.HinhAnh)" />
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SDT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SDT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDangKy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDangKy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDuVi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDuVi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @using (Html.BeginForm("Request", "DetailsUser", FormMethod.Post))
+    {
+
+        if (Model.IsApproved || Model.IsRequesting)
+        {
+
+        }
+        else
+        {
+            <button type="submit" name="submit" value="@Model.MaNguoiDung" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn chứ?')">Gửi yêu cầu nâng cấp tài khoản</button>
+
+        }
+
+
+
+
+
+    }    @Html.ActionLink("Edit", "Edit", new { id = @Model.MaNguoiDung }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

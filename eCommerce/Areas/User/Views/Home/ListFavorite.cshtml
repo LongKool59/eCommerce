@@ -1,0 +1,73 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using eCommerce.Models;
+@model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
+@{
+    ViewBag.Title = "ListFavorite";
+        Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+@foreach (var item in Model)
+{
+    DauGiaEntities db = new DauGiaEntities();
+
+    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+    if (Hinh.Length > 0)
+    {
+        <img src=@Html.DisplayFor(hinh => Hinh[0].LinkAnh) />
+
+    }
+
+
+    <a href=@Url.Action("Bid", "Home", new { id = item.MaDauGia })>
+        <div>
+            @Html.DisplayFor(modelItem => item.TenSanPham)
+
+            @Html.DisplayFor(modelItem => item.MoTa)
+
+
+
+            @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)
+
+
+
+            @Html.DisplayFor(modelItem => item.GiaBanDau)
+            @if (Session["MaNguoiDung"] != null)
+            {
+                int ID = int.Parse(Session["MaNguoiDung"].ToString());
+                int ma = int.Parse(item.MaDauGia.ToString());
+                var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
+                if (yt != null)
+                {
+                    using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
+                    {
+                        <input value="2" hidden="true" name="loai" />
+                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Bỏ Yêu thích</button>
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
+                {
+                    <input value="1" hidden="true" name="loai" />
+                    <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                }
+            }
+        </div>
+    </a>
+}
+
+@Html.PagedListPager(Model,
+        page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+        new PagedListRenderOptions()
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            DisplayPageCountAndCurrentLocation = true,
+
+        })

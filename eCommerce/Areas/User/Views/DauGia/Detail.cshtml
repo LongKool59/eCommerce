@@ -1,0 +1,141 @@
+﻿@model eCommerce.Areas.User.Models.ViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>DauGiaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MaDauGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MaDauGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MaNguoiBan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MaNguoiBan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MaNguoiMua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MaNguoiMua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.TenSanPham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.GiaBanDau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.GiaBanDau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MucNangToiThieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MucNangToiThieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.GiaCuoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.GiaCuoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.NgayBatDau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.NgayBatDau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.NgayKetThuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.NgayKetThuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.ViTri)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.ViTri)
+        </dd>
+        @if (Model.DauGia.NgayThanhToan != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.NgayThanhToan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.NgayThanhToan)
+            </dd>
+
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.NgayDang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.NgayDang)
+        </dd>
+
+        <b>Tên loại</b>
+        <br />
+        @foreach (var item in Model.ListLoaiSanPham)
+        {
+
+            @Html.DisplayFor(modelItem => item.TenLoai)
+
+        }
+        <br />
+        <b>Hình ảnh</b>
+        <br />
+        @foreach (var item in Model.Hinh)
+        {
+            <img src="@Url.Content(item)" />
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DauGia.MaDauGia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

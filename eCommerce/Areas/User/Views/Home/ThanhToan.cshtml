@@ -1,0 +1,115 @@
+﻿@model eCommerce.Areas.User.Models.ViewModel
+@using eCommerce.Models;
+
+@{
+    ViewBag.Title = "Thanh Toán";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+}
+<div>
+    <h4>Thanh Toán</h4>
+    <hr />
+    <div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NguoiDung.HoTen)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NguoiDung.HoTen)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NguoiDung.SDT)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NguoiDung.SDT)
+            </dd>
+            <dt>
+                Địa chỉ:
+            </dt>
+
+            <dd>
+                @{
+                    DauGiaEntities db = new DauGiaEntities();
+                    var tp = db.ThanhPhoes.Where(m => m.MaTP == Model.NguoiDung.MaTP).SingleOrDefault();
+                    var phuong = db.Phuongs.Where(m => m.MaPhuong == Model.NguoiDung.MaPhuong).SingleOrDefault();
+                    var quan = db.Quans.Where(m => m.MaQuan == Model.NguoiDung.MaQuan).SingleOrDefault();
+                }
+                @Model.NguoiDung.DiaChi @phuong.TenPhuong , @quan.TenQuan , @tp.TenTP;
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.TenSanPham)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.GiaCuoi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.GiaCuoi)
+            </dd>
+        </dl>
+        @foreach (var item in Model.Hinh)
+        {
+            <img src=@item />
+        }
+    </div>
+   
+       
+            @using (Html.BeginForm("ThanhToan", "Home", FormMethod.Post))
+            {
+                <input name="submit" value="@Model.DauGia.MaDauGia" />
+
+                <input type="submit" value="Xác nhận thanh toán" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" />
+            }
+
+       
+
+ 
+
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section Scripts {
+    <link href="~/assets/css/Rating.css" rel="stylesheet" />
+
+    <script>
+        $("#btn-1").click(function () {
+            alert($("#temp").val())
+        })
+
+        $("#star1").click(function () {
+            $("#temp").val(function () {
+                return parseInt(1)
+            });
+        })
+        $("#star2").click(function () {
+            $("#temp").val(function () {
+                return parseInt(2)
+            });
+        })
+        $("#star3").click(function () {
+            $("#temp").val(function () {
+                return parseInt(3)
+            });
+        })
+        $("#star4").click(function () {
+            $("#temp").val(function () {
+                return parseInt(4)
+            });
+        })
+        $("#star5").click(function () {
+            $("#temp").val(function () {
+                return parseInt(5)
+            });
+        })
+    </script>
+}

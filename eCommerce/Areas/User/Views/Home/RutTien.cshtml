@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "RutTien";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+<h2>RutTien</h2>
+@using (Html.BeginForm("RutTien", "Home", FormMethod.Post))
+{
+    <input type="number" name="value" />
+    <button type="submit">Rút ngay</button>
+}
+@Html.Partial("_Notifications")
+
+
+

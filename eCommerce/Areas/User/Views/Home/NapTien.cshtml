@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "NapTien";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+<h2>NapTien</h2>
+@using (Html.BeginForm("Payment", "Home", FormMethod.Post))
+    {
+        <input type="number" name="value" />
+        <button type="submit">Nạp ngay</button>
+    }
+
+

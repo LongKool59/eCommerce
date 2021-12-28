@@ -25,8 +25,8 @@ namespace eCommerce.Controllers
         public ActionResult CheckSignIn(TaiKhoanViewModel nguoiDungViewModel)
         {
             DauGiaEntities db = new DauGiaEntities();
-            if (!ModelState.IsValid)
-                return View("SignIn");
+/*            if (!ModelState.IsValid)
+                return View("SignIn");*/
 
             var taiKhoanHopLe = db.NguoiDungs.Where(s => s.Email == nguoiDungViewModel.Email && s.Password == nguoiDungViewModel.Password).SingleOrDefault();
             if (taiKhoanHopLe == null)
@@ -46,9 +46,19 @@ namespace eCommerce.Controllers
             string linkHinhAnh = taiKhoanHopLe.HinhAnh.ToString();
             string formatLink = linkHinhAnh.Remove(0, 1); //bỏ ký tự ~  vị trí đầu tiên của link hình ảnh
             Session["HinhAnh"] = formatLink;
-            if (taiKhoanHopLe.IsAdmin == false)
-                return RedirectToAction("Home", "User/Home");
-            return RedirectToAction("Index", "Admin/HomeAdmin");
+            if (taiKhoanHopLe.IsAdmin == true)
+            {
+                return RedirectToAction("Index", "Admin/HomeAdmin");
+
+            }
+            else if (taiKhoanHopLe.IsApproved == true)
+            {
+                return RedirectToAction("Index", "User/DauGia");
+            }
+            else
+            {
+                return RedirectToAction("Index", "User/Home/Home");
+            }
         }
         public ActionResult SignUp()
         {

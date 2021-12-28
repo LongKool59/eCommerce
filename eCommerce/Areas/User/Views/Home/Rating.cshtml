@@ -1,0 +1,117 @@
+﻿@model eCommerce.Areas.User.Models.ViewModel
+@{
+    ViewBag.Title = "Rating";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+}
+<div>
+    <dl class="dl-horizontal">
+   
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.TenSanPham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.GiaCuoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.GiaCuoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DauGia.NgayThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DauGia.NgayThanhToan)
+        </dd>
+
+
+    </dl>
+    @foreach (var item in Model.ListLoaiSanPham)
+    {
+        @Html.DisplayFor(model => item.TenLoai)
+        <p></p>
+    }
+    @foreach (var item in Model.Hinh)
+    {
+        <img src=@item />
+    }
+
+</div>
+@using (Html.BeginForm("Rating", "Home", FormMethod.Post))
+{
+<div class="row">
+    <form>
+        <div id="star" class="rating">
+            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+            <label for="star5">☆</label>
+            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+            <label for="star4">☆</label>
+            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+            <label for="star3">☆</label>
+            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+            <label for="star2">☆</label>
+            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+            <label for="star1">☆</label>
+            <div class="clear"></div>
+        </div>
+    </form>
+
+    <input id="temp" name="temp" value="0" hidden="true" />
+    <input name="id" value=@Model.DauGia.MaDauGia hidden="true" />
+    <button id="btn-1" type="submit" name="submit">Lưu</button>
+
+    <textarea id="cmt" name="cmt" rows="4" cols="50"></textarea>
+
+</div>
+}
+
+
+
+@section Scripts {
+    <link href="~/assets/css/Rating.css" rel="stylesheet" />
+    <script>
+
+        $("#star1").click(function () {
+            $("#temp").val(function () {
+                return parseInt(1)
+            });
+        })
+        $("#star2").click(function () {
+            $("#temp").val(function () {
+                return parseInt(2)
+            });
+        })
+        $("#star3").click(function () {
+            $("#temp").val(function () {
+                return parseInt(3)
+            });
+        })
+        $("#star4").click(function () {
+            $("#temp").val(function () {
+                return parseInt(4)
+            });
+        })
+        $("#star5").click(function () {
+            $("#temp").val(function () {
+                return parseInt(5)
+            });
+        })
+</script>
+}
