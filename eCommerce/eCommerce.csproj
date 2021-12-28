@@ -253,8 +253,6 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\ThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\DropboxDSPhuong.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\DropboxDSQuan.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />

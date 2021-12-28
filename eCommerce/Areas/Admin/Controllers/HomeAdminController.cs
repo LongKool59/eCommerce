@@ -143,7 +143,7 @@ namespace eCommerce.Areas.Admin.Controllers
             NguoiDung nguoi = thongTinAdmin;
             db.Entry(nguoi).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-
+            TempData["toastr-success"] = "Sửa thông tin cá nhân thành công";
             return RedirectToAction("ThongTinCaNhan", new { id = Session["MaNguoiDung"] });
         }
     }
