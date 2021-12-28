@@ -1,0 +1,51 @@
+﻿@model IEnumerable<eCommerce.Areas.User.Models.YeuThichViewModel>
+
+@{
+    ViewBag.Title = "ListFavorite";
+}
+
+<h2>ListFavorite</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaYeuThich)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaDauGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaNguoiDung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayThem)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaYeuThich)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaDauGia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaNguoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayThem)
+        </td>
+        <td>
+            @using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
+            {
+            <input value="2" hidden="true" name="loai" />
+
+            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Bỏ Yêu thích</button>
+            }
+        </td>
+    </tr>
+}
+
+</table>

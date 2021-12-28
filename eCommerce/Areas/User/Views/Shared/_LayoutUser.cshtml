@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/assets/css/Style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
+    <link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("header", required: false)
+
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <div class="w-100" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="row">
+                        <a class="navbar-brand flex-center" href="#">
+                            <img src="~/assets/images/revauct.jpg" width="30" height="30" class="mr-2 d-inline-block align-top" style="border-radius:50%" alt="">
+                            Trang chủ
+                        </a>
+                    </div>
+
+                    <div class="dropdown flex-center">
+                        <a href="#" class="dropbtn">Đấu giá<i class="ml-2 fas fa-angle-double-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#" style="margin-top:15px">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
+                    <div class="row flex-center">
+                        <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https://picsum.photos/200" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">Tan Loc</span>
+                        </a>
+                        <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
+                            <a class="dropdown-item" href="@Url.Action("Index","DetailsUser")"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;" ></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                        </div>
+                        <a class="mr-5"><i class="far fa-bell" style="font-size: 1.8rem;"></i></a>
+                        <a class="mr-5"><i class="far fa-comment-dots" style="font-size: 1.8rem;"></i></a>
+                        <a class="mr-5"><i class="far fa-star" style="font-size: 1.8rem;"></i></a>
+                    </div>
+                    @*<div class="row d-inline-block">
+                      <a class="flex-center"></a>
+                    </div>*@
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        @*<hr />
+          <footer style="background-color: #FF985E;">
+            <div class="container">
+              <div class="title-footer">
+                <h2 style="font-family: 'Paprika', cursive;">Giá tốt</h2>
+                <h5 style="font-family: 'Paprika', cursive;">Hãy chọn giá tốt vì túi tiền bạn</h5>
+              </div>
+              <div class="row" style="padding: 1rem 0; border-top: 1px solid #80808057; border-bottom: 1px solid #80808057; ">
+                <div class="col-4">
+                  <h5 style=" font-size: 2rem; margin-bottom: 1rem;">Tags</h5>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                  <button style="width:30%">Đồ cổ</button>
+                </div>
+                <div class="col-4">
+                  <h5 style=" font-size: 2rem; margin-bottom: 1rem;">Kết nối với chúng tôi trên:</h5>
+                  <div class="row">
+                    <i class="fab fa-facebook-square" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                    <i class="fab fa-instagram" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                    <i class="fab fa-twitter-square" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                    <i class="fas fa-gamepad" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <h5 style=" font-size: 2rem; margin-bottom: 1rem;">Địa chỉ liên hệ:</h5>
+                  <p style="font-size: 1.2rem; font-weight: 500;">Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
+                  <p style="font-size: 1.2rem; font-weight: 500;">giaodien@gmail.com</p>
+                </div>
+              </div>
+              <p style="font-size: 1.3rem; padding: 0.5rem; font-weight: 500;">&copy; @DateTime.Now.Year - Bản quyền thuộc về GiaTot</p>
+            </div>
+          </footer>
+        </div>
+        *@
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="~/Scripts/chosen.jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
