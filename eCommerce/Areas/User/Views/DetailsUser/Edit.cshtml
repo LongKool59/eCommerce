@@ -4,13 +4,23 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
-
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+</style>
 @using (Html.BeginForm("Edit", "DetailsUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal detail-info-view">
-        <h2>SỬA THÔNG TIN CÁ NHÂN</h2>
+        <h1 class="function-page-title">SỬA THÔNG TIN CÁ NHÂN</h1>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaNguoiDung)
@@ -49,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            <label>Hinh anh</label>
+            @Html.LabelFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "control-label" } })
             <div>
                 <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh người dùng" height="70" width="70" />
 
