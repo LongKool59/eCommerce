@@ -26,7 +26,7 @@
     var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
     if (Hinh.Length > 0)
     {
-        <img src=@Url.Content(Hinh[0].LinkAnh) />
+        <img src=@Url.Content(Hinh[0].LinkAnh) style="width:150px;height:200px"/>
 
     }
 
