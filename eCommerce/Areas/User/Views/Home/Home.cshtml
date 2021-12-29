@@ -130,7 +130,7 @@
                         using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
                         {
                             <input value="1" hidden="true" name="loai" />
-                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Bỏ Yêu thích</button>
+                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
                         }
                     }
                     else
@@ -139,7 +139,7 @@
                         {
                             <input value="1" hidden="true" name="loai" />
 
-                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
                         }
                     }
                 }
@@ -148,7 +148,7 @@
                     using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
                     {
                         <input value="1" hidden="true" name="loai" />
-                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Yêu thích</button>
                     }
                 }
             </div>
