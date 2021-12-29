@@ -1,0 +1,80 @@
+﻿@using eCommerce.Models;
+@model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Danh sách đã đấu giá";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+</style>
+<h1 class="function-page-title">DANH SÁCH SẢN PHẨM ĐÃ ĐẤU GIÁ</h1>
+@foreach (var item in Model)
+{
+    DauGiaEntities db = new DauGiaEntities();
+
+    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+    if (Hinh.Length > 0)
+    {
+        <img src=@Url.Content(Hinh[0].LinkAnh) style="width:150px;height:200px"/>
+
+    }
+
+
+    <a href=@Url.Action("ChiTietDaMua", "Home", new { id = item.MaDauGia })>
+        <div>
+            @Html.DisplayFor(modelItem => item.TenSanPham)
+
+            @Html.DisplayFor(modelItem => item.MoTa)
+
+
+
+            @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)
+
+
+
+            @Html.DisplayFor(modelItem => item.GiaBanDau)
+
+        </div>
+    </a>
+    <p>Trạng Thái</p>
+
+    var tt = db.CT_TrangThai.Where(m => m.MaDauGia == item.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
+    var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
+    if (item.NgayThanhToan == null)
+    {
+        <p>Chưa thanh toán</p>
+    }
+    else if (ten.TenTrangThai != "Done")
+    {
+        <p>Đã thanh toán</p>
+    }
+    else
+    {
+        <p>Đơn hàng hoàn tất</p>
+    }
+
+}
+
+
+@Html.PagedListPager(Model,
+page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+new PagedListRenderOptions()
+{
+    Display = PagedListDisplayMode.IfNeeded,
+    DisplayPageCountAndCurrentLocation = true,
+
+})
+
+
+

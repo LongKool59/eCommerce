@@ -1,0 +1,92 @@
+﻿@model eCommerce.Areas.User.Models.ViewModel
+
+<div>
+    <h4>DauGiaViewModel</h4>
+    <hr />
+    <div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.MaDauGia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.MaDauGia)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.MaNguoiBan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.MaNguoiBan)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.TenSanPham)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.MoTa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.MoTa)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.GiaBanDau)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.GiaBanDau)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.MucNangToiThieu)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.MucNangToiThieu)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.NgayBatDau)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.NgayBatDau)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DauGia.NgayKetThuc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DauGia.NgayKetThuc)
+            </dd>
+
+
+        </dl>
+        @foreach (var item in Model.ListLoaiSanPham)
+        {
+            @Html.DisplayFor(model => item.TenLoai)
+            <p></p>
+        }
+        @foreach (var item in Model.Hinh)
+        {
+            <img src=@item />
+        }
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

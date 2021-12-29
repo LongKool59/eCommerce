@@ -1,0 +1,110 @@
+﻿@model eCommerce.Areas.User.Models.NguoiDungViewModel
+@using eCommerce.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
+}
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .table1 {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        font-weight:bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h1 class="function-page-title">THÔNG TIN CÁ NHÂN</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh người dùng" height="500" width="400" />
+        </div>
+        <div class="col-md-8">
+            <table class="table1">
+                <tr>
+                    <td>Mã người dùng:</td>
+                    <td>@Html.DisplayFor(model => model.MaNguoiDung)</td>
+                </tr>
+                <tr>
+                    <td>Họ tên: </td>
+                    <td>@Html.DisplayFor(model => model.HoTen)</td>
+                </tr>
+                <tr>
+                    <td>Ngày sinh: </td>
+                    <td>@Html.DisplayFor(model => model.NgaySinh)</td>
+                </tr>
+                <tr>
+                    <td>Số CMND/CCCD: </td>
+                    <td>@Html.DisplayFor(model => model.SoCMND)</td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại: </td>
+                    <td>@Html.DisplayFor(model => model.SDT)</td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ: </td>
+                    <td>@Html.DisplayFor(model => model.DiaChi)</td>
+                </tr>
+                <tr>
+                    <td>Số dư trong ví:  </td>
+                    <td>@Html.DisplayFor(model => model.SoDuVi)</td>
+                </tr>
+                <tr>
+                    <td>Ngày đăng ký: </td>
+                    <td>@Html.DisplayFor(model => model.NgayDangKy)</td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div class="col-md-6" style="text-align:right">
+            @using (Html.BeginForm("Request", "DetailsUser", FormMethod.Post))
+            {
+
+                if (Model.IsApproved || Model.IsRequesting)
+                {
+
+                }
+                else
+                {
+                    <button type="submit" name="submit" value="@Model.MaNguoiDung" style="background-color:aqua;font-weight:bold" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn chứ?')">Gửi yêu cầu nâng cấp tài khoản</button>
+
+                }
+            }
+        </div>
+        <div class="col-md-6" style="text-align:left">
+            <a href='@Url.Action("Edit","DetailsUser", new { id = Model.MaNguoiDung})' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-edit"></i> CHỈNH SỬA </a>
+        </div>
+    </div>
+</div>

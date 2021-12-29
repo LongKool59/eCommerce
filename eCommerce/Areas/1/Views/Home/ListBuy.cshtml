@@ -1,0 +1,64 @@
+﻿@using eCommerce.Models;
+@model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="row mt-3">
+        @Html.TextBox("ten", null, new { placeholder = "Nhập tên sản phẩm...." })
+        @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai" })
+        @Html.TextBox("gia", null, new { placeholder = "Nhập giá ban đầu tối thiểu...." })
+        @Html.TextBox("startdate", null, new { @type = "datetime-local", placeholder = "Ngày bắt đầu..." })
+
+        <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+
+        <a href='@Url.Action("Index", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+    </div>
+}
+
+
+@foreach (var item in Model)
+{
+    DauGiaEntities db = new DauGiaEntities();
+
+    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+    if (Hinh.Length > 0)
+    {
+        <img src=@Html.DisplayFor(hinh => Hinh[0].LinkAnh) />
+
+    }
+
+
+    <a href=@Url.Action("ChiTietDaMua", "Home", new { id = item.MaDauGia })>
+        <div>
+            @Html.DisplayFor(modelItem => item.TenSanPham)
+
+            @Html.DisplayFor(modelItem => item.MoTa)
+
+
+
+            @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)
+
+
+
+            @Html.DisplayFor(modelItem => item.GiaBanDau)
+           
+        </div>
+    </a>
+
+}
+
+@Html.PagedListPager(Model,
+page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+new PagedListRenderOptions()
+{
+    Display = PagedListDisplayMode.IfNeeded,
+    DisplayPageCountAndCurrentLocation = true,
+
+})
+
+}
+
