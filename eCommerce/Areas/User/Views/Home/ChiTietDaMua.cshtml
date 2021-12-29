@@ -122,7 +122,7 @@
             var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
             if (Model.DauGia.NgayThanhToan == null)
             {
-                @Html.ActionLink("Thanh Toán", "ThanhToan", new { id = Model.DauGia.MaDauGia })
+                <a href='@Url.Action("ThanhToan", "Home", new { id = Model.DauGia.MaDauGia })' class="btn btn-reload btn-danger ml-3" style="background-color:aqua;color:black;font-weight:bold"><i class="far fa-credit-card"></i>THANH TOÁN</a>
 
             }
             else if (ten.TenTrangThai != "Done")
@@ -131,7 +131,7 @@
                 {
                     <input name="submit" hidden="true" value="@Model.DauGia.MaDauGia" />
 
-                    <input type="submit" value="Xác nhận đã nhận hàng" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aquamarine"/>
+                    <input type="submit" value="Xác nhận đã nhận hàng" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aquamarine" />
                 }
             }
             else
@@ -141,7 +141,7 @@
         }
     </div>
     <div class="col-md-6">
-        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
     </div>
 </div>
 
