@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.5.1\lib\netstandard2.0\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -175,6 +178,7 @@
     <Compile Include="Areas\User\Models\QuanViewModel.cs" />
     <Compile Include="Areas\User\Models\ThanhPhoViewModel.cs" />
     <Compile Include="Areas\User\Models\UserViewModel.cs" />
+    <Compile Include="Areas\User\Models\Validate.cs" />
     <Compile Include="Areas\User\Models\ViewModel.cs" />
     <Compile Include="Areas\User\Models\YeuThichViewModel.cs" />
     <Compile Include="Areas\User\Others\MoMoSecurity.cs" />
@@ -345,6 +349,8 @@
     <Content Include="Areas\User\Views\Home\NapTien.cshtml" />
     <Content Include="Areas\User\Views\Home\ConfirmPaymentClient.cshtml" />
     <Content Include="Areas\User\Views\Home\RutTien.cshtml" />
+    <Content Include="Areas\User\Views\DetailsUser\DoiMatKhau.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

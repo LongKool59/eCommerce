@@ -158,14 +158,37 @@
                 </td>
             </tr>
 
-        }
-        @Html.PagedListPager(Model,
-                page => Url.Action("Index", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
-                new PagedListRenderOptions()
+
+                @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) 
+                @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
+
+
                 {
                     Display = PagedListDisplayMode.IfNeeded,
                     DisplayPageCountAndCurrentLocation = true,
 
-                })
-    </table>
-</div>
+                    var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
+                    var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
+                    if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
+
+                        <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
+                    }
+
+
+                }
+            </td>
+        </tr>
+
+    }
+    @Html.PagedListPager(Model,
+            page => Url.Action("Index", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+            new PagedListRenderOptions()
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+
+            })
+</table>
+

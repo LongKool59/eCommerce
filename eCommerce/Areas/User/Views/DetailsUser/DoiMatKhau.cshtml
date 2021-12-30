@@ -1,0 +1,49 @@
+﻿@model eCommerce.Models.ChangePasswordModel
+
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal detail-info-view">
+        <h2>ĐỔI MẬT KHẨU</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MatKhauCu, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.MatKhauCu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatKhauCu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MatKhauMoi, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.MatKhauMoi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MatKhauMoi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.XacNhanMatKhau, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.XacNhanMatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.XacNhanMatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.Partial("_Notifications")
+        <div class="bottom-function-button">
+            <button id="btn-save" type="submit" name="submit" value="Luu">Sửa</button>
+            <button id="btn-back" type="submit" name="submit" value="QuayLai">Quay lại</button>
+        </div>
+    </div>
+}

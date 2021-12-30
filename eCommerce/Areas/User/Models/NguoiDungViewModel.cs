@@ -21,12 +21,8 @@ namespace eCommerce.Areas.User.Models
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
         public string Password { get; set; }
-        [DisplayName("Xác nhận mật khẩu")]
-        [Required(ErrorMessage = "Xác nhận mật khẩu không được trống...", AllowEmptyStrings = false)]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Xác nhận mật khẩu không khớp mật khẩu.")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
-        public string ConfirmPassword { get; set; }
+
+
         [DisplayName("Email")]
         [Required(ErrorMessage = "Email không được để trống...")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ. Ví dụ: example@gmail.com")]

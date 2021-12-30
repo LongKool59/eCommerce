@@ -5,79 +5,102 @@
     ViewBag.Title = "Thanh Toán";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .table1 {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h1 class="function-page-title">THANH TOÁN SẢN PHẨM</h1>
 <div>
-    <h4>Thanh Toán</h4>
     <hr />
-    <div>
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.NguoiDung.HoTen)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NguoiDung.HoTen)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.NguoiDung.SDT)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NguoiDung.SDT)
-            </dd>
-            <dt>
-                Địa chỉ:
-            </dt>
-
-            <dd>
-                @{
-                    DauGiaEntities db = new DauGiaEntities();
-                    var tp = db.ThanhPhoes.Where(m => m.MaTP == Model.NguoiDung.MaTP).SingleOrDefault();
-                    var phuong = db.Phuongs.Where(m => m.MaPhuong == Model.NguoiDung.MaPhuong).SingleOrDefault();
-                    var quan = db.Quans.Where(m => m.MaQuan == Model.NguoiDung.MaQuan).SingleOrDefault();
-                }
-                @Model.NguoiDung.DiaChi @phuong.TenPhuong , @quan.TenQuan , @tp.TenTP;
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.TenSanPham)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.GiaCuoi)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.GiaCuoi)
-            </dd>
-        </dl>
-        @foreach (var item in Model.Hinh)
-        {
-            <img src=@item />
-        }
-    </div>
-   
-       
-            @using (Html.BeginForm("ThanhToan", "Home", FormMethod.Post))
+    <div class="row">
+        <div class="col-md-4">
+            <p>Hình ảnh sản phẩm:</p>
+            <br />
+            @foreach (var item in Model.Hinh)
             {
-                <input name="submit" value="@Model.DauGia.MaDauGia" />
-
-                <input type="submit" value="Xác nhận thanh toán" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" />
+                <img src="@Url.Content(item)" style="height:500px;width:400px" />
             }
+        </div>
+        <div class="col-md-8">
+            <p>Thông tin sản phẩm:</p>
+            <table class="table1">
+                <tr>
+                    <td>Mã đấu giá:</td>
+                    <td>@Html.DisplayFor(model => model.DauGia.MaDauGia)</td>
+                </tr>
+                <tr>
+                    <td>Tên sản phẩm:</td>
+                    <td>@Html.DisplayFor(model => model.DauGia.TenSanPham)</td>
+                </tr>
+                <tr>
+                    <td>Họ tên người mua: </td>
+                    <td>@Html.DisplayFor(model => model.NguoiDung.HoTen)</td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại:</td>
+                    <td>@Html.DisplayFor(model => model.NguoiDung.SDT)</td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ: </td>
+                    <td>
+                        @{
+                            DauGiaEntities db = new DauGiaEntities();
+                            var tp = db.ThanhPhoes.Where(m => m.MaTP == Model.NguoiDung.MaTP).SingleOrDefault();
+                            var phuong = db.Phuongs.Where(m => m.MaPhuong == Model.NguoiDung.MaPhuong).SingleOrDefault();
+                            var quan = db.Quans.Where(m => m.MaQuan == Model.NguoiDung.MaQuan).SingleOrDefault();
+                        }
+                        @Model.NguoiDung.DiaChi @phuong.TenPhuong , @quan.TenQuan , @tp.TenTP;
+                    </td>
+                </tr>
+                <tr>
+                    <td>Giá thanh toán </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
+                </tr>
+            </table>
+            <div class="row">
+                @using (Html.BeginForm("ThanhToan", "Home", FormMethod.Post))
+                {
+                    @* <input name="submit" value="@Model.DauGia.MaDauGia" /> *@
 
-       
-
- 
-
-
+                    <input type="submit" value="Xác nhận thanh toán" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aqua;font-weight:bold" />
+                }
+                <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+            </div>
+      </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
 @section Scripts {
     <link href="~/assets/css/Rating.css" rel="stylesheet" />
 

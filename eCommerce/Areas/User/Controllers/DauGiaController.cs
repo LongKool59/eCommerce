@@ -10,6 +10,8 @@ using PagedList;
 using System.Data.Entity;
 using PagedList.Mvc;
 using System.IO;
+using FluentScheduler;
+
 
 namespace eCommerce.Areas.User.Controllers
 {
@@ -369,25 +371,33 @@ namespace eCommerce.Areas.User.Controllers
         }
         public ActionResult Add()
         {
-            ViewModel dg = new ViewModel();
+n            DauGiaViewModel dg = new DauGiaViewModel();
+
             List<Loai> listL = db.Loais.ToList();
             ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");
             return View(dg);
         }
         [HttpPost]
-        public ActionResult Add(ViewModel v)
+        public ActionResult Add(DauGiaViewModel v)
         {
             List<Loai> listL = db.Loais.ToList();
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");
+                return View(v);
+            }
             ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");
             DauGia daugia = new DauGia();
-            daugia.TenSanPham = v.DauGia.TenSanPham;
+            daugia.TenSanPham = v.TenSanPham;
             daugia.NgayDang = DateTime.Now;
-            daugia.NgayBatDau = v.DauGia.NgayBatDau;
-            daugia.NgayKetThuc = v.DauGia.NgayKetThuc;
-            daugia.MucNangToiThieu = v.DauGia.MucNangToiThieu;
-            daugia.MoTa = v.DauGia.MoTa;
-            daugia.GiaBanDau = v.DauGia.GiaBanDau;
-            daugia.ViTri = v.DauGia.ViTri;
+            daugia.NgayBatDau = v.NgayBatDau;
+            daugia.NgayKetThuc = v.NgayKetThuc;
+            daugia.MucNangToiThieu = v.MucNangToiThieu;
+            daugia.MoTa = v.MoTa;
+            daugia.GiaBanDau = v.GiaBanDau;
+            daugia.ViTri = v.ViTri;
+
             daugia.MaNguoiBan = int.Parse(Session["MaNguoiDung"].ToString());
             db.DauGias.Add(daugia);
             db.SaveChanges();
@@ -396,10 +406,11 @@ namespace eCommerce.Areas.User.Controllers
                              .Select(x => x.MaDauGia)
                              .ToList()
                              .FirstOrDefault();
-            foreach (var loai in v.Loai.ListLoai)
+            foreach (var loai in v.ListLoaiSanPham)
             {
                 CT_LoaiDauGia ct = new CT_LoaiDauGia();
-                ct.MaLoai = loai;
+                ct.MaLoai = int.Parse(loai);
+
                 ct.MaDauGia = ID;
                 db.CT_LoaiDauGia.Add(ct);
                 db.SaveChanges();
@@ -413,25 +424,32 @@ namespace eCommerce.Areas.User.Controllers
             db.SaveChanges();
             foreach (var hinh in v.ImageFile)
             {
-                var hi = db.HinhAnhs.Where(m => m.MaDauGia == ID).Count()+1;
+                var hi = db.HinhAnhs.Where(m => m.MaDauGia == ID).Count() + 1;
                 string extension = Path.GetExtension(hinh.FileName);
-                string fileName = hi+ "_" + extension;
-                fileName = Path.Combine(Server.MapPath("~/BidImage/"), fileName);
-                hinh.SaveAs(fileName);
+                string fileName = hi + "_" + ID + extension;
+                
                 HinhAnh h = new HinhAnh();
-                h.LinkAnh = fileName;
+                h.LinkAnh = "~/BidImage/"+ fileName;
                 h.MaDauGia = ID;
                 db.HinhAnhs.Add(h);
                 db.SaveChanges();
-            }    
-
-            
-            return Redirect("Index");
+                fileName = Path.Combine(Server.MapPath("~/BidImage/"), fileName);
+                hinh.SaveAs(fileName);
+            }
+            var registry = new Registry();
+/*            registry.Schedule<>
+*/            return Redirect("Index");
         }
+        public void DoiTrangThai()
+        {
 
+
+        }
         public ActionResult Edit(int id)
         {
-            ViewModel view = new ViewModel();
+        
+            DauGiaViewModel view = new DauGiaViewModel();
+
             List<Loai> listL = db.Loais.ToList();
             var listLoai = from l in db.Loais
                            join ct in db.CT_LoaiDauGia on l.MaLoai equals ct.MaLoai
@@ -440,28 +458,37 @@ namespace eCommerce.Areas.User.Controllers
                            select l.MaLoai;
             ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai", listLoai);
             DauGia dg = db.DauGias.Find(id);
-            var hi = db.HinhAnhs.Where(m => m.MaDauGia == id).Select(m => m.LinkAnh).ToArray();
-/*            view.Hinh = new string[99];
-*/            view.Hinh = hi;
-            view.DauGia = dg;
+            view = dg;
             return View(view);
         }
         [HttpPost]
-        public ActionResult Edit(ViewModel v)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(DauGiaViewModel v)
         {
-            List<Loai> listL = db.Loais.ToList();
-            ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");
-            DauGia daugia = db.DauGias.Where(m => m.MaDauGia == v.DauGia.MaDauGia).SingleOrDefault();
-            daugia.TenSanPham = v.DauGia.TenSanPham;
-            daugia.NgayBatDau = v.DauGia.NgayBatDau;
-            daugia.NgayKetThuc = v.DauGia.NgayKetThuc;
-            daugia.MucNangToiThieu = v.DauGia.MucNangToiThieu;
-            daugia.MoTa = v.DauGia.MoTa;
-            daugia.GiaBanDau = v.DauGia.GiaBanDau;
-            daugia.ViTri = v.DauGia.ViTri;
+            if (!ModelState.IsValid)
+            {
+                List<Loai> listL = db.Loais.ToList();
+                var listLoai = from le in db.Loais
+                               join ct in db.CT_LoaiDauGia on le.MaLoai equals ct.MaLoai
+                               join b in db.DauGias on ct.MaDauGia equals b.MaDauGia
+                               where b.MaDauGia == v.MaDauGia
+                               select le.MaLoai;
+                ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai", listLoai);
+                return View(v);
+            }
+
+            DauGia daugia = db.DauGias.Where(m => m.MaDauGia == v.MaDauGia).SingleOrDefault();
+            daugia.TenSanPham = v.TenSanPham;
+            daugia.NgayBatDau = v.NgayBatDau;
+            daugia.NgayKetThuc = v.NgayKetThuc;
+            daugia.MucNangToiThieu = v.MucNangToiThieu;
+            daugia.MoTa = v.MoTa;
+            daugia.GiaBanDau = v.GiaBanDau;
+            daugia.ViTri = v.ViTri;
             db.Entry(daugia).State = EntityState.Modified;
             db.SaveChanges();
-            int ID = v.DauGia.MaDauGia;
+            int ID = v.MaDauGia;
+
             var l = db.CT_LoaiDauGia.Where(m => m.MaDauGia == ID).ToList();
             
 
@@ -471,31 +498,49 @@ namespace eCommerce.Areas.User.Controllers
                 db.SaveChanges();
             }
             
-            foreach (var loai in v.Loai.ListLoai)
+            foreach (var loai in v.ListLoaiSanPham)
             {
                 CT_LoaiDauGia ct = new CT_LoaiDauGia();
-                ct.MaLoai = loai;
+                ct.MaLoai = int.Parse(loai);
+
                 ct.MaDauGia = ID;
                 db.CT_LoaiDauGia.Add(ct);
                 db.SaveChanges();
             }
-            if(v.Hinh!=null && v.Hinh[0].ToString()!="")
-            {
-                var hi = db.HinhAnhs.Where(m => m.MaDauGia == ID).ToList();
-                foreach (var rm in hi)
+            if (v.ImageFile != null)
+            {/*
+                *//*//*//*Xóa hình ảnh cũ trong folder*/
+                var hinh_1 = db.HinhAnhs.Where(m => m.MaDauGia == ID).ToList();
+                foreach(var item in hinh_1 )
                 {
-                    db.HinhAnhs.Remove(rm);
-                    db.SaveChanges();
+                    string oldImgPath = item.LinkAnh;
+                    FileInfo fi = new FileInfo(oldImgPath);
+                    if (fi != null)
+                        System.IO.File.Delete(Server.MapPath(oldImgPath));
                 }
-                foreach (var hinh in v.Hinh)
+
+
+                //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
+                foreach (var hinh in v.ImageFile)
                 {
-                    HinhAnh h = new HinhAnh();
-                    h.LinkAnh = hinh.ToString();
-                    h.MaDauGia = ID;
-                    db.HinhAnhs.Add(h);
-                    db.SaveChanges();
+                    if (hinh != null)
+                    {
+                        var hi = db.HinhAnhs.Where(m => m.MaDauGia == ID).Count() + 1;
+                        string extension = Path.GetExtension(hinh.FileName);
+                        string fileName = hi + "_" + ID + extension;
+                        HinhAnh h = new HinhAnh();
+                        h.LinkAnh = "~/BidImage" + fileName;
+                        h.MaDauGia = ID;
+                        db.HinhAnhs.Add(h);
+                        db.SaveChanges();
+                        fileName = Path.Combine(Server.MapPath("~/BidImage/"), fileName);
+                        hinh.SaveAs(fileName);
+
+                    }
+                    
                 }
-            }    
+            }
+
             return RedirectToAction("Index");
         }
         [HttpPost, ActionName("Delete")]

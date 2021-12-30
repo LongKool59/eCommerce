@@ -5,10 +5,11 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using eCommerce.Models;
-
+using eCommerce.Models;
 namespace eCommerce.Areas.User.Models
 {
-    public class DauGiaViewModel
+    public class DauGiaViewModel : IValidatableObject
+
     {
         public DauGiaViewModel()
         {
@@ -20,13 +21,10 @@ namespace eCommerce.Areas.User.Models
         }
 
         [DisplayName("Mã đấu giá")]
-        [Required(ErrorMessage = "Mã đấu giá không được trống...")]
         public int MaDauGia { get; set; }
         [DisplayName("Mã người bán")]
-        [Required(ErrorMessage = "Mã người bán không được trống...")]
         public int MaNguoiBan { get; set; }
         [DisplayName("Mã người mua")]
-        [Required(ErrorMessage = "Mã người mua không được trống...")]
         public Nullable<int> MaNguoiMua { get; set; }
         [DisplayName("Tên sản phẩm")]
         [Required(ErrorMessage = "Tên sản phẩm không được trống...")]
@@ -43,29 +41,63 @@ namespace eCommerce.Areas.User.Models
         [Range(0, int.MaxValue, ErrorMessage = "Phải nhập số và không được là số âm")]
         public int MucNangToiThieu { get; set; }
         [DisplayName("Giá cuối")]
-        [Required(ErrorMessage = "Giá cuối không được trống...")]
-        [Range(0, int.MaxValue, ErrorMessage = "Phải nhập số và không được là số âm")]
         public Nullable<int> GiaCuoi { get; set; }
         [DisplayName("Ngày bắt đầu")]
-        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Ngày bắt đầu không được trống...")]
-        public System.DateTime NgayBatDau { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+        public DateTime NgayBatDau { get; set; }
         [DisplayName("Ngày kết thúc")]
-        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Ngày kết thúc không được trống...")]
-        public System.DateTime NgayKetThuc { get; set; }
-        [Required(ErrorMessage = "Ngày kết thúc không được trống...")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+        public DateTime NgayKetThuc { get; set;}
+        [DisplayName("Vị Trí")]
+        [Required(ErrorMessage = "Vị Trí không được để trống...")]
         public string ViTri { get; set; }
         [DisplayName("Ngày thanh toán")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Ngày thanh toán không được trống...")]
         public Nullable<System.DateTime> NgayThanhToan { get; set; }
         [DisplayName("Ngày đăng")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Ngày đăng không được trống...")]
         public System.DateTime NgayDang { get; set; }
         /*        public bool Delete { get; set; }
         */
+        /*        public string[] Hinh { get; set; }
+        */  
+        [DisplayName("Loại")]
+        [Required(ErrorMessage = "Vị Trí không được để trống...")]
+        public List<string> ListLoaiSanPham { get; set; }
+
+        public List<HttpPostedFileBase> ImageFile { get; set; }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DateTime.Now.AddDays(2) > NgayBatDau)
+            {
+                yield return new ValidationResult(errorMessage: "Ngày bát đầu phải lớn hơn ngày đăng 2 ngày", memberNames: new[] { "NgayBatDau" });
+            }
+            if (NgayKetThuc < NgayBatDau)
+            {
+                yield return new ValidationResult(errorMessage: "Ngày kết thúc phải lớn hơn ngày bắt đầu", memberNames: new[] { "NgayKetThuc" });
+            }
+            if(ListLoaiSanPham.Count==0)
+            {
+                yield return new ValidationResult(errorMessage: "Vui lòng chọn loại sản phẩm", memberNames: new[] { "ListLoaiSanPham" });
+            }
+            DauGiaEntities db = new DauGiaEntities();
+            var anh = db.HinhAnhs.Where(m => m.MaDauGia == MaDauGia).ToList();
+            if (anh.Count() == 0)
+            {
+                foreach (var hinh in ImageFile)
+                {
+
+                    if (hinh == null)
+                    {
+                        yield return new ValidationResult(errorMessage: "Vui lòng chọn ảnh", memberNames: new[] { "ImageFile" });
+                        break;
+                    }
+                }
+            }
+               
+           
+        }
+
         public static implicit operator DauGiaViewModel(DauGia dauGia)
         {
             return new DauGiaViewModel
