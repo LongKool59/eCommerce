@@ -1,5 +1,6 @@
 ﻿@model eCommerce.Areas.User.Models.DauGiaViewModel
 
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
@@ -24,6 +25,7 @@
 <h1 class="function-page-title">CHỈNH SỬA THÔNG TIN SẢN PHẨM</h1>
 
 @using (Html.BeginForm("Edit", "DauGia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
 {
     @Html.AntiForgeryToken()
 
@@ -47,6 +49,7 @@
                 @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
 
+
             </div>
             <div class="col-md-3">
                 @Html.HiddenFor(model => model.DauGia.MaDauGia)
@@ -61,6 +64,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+
 
             </div>
             <div class="col-md-3">
@@ -127,6 +131,7 @@
 
             </div>
             @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+
         </div>
 
         <div class="row">

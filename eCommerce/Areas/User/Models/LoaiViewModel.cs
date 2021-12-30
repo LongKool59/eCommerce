@@ -5,6 +5,7 @@ using System.Web;
 using eCommerce.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 namespace eCommerce.Areas.User.Models
 {
     public class LoaiViewModel
@@ -22,6 +23,7 @@ namespace eCommerce.Areas.User.Models
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         [DisplayName("Tên Loại")]
         [Required(ErrorMessage = "Quận/Huyện không được trống...")]
+
         public int [] ListLoai { get; set; }    
 
         public static implicit operator LoaiViewModel(Loai Loai)

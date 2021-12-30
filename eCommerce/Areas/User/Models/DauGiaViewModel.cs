@@ -9,6 +9,7 @@ using eCommerce.Models;
 namespace eCommerce.Areas.User.Models
 {
     public class DauGiaViewModel : IValidatableObject
+
     {
         public DauGiaViewModel()
         {
@@ -96,6 +97,7 @@ namespace eCommerce.Areas.User.Models
                
            
         }
+
         public static implicit operator DauGiaViewModel(DauGia dauGia)
         {
             return new DauGiaViewModel

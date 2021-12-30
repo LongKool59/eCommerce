@@ -5,6 +5,7 @@ using System.Web;
 using eCommerce.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 namespace eCommerce.Areas.User.Models
 {
     public class ViewModel

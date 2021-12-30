@@ -1,8 +1,10 @@
 ﻿@model eCommerce.Areas.User.Models.NguoiDungViewModel
 
 @{
-    ViewBag.Title = "SuaThongTinCaNhan";
-    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+
 }
 <style>
     h1.function-page-title {
@@ -46,6 +48,7 @@
             @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
             <div class="">
                 @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+
                 @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -70,6 +73,7 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                         <label for="file">Hình ảnh</label>
                     </div>*@
+
             </div>
             @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
         </div>
@@ -142,3 +146,4 @@
             }
         });
     </script>*@
+

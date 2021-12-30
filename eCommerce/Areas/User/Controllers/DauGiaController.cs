@@ -12,6 +12,7 @@ using PagedList.Mvc;
 using System.IO;
 using FluentScheduler;
 
+
 namespace eCommerce.Areas.User.Controllers
 {
     public class DauGiaController : Controller
@@ -370,7 +371,8 @@ namespace eCommerce.Areas.User.Controllers
         }
         public ActionResult Add()
         {
-            DauGiaViewModel dg = new DauGiaViewModel();
+n            DauGiaViewModel dg = new DauGiaViewModel();
+
             List<Loai> listL = db.Loais.ToList();
             ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");
             return View(dg);
@@ -395,6 +397,7 @@ namespace eCommerce.Areas.User.Controllers
             daugia.MoTa = v.MoTa;
             daugia.GiaBanDau = v.GiaBanDau;
             daugia.ViTri = v.ViTri;
+
             daugia.MaNguoiBan = int.Parse(Session["MaNguoiDung"].ToString());
             db.DauGias.Add(daugia);
             db.SaveChanges();
@@ -407,6 +410,7 @@ namespace eCommerce.Areas.User.Controllers
             {
                 CT_LoaiDauGia ct = new CT_LoaiDauGia();
                 ct.MaLoai = int.Parse(loai);
+
                 ct.MaDauGia = ID;
                 db.CT_LoaiDauGia.Add(ct);
                 db.SaveChanges();
@@ -445,6 +449,7 @@ namespace eCommerce.Areas.User.Controllers
         {
         
             DauGiaViewModel view = new DauGiaViewModel();
+
             List<Loai> listL = db.Loais.ToList();
             var listLoai = from l in db.Loais
                            join ct in db.CT_LoaiDauGia on l.MaLoai equals ct.MaLoai
@@ -483,6 +488,7 @@ namespace eCommerce.Areas.User.Controllers
             db.Entry(daugia).State = EntityState.Modified;
             db.SaveChanges();
             int ID = v.MaDauGia;
+
             var l = db.CT_LoaiDauGia.Where(m => m.MaDauGia == ID).ToList();
             
 
@@ -496,6 +502,7 @@ namespace eCommerce.Areas.User.Controllers
             {
                 CT_LoaiDauGia ct = new CT_LoaiDauGia();
                 ct.MaLoai = int.Parse(loai);
+
                 ct.MaDauGia = ID;
                 db.CT_LoaiDauGia.Add(ct);
                 db.SaveChanges();
@@ -533,6 +540,7 @@ namespace eCommerce.Areas.User.Controllers
                     
                 }
             }
+
             return RedirectToAction("Index");
         }
         [HttpPost, ActionName("Delete")]

@@ -489,6 +489,7 @@ namespace eCommerce.Areas.User.Controllers
                 {
                     return RedirectToAction("Bid", new { id = int.Parse(id) });
                 }    
+
                 int mucnang = int.Parse(bid);
                 int ma = int.Parse(id);
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
@@ -531,7 +532,6 @@ namespace eCommerce.Areas.User.Controllers
 
         public ActionResult Rating(int id)
         {
-            
             ViewModel view = new ViewModel();
             var dg = db.DauGias.Where(m => m.MaDauGia == id).SingleOrDefault();
             var loai = from l in db.Loais
@@ -552,6 +552,7 @@ namespace eCommerce.Areas.User.Controllers
             {
                 return RedirectToAction("Rating", new { id = int.Parse(id) });
             }    
+
             int ma = int.Parse(id);
             int rate = int.Parse(temp);
             var dga = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
@@ -629,6 +630,7 @@ namespace eCommerce.Areas.User.Controllers
             nd.SoDuVi -= int.Parse(dg.GiaCuoi.ToString());
             var nguoiban = db.NguoiDungs.Where(n => n.MaNguoiDung == dg.MaNguoiBan).SingleOrDefault();
             nguoiban.SoDuVi += int.Parse(dg.GiaCuoi.ToString()) * 80 / 100;
+
             db.SaveChanges();
 
             return RedirectToAction("ListBuy", "Home");
@@ -662,7 +664,6 @@ namespace eCommerce.Areas.User.Controllers
             string orderInfo = "test";
             string returnUrl = "https://localhost:44366//User/Home/ConfirmPaymentClient";
             string notifyurl = "http://92d1-2402-800-6318-6870-7df6-aafc-e513-bb3e.ngrok.io/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
-
             string amount = value.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();

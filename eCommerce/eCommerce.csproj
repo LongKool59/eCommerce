@@ -350,6 +350,7 @@
     <Content Include="Areas\User\Views\Home\ConfirmPaymentClient.cshtml" />
     <Content Include="Areas\User\Views\Home\RutTien.cshtml" />
     <Content Include="Areas\User\Views\DetailsUser\DoiMatKhau.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

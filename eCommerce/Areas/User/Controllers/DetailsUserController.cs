@@ -8,6 +8,7 @@ using eCommerce.Areas.User.Models;
 using eCommerce.Extensions;
 using PagedList;
 using System.Data.Entity;
+
 using System.IO;
 
 namespace eCommerce.Areas.User.Controllers
@@ -66,6 +67,7 @@ namespace eCommerce.Areas.User.Controllers
 
             DauGiaEntities db = new DauGiaEntities();
 
+
             ViewBag.DSThanhPho = new SelectList(GetDSThanhPho(), "MaTP", "TenTP");
             if (!ModelState.IsValid)
             {
@@ -79,6 +81,7 @@ namespace eCommerce.Areas.User.Controllers
             {
                 //Xóa hình ảnh cũ trong folder
                 string oldImgPath = thongTinAdmin.HinhAnh;
+
                 FileInfo fi = new FileInfo(oldImgPath);
                 if (fi != null)
                     System.IO.File.Delete(Server.MapPath(oldImgPath));
@@ -104,6 +107,7 @@ namespace eCommerce.Areas.User.Controllers
             NguoiDung nguoi = db.NguoiDungs.Where(m=>m.MaNguoiDung==id).SingleOrDefault();
             nguoi.HoTen=thongTinAdmin.HoTen;
 /*            
+
             nguoi.HinhAnh = nd.HinhAnh;
             nguoi.NgaySinh = nd.NgaySinh;
             nguoi.SoCMND = nd.SoCMND;
@@ -118,6 +122,7 @@ namespace eCommerce.Areas.User.Controllers
 */            db.SaveChanges();
 
             return Redirect("Index");
+
         }
         [HttpPost, ActionName("Request")]
         public ActionResult Request()
@@ -160,6 +165,7 @@ namespace eCommerce.Areas.User.Controllers
             nguoiDung.Password = model.MatKhauMoi;
             db.SaveChanges();
             this.AddNotification("Đổi mật khẩu thành công.", NotificationType.SUCCESS);
+
             return View();
         }
     }

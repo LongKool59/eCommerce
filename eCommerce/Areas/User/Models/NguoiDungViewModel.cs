@@ -21,6 +21,8 @@ namespace eCommerce.Areas.User.Models
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*\d).{5,25}$", ErrorMessage = "Mật khẩu bao gồm chữ và số, từ 5 đến 25 kí tự")]
         public string Password { get; set; }
+
+
         [DisplayName("Email")]
         [Required(ErrorMessage = "Email không được để trống...")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ. Ví dụ: example@gmail.com")]
@@ -67,7 +69,6 @@ namespace eCommerce.Areas.User.Models
         public bool TrangThai { get; set; }
 
         public DateTime? TimeRequesting { get; set; }
-
         public static implicit operator NguoiDungViewModel(NguoiDung nguoiDung)
         {
             return new NguoiDungViewModel
