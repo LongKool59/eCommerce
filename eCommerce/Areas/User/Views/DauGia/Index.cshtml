@@ -108,8 +108,7 @@
             </td>
             <td>
 
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia }) |
-                @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) |
+                @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) 
                 @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
                 {
 
@@ -117,6 +116,8 @@
                     var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
                     if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
                     {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
+
                         <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
                     }
 

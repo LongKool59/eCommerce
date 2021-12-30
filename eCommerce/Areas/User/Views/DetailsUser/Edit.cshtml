@@ -1,8 +1,8 @@
 ﻿@model eCommerce.Areas.User.Models.NguoiDungViewModel
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "SuaThongTinCaNhan";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("Edit", "DetailsUser", FormMethod.Post))
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
             <div class="">
-                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form -control" } })
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,17 +49,16 @@
         </div>
 
         <div class="form-group">
-            <label>Hinh anh</label>
+            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label" })
             <div>
                 <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh người dùng" height="70" width="70" />
-
             </div>
             <div>
                 <input type="file" id="file" name="ImageFile" accept="image/*" size="40">
-                <div class="upload-image">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <label for="file">Hình ảnh</label>
-                </div>
+                @*<div class="upload-image">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <label for="file">Hình ảnh</label>
+                    </div>*@
             </div>
             @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
         </div>
@@ -87,6 +86,24 @@
                 @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaPhuong, htmlAttributes: new { @class = "control-label " })
+            <div class="">
+                @Html.DropDownListFor(s => s.MaPhuong, ViewBag.ListPhuong != null ? ViewBag.ListPhuong as SelectList : new SelectList(""), "Chọn phường", new { @class = "form-control", style = "height: 40px; font-size:18px" })
+                @Html.ValidationMessageFor(model => model.MaPhuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaQuan, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.DropDownListFor(s => s.MaQuan, ViewBag.ListQuan != null ? ViewBag.ListQuan as SelectList : new SelectList(""), "Chọn quận", new { @class = "form-control", style = "height: 40px; font-size:18px" })
+                @Html.ValidationMessageFor(model => model.MaQuan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.MaTP, htmlAttributes: new { @class = "control-label" })
             <div class="">
@@ -97,34 +114,20 @@
                 @Html.ValidationMessageFor(model => model.MaTP, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaQuan, htmlAttributes: new { @class = "control-label" })
-            <div class="">
-                @Html.DropDownListFor(s => s.MaQuan, ViewBag.ListQuan != null ? ViewBag.ListQuan as SelectList : new SelectList(""), "Chọn quận", new { @class = "form-control", style = "height: 40px; font-size:18px" })
-                @Html.ValidationMessageFor(model => model.MaQuan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaPhuong, htmlAttributes: new { @class = "control-label " })
-            <div class="">
-                @Html.DropDownListFor(s => s.MaPhuong, ViewBag.ListPhuong != null ? ViewBag.ListPhuong as SelectList : new SelectList(""), "Chọn phường", new { @class = "form-control", style = "height: 40px; font-size:18px" })
-                @Html.ValidationMessageFor(model => model.MaPhuong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-
-        @*        @Html.Partial("_Notifications")
-        *@        <div class="bottom-function-button">
-            <button id="btn-save" type="submit" name="submit">Lưu</button>
-            @*            <button id="btn-back" type="submit" name="submit" value="QuayLai">Quay lại</button>
-            *@
-        </div>
+        @Html.Partial("_Notifications")
+    <div class="bottom-function-button">
+        <button id="btn-save" type="submit" name="submit" value="Luu">Lưu</button>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     </div>
 }
-@*<script src="~/assets/js/GetDSQuan_Phuong.js"></script>
-*@
-@section scripts {
-    <script src="~/assets/js/GetDSQuan_Phuong.js"></script>
-}
+<script src="~/assets/js/GetDSQuan_Phuong.js"></script>
+@*<script>
+        $('#btn-save').bind("click", function () {
+            var imgVal = $('#file').val();
+            if (imgVal == '') {
+                alert("Vui lòng chọn hình ảnh");
+                return false;
+            }
+        });
+    </script>*@

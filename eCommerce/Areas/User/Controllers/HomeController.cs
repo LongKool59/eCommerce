@@ -485,6 +485,10 @@ namespace eCommerce.Areas.User.Controllers
             }
             else
             {
+                if (bid == null || bid.Trim() == ""||id==null||id.Trim()=="")
+                {
+                    return RedirectToAction("Bid", new { id = int.Parse(id) });
+                }    
                 int mucnang = int.Parse(bid);
                 int ma = int.Parse(id);
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
@@ -527,7 +531,7 @@ namespace eCommerce.Areas.User.Controllers
 
         public ActionResult Rating(int id)
         {
-
+            
             ViewModel view = new ViewModel();
             var dg = db.DauGias.Where(m => m.MaDauGia == id).SingleOrDefault();
             var loai = from l in db.Loais
@@ -544,6 +548,10 @@ namespace eCommerce.Areas.User.Controllers
         [HttpPost]
         public ActionResult Rating(string id, string temp, string cmt)
         {
+            if(id==null||id.Trim()==""||temp==null||temp.Trim()==""||cmt.Trim()==null||cmt==null)
+            {
+                return RedirectToAction("Rating", new { id = int.Parse(id) });
+            }    
             int ma = int.Parse(id);
             int rate = int.Parse(temp);
             var dga = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
@@ -619,6 +627,8 @@ namespace eCommerce.Areas.User.Controllers
             int ID = int.Parse(Session["MaNguoiDung"].ToString());
             var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == ID).SingleOrDefault();
             nd.SoDuVi -= int.Parse(dg.GiaCuoi.ToString());
+            var nguoiban = db.NguoiDungs.Where(n => n.MaNguoiDung == dg.MaNguoiBan).SingleOrDefault();
+            nguoiban.SoDuVi += int.Parse(dg.GiaCuoi.ToString()) * 80 / 100;
             db.SaveChanges();
 
             return RedirectToAction("ListBuy", "Home");
@@ -651,7 +661,7 @@ namespace eCommerce.Areas.User.Controllers
             string serectkey = "kUnpWmcCuXSZC1tiEYW7zpDCgygsiBY6";
             string orderInfo = "test";
             string returnUrl = "https://localhost:44366//User/Home/ConfirmPaymentClient";
-            string notifyurl = "http://f07f-113-161-44-71.ngrok.io/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string notifyurl = "http://92d1-2402-800-6318-6870-7df6-aafc-e513-bb3e.ngrok.io/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
             string amount = value.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
