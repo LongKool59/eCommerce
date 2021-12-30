@@ -371,7 +371,7 @@ namespace eCommerce.Areas.User.Controllers
         }
         public ActionResult Add()
         {
-n            DauGiaViewModel dg = new DauGiaViewModel();
+            DauGiaViewModel dg = new DauGiaViewModel();
 
             List<Loai> listL = db.Loais.ToList();
             ViewBag.ListLoai = new MultiSelectList(listL, "MaLoai", "TenLoai");

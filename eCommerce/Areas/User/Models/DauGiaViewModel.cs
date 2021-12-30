@@ -44,11 +44,14 @@ namespace eCommerce.Areas.User.Models
         public Nullable<int> GiaCuoi { get; set; }
         [DisplayName("Ngày bắt đầu")]
         [Required(ErrorMessage = "Ngày bắt đầu không được trống...")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+        //[DataType(DataType.Date)]
+        /*        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+        */
         public DateTime NgayBatDau { get; set; }
         [DisplayName("Ngày kết thúc")]
         [Required(ErrorMessage = "Ngày kết thúc không được trống...")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+/*        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+//*/    /*    [DataType(DataType.Date)]*/
         public DateTime NgayKetThuc { get; set;}
         [DisplayName("Vị Trí")]
         [Required(ErrorMessage = "Vị Trí không được để trống...")]

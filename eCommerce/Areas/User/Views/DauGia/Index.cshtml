@@ -107,44 +107,45 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td class="inner-body-content">
+                <td>
                     @{
                         DauGiaEntities db = new DauGiaEntities();
                         var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
                         if (Hinh.Length > 0)
                         {
-                            <img src=@Url.Content(Hinh[0].LinkAnh) style="height:200px;width:150px" />
+                            <img src="@Html.DisplayFor(hinh => Hinh[0].LinkAnh)" />
 
                         }
                     }
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.TenSanPham)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.MoTa)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.GiaBanDau)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.MucNangToiThieu)
                 </td>
-                <td class="inner-body-content">
+
+                <td>
                     @Html.DisplayFor(modelItem => item.NgayBatDau)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.NgayKetThuc)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.ViTri)
                 </td>
-                <td class="inner-body-content">
+                <td>
                     @Html.DisplayFor(modelItem => item.NgayDang)
                 </td>
-                <td class="inner-body-content">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia }) |
-                    @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) |
+                <td>
+
+                    @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia })
                     @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
                     {
 
@@ -152,43 +153,24 @@
                         var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
                         if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
                         {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
+
                             <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
                         }
+
+
                     }
                 </td>
             </tr>
 
-
-                @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) 
-                @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
-
-
+        }
+        @Html.PagedListPager(Model,
+                page => Url.Action("Index", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+                new PagedListRenderOptions()
                 {
                     Display = PagedListDisplayMode.IfNeeded,
                     DisplayPageCountAndCurrentLocation = true,
 
-                    var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
-                    var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
-                    if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
-
-                        <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
-                    }
-
-
-                }
-            </td>
-        </tr>
-
-    }
-    @Html.PagedListPager(Model,
-            page => Url.Action("Index", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
-            new PagedListRenderOptions()
-            {
-                Display = PagedListDisplayMode.IfNeeded,
-                DisplayPageCountAndCurrentLocation = true,
-
-            })
-</table>
+                })
+    </table>
 

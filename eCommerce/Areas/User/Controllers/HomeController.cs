@@ -356,7 +356,7 @@ namespace eCommerce.Areas.User.Controllers
             IQueryable<DauGia> DauGia;
             ViewModel view = new ViewModel();
             int ID = int.Parse(Session["MaNguoiDung"].ToString());
-            var yeuthich = db.YeuThiches.Where(m => m.MaNguoiDung == ID).SingleOrDefault();
+            var yeuthich = db.YeuThiches.Where(m => m.MaNguoiDung == ID).ToList();
             var daugia = from y in db.YeuThiches
                          join dg in db.DauGias on y.MaDauGia equals dg.MaDauGia
                          where y.MaNguoiDung == ID 
@@ -477,7 +477,7 @@ namespace eCommerce.Areas.User.Controllers
             return View(view);
         }
         [HttpPost]
-        public ActionResult Bid_1(string bid, string id)
+        public ActionResult Bid_1(string bid_1, string id)
         {
             if (Session["MaNguoiDung"] == null)
             {
@@ -485,12 +485,12 @@ namespace eCommerce.Areas.User.Controllers
             }
             else
             {
-                if (bid == null || bid.Trim() == ""||id==null||id.Trim()=="")
+                if (bid_1 == null || bid_1.Trim() == ""||id==null||id.Trim()=="")
                 {
                     return RedirectToAction("Bid", new { id = int.Parse(id) });
                 }    
 
-                int mucnang = int.Parse(bid);
+                int mucnang = int.Parse(bid_1);
                 int ma = int.Parse(id);
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
