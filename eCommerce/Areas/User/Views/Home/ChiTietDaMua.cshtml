@@ -4,116 +4,162 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
 @using eCommerce.Models;
-<div>
-    <h4>DauGiaViewModel</h4>
-    <hr />
-    <div>
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.MaDauGia)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.MaDauGia)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.MaNguoiBan)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.MaNguoiBan)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.TenSanPham)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.MoTa)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.MoTa)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.GiaBanDau)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.GiaBanDau)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.MucNangToiThieu)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.MucNangToiThieu)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.NgayBatDau)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.NgayBatDau)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DauGia.NgayKetThuc)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DauGia.NgayKetThuc)
-            </dd>
-
-
-        </dl>
-        @foreach (var item in Model.ListLoaiSanPham)
-        {
-            @Html.DisplayFor(model => item.TenLoai)
-            <p></p>
-        }
-        @foreach (var item in Model.Hinh)
-        {
-            <img src=@item />
-        }
-    </div>
-    @{
-        DauGiaEntities db = new DauGiaEntities();
-        var tt = db.CT_TrangThai.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
-        var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
-        if (Model.DauGia.NgayThanhToan == null)
-        {
-            @Html.ActionLink("Thanh Toán", "ThanhToan", new { id = Model.DauGia.MaDauGia })
-
-        }
-        else if (ten.TenTrangThai != "Done")
-        {
-            using (Html.BeginForm("XacNhan", "Home", FormMethod.Post))
-            {
-                <input name="submit" hidden="true" value="@Model.DauGia.MaDauGia" />
-
-                <input type="submit" value="Xác nhận đã nhận hàng" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" />
-            }
-        }
-        else
-        {
-            <p>Đơn hàng hoàn tất</p>
-        }
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
     }
 
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .table1 {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h1 class="function-page-title">CHI TIẾT SẢN PHẨM ĐÃ MUA</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6" style="align-self:center">
+            <p>Hình ảnh sản phẩm:</p>
+            <br />
+            @foreach (var item in Model.Hinh)
+            {
+                <img src="@Url.Content(item)" style="height:500px;width:400px" />
+            }
+        </div>
+        <div class="col-md-6">
+            <p>Thông tin sản phẩm:</p>
+            <table class="table1">
+                <tr>
+                    <td>Mã đấu giá:</td>
+                    <td>@Html.DisplayFor(model => model.DauGia.MaDauGia)</td>
+                </tr>
+                <tr>
+                    <td>Tên sản phẩm:</td>
+                    <td>@Html.DisplayFor(model => model.DauGia.TenSanPham)</td>
+                </tr>
+                <tr>
+                    <td>Loại sản phẩm: </td>
+                    <td>
+                        @foreach (var item in Model.ListLoaiSanPham)
+                        {
+                            @Html.DisplayFor(modelItem => item.TenLoai)
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mô tả sản phẩm:</td>
+                    <td>@Html.DisplayFor(model => model.DauGia.MoTa)</td>
+                </tr>
+                <tr>
+                    <td>Giá khởi điểm: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.GiaBanDau) </td>
+                </tr>
+                <tr>
+                    <td>Ngày bắt đầu: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.NgayBatDau) </td>
+                </tr>
+                <tr>
+                    <td>Ngày kết thúc: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.NgayKetThuc) </td>
+                </tr>
+                <tr>
+                    <td>Ngày đăng: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.NgayDang) </td>
+                </tr>
+            </table>
+
+            <p>Thông tin giao dịch: </p>
+            <table class="table1">
+                <tr>
+                    <td>Mã người bán: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.MaNguoiBan) </td>
+                </tr>
+                <tr>
+                    <td>Mã người mua: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.MaNguoiMua) </td>
+                </tr>
+                <tr>
+                    <td>Ngày thanh toán: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.NgayThanhToan) </td>
+                </tr>
+                <tr>
+                    <td>Giá khi thanh toán: </td>
+                    <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        @{
+            DauGiaEntities db = new DauGiaEntities();
+            var tt = db.CT_TrangThai.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
+            var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
+            if (Model.DauGia.NgayThanhToan == null)
+            {
+                <a href='@Url.Action("ThanhToan", "Home", new { id = Model.DauGia.MaDauGia })' class="btn btn-reload btn-danger ml-3" style="background-color:aqua;color:black;font-weight:bold"><i class="far fa-credit-card"></i>THANH TOÁN</a>
+
+            }
+            else if (ten.TenTrangThai != "Done")
+            {
+                using (Html.BeginForm("XacNhan", "Home", FormMethod.Post))
+                {
+                    <input name="submit" hidden="true" value="@Model.DauGia.MaDauGia" />
+
+                    <input type="submit" value="Xác nhận đã nhận hàng" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aquamarine" />
+                }
+            }
+            else
+            {
+                <p>Đơn hàng hoàn tất</p>
+            }
+        }
+    </div>
+    <div class="col-md-6">
+        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

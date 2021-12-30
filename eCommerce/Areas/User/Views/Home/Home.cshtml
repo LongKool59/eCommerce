@@ -4,25 +4,67 @@
 @model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
 
     @{
-        ViewBag.Title = "Index";
+        ViewBag.Title = "Danh sách sản phẩm đấu giá";
         Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
     }
-
-    <h2>Index</h2>
-
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-    {
-        <div class="row mt-3">
-            @Html.TextBox("ten", null, new { placeholder = "Nhập tên sản phẩm...." })
-            @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai" })
-            @Html.TextBox("gia", null, new { placeholder = "Nhập giá ban đầu tối thiểu...." })
-            @Html.TextBox("startdate", null, new { @type = "datetime-local", placeholder = "Ngày bắt đầu..." })
-
-            <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
-
-            <a href='@Url.Action("Index", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
-        </div>
+<style>
+    .inner-body-title, .inner-body-content {
+        text-align: center;
     }
+
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+
+    .list-detail {
+        margin-left: 10%;
+    }
+
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .list-employee > h1 {
+        font-size: 2.2rem;
+        font-weight: 400;
+        background-color: white;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: linear-gradient(to bottom, #71f3f9, #2193d6);
+    }
+
+    table.table {
+        text-align: center;
+    }
+
+    .table-title {
+        background-color: #C1C8E4;
+        color: black;
+    }
+</style>
+<h1 class="function-page-title">DANH SÁCH SẢN PHẨM ĐẤU GIÁ</h1>
+<div class="list-employee">
+    <div class="list-detail">
+        @using (Html.BeginForm("Home", "Home", FormMethod.Get))
+         {
+        <div class="row mt-3">
+            <p>Tìm kiếm sản phẩm: @Html.TextBox("ten", null, new { placeholder = "Nhập tên sản phẩm...." })</p>
+            <p>Loại sản phẩm: @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai" })</p>
+            <p>Mức giá:  @Html.TextBox("gia", null, new { placeholder = "Nhập giá ban đầu tối thiểu...." })</p>
+            <p>Thời gian bắt đầu: @Html.TextBox("startdate", null, new { @type = "datetime-local", placeholder = "Ngày bắt đầu..." })</p>
+            <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+            <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+        </div>
+         }
+     </div>
 
     <!--<table class="table">
         <tr>
@@ -63,26 +105,19 @@
     @foreach (var item in Model)
     {
         DauGiaEntities db = new DauGiaEntities();
-
         var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
         if (Hinh.Length > 0)
         {
-            <img src=@Html.DisplayFor(hinh => Hinh[0].LinkAnh) />
-
+            <img src=@Url.Content(Hinh[0].LinkAnh) style="height:200px;width:150px" />
         }
-
 
         <a href=@Url.Action("Bid", "Home", new { id = item.MaDauGia })>
             <div>
-                @Html.DisplayFor(modelItem => item.TenSanPham)
+                @Html.DisplayFor(modelItem => item.TenSanPham)<br />
 
-                @Html.DisplayFor(modelItem => item.MoTa)
+                @Html.DisplayFor(modelItem => item.MoTa)<br />
 
-
-
-                @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)
-
-
+                @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)<br />
 
                 @Html.DisplayFor(modelItem => item.GiaBanDau)
                 @if (Session["MaNguoiDung"] != null)
@@ -95,7 +130,7 @@
                         using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
                         {
                             <input value="1" hidden="true" name="loai" />
-                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Bỏ Yêu thích</button>
+                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
                         }
                     }
                     else
@@ -104,7 +139,7 @@
                         {
                             <input value="1" hidden="true" name="loai" />
 
-                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
                         }
                     }
                 }
@@ -113,7 +148,7 @@
                     using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
                     {
                         <input value="1" hidden="true" name="loai" />
-                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Yêu thích</button>
                     }
                 }
             </div>
@@ -130,3 +165,4 @@
             })
     @*</table>
     *@
+</div>

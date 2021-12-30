@@ -1,15 +1,30 @@
 ﻿
 @{
-    ViewBag.Title = "NapTien";
+    ViewBag.Title = "Nạp tiền";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-
-<h2>NapTien</h2>
-@using (Html.BeginForm("Payment", "Home", FormMethod.Post))
+<style>
+    h1 {
+        font-size: 2.2rem;
+        font-weight:bold;
+    }
+    .naptien{
+        border: 3px solid black;
+        height:200px;
+        width:300px;
+        background-color:aqua;
+        text-align:center;
+    }
+</style>
+<div class="naptien">
+    <h1>NẠP TIỀN</h1>
+    @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
     {
-        <input type="number" name="value" />
+        <input type="number" name="value" /><br /><br />
         <button type="submit">Nạp ngay</button>
     }
+</div>
+
 
 

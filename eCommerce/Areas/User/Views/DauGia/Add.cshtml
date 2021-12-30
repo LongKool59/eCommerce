@@ -5,7 +5,24 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Add</h2>
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+</style>
+<h1 class="function-page-title">THÊM SẢN PHẨM ĐẤU GIÁ</h1>
 
 
 
@@ -19,7 +36,6 @@
     @Html.HiddenFor(model => model.NgayThanhToan)
     @Html.HiddenFor(model => model.NgayDang)
     <div class="form-horizontal">
-        <h4>DauGiaViewModel</h4>
         <hr />
         @Html.LabelFor(model => model.ListLoaiSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
         @Html.ListBoxFor(model => model.ListLoaiSanPham, (MultiSelectList)ViewBag.ListLoai, new { id = "dropdownLoai", multiple = "multiple" })
@@ -34,6 +50,11 @@
                 @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-3">
+                @*@Html.LabelFor(model => model.Loai.TenLoai, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>LOẠI SẢN PHẨM</p>
+                @Html.ListBoxFor(model => model.Loai.ListLoai, (MultiSelectList)ViewBag.ListLoai, new { id = "dropdownLoai", multiple = "multiple" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
@@ -41,6 +62,12 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-3">
+                @*@Html.LabelFor(model => model.DauGia.ViTri, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>VỊ TRÍ</p>
+                @Html.EditorFor(model => model.DauGia.ViTri, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DauGia.ViTri, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -119,6 +146,9 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" name="dangKy" class="btn btn-default" />
+                <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black; font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+              
+
             </div>
         </div>
     </div>
@@ -126,15 +156,12 @@
 
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
             $("#dropdownLoai").chosen();
         });
+
     </script>
 }

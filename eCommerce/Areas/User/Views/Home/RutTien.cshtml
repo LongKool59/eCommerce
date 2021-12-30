@@ -1,17 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "RutTien";
+    ViewBag.Title = "Rút tiền";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
+<style>
+    h1 {
+        font-size: 2.2rem;
+        font-weight: bold;
+    }
 
-<h2>RutTien</h2>
-@using (Html.BeginForm("RutTien", "Home", FormMethod.Post))
-{
-    <input type="number" name="value" />
-    <button type="submit">Rút ngay</button>
-}
-@Html.Partial("_Notifications")
-
-
-
+    .naptien {
+        border: 3px solid black;
+        height: 200px;
+        width: 300px;
+        background-color: aqua;
+        text-align: center;
+    }
+</style>
+<div class="naptien">
+    <h1>RÚT TIỀN</h1>
+    @using (Html.BeginForm("RutTien", "Home", FormMethod.Post))
+    {
+        <input type="number" name="value" /><br /><br />
+        <button type="submit">Rút ngay</button>
+    }
+    @Html.Partial("_Notifications")
+</div>

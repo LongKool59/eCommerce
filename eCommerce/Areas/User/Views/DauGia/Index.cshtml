@@ -6,111 +6,165 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
+<style>
+    .inner-body-title, .inner-body-content {
+        text-align: center;
+    }
 
-<h2>Index</h2>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
 
-@using (Html.BeginForm("Index", "DauGia", FormMethod.Get))
-{
-    <div class="row mt-3">
-        @Html.TextBox("ten", null, new { placeholder = "Nhập tên sản phẩm...." })
-        @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai" })
-        @Html.TextBox("gia", null, new { placeholder = "Nhập giá ban đầu tối thiểu...." })
-        @Html.TextBox("startdate", null, new { @type = "datetime-local", placeholder = "Ngày bắt đầu..." })
+    .list-detail {
+        margin-left: 10%;
+    }
 
-        <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
 
-        <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+    .list-employee > h1 {
+        font-size: 2.2rem;
+        font-weight: 400;
+        background-color: white;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: linear-gradient(to bottom, #71f3f9, #2193d6);
+    }
+
+    table.table {
+        text-align: center;
+    }
+
+    .table-title {
+        background-color: #C1C8E4;
+        color: black;
+    }
+</style>
+
+<h1 class="function-page-title">DANH SÁCH ĐĂNG SẢN PHẨM ĐẤU GIÁ</h1>
+<div class="list-employee">
+    <div class="list-detail">
+        @using (Html.BeginForm("Index", "DauGia", FormMethod.Get))
+        {
+            <div class="row mt-3">
+                <p>Tìm kiếm sản phẩm: @Html.TextBox("ten", null, new { placeholder = "Nhập tên sản phẩm...." })</p>
+                <p>Loại sản phẩm: @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai" })</p>
+                <p>Mức giá:  @Html.TextBox("gia", null, new { placeholder = "Nhập giá ban đầu tối thiểu...." })</p>
+                <p>Thời gian bắt đầu: @Html.TextBox("startdate", null, new { @type = "datetime-local", placeholder = "Ngày bắt đầu..." })</p>
+                <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+                <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+            </div>
+        }
     </div>
-}
 
+    @Html.Partial("_Notifications")
+    <br />
+    <div class="row">
+        <a href='@Url.Action("Add", "DauGia")' class="btn add-employee"><i class="fas fa-plus"></i> Thêm sản phẩm</a>
+    </div>
 
+    <table class="table">
+        <tr class="table-title">
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Hình ảnh
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Tên sản phẩm
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Mô tả sản phẩm
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.GiaBanDau)*@ Giá khởi điểm
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.MucNangToiThieu)*@ Mức nâng tối thiểu
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.NgayBatDau)*@ Ngày bắt đầu
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.NgayKetThuc)*@ Ngày kết thúc
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.ViTri)*@ Vị trí
+            </th>
+            <th class="inner-body-title">
+                @*@Html.DisplayNameFor(model => model.NgayDang)*@ Ngày đăng
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="inner-body-content">
+                    @{
+                        DauGiaEntities db = new DauGiaEntities();
+                        var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+                        if (Hinh.Length > 0)
+                        {
+                            <img src=@Url.Content(Hinh[0].LinkAnh) style="height:200px;width:150px" />
 
-<p>
-    @Html.ActionLink("Create New", "Add")
-</p>
-
-
-
-
-
-
-<table class="table">
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Hình ảnh
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Tên sản phẩm
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.TenSanPham)*@ Mô tả sản phẩm
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.GiaBanDau)*@ Giá khởi điểm
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.MucNangToiThieu)*@ Mức nâng tối thiểu
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.NgayBatDau)*@ Ngày bắt đầu
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.NgayKetThuc)*@ Ngày kết thúc
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ViTri)*@ Vị trí
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.NgayDang)*@ Ngày đăng
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @{
-                    DauGiaEntities db = new DauGiaEntities();
-                    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
-                    if (Hinh.Length > 0)
-                    {
-                        <img src="@Html.DisplayFor(hinh => Hinh[0].LinkAnh)" />
-
+                        }
                     }
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenSanPham)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaBanDau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MucNangToiThieu)
-            </td>
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.TenSanPham)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.GiaBanDau)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.MucNangToiThieu)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.NgayBatDau)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.NgayKetThuc)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.ViTri)
+                </td>
+                <td class="inner-body-content">
+                    @Html.DisplayFor(modelItem => item.NgayDang)
+                </td>
+                <td class="inner-body-content">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia }) |
+                    @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) |
+                    @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
+                    {
 
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayBatDau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayKetThuc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ViTri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDang)
-            </td>
-            <td>
+                        var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
+                        var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
+                        if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
+                        {
+                            <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
+                        }
+                    }
+                </td>
+            </tr>
+
 
                 @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia }) 
                 @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
+
                 {
+                    Display = PagedListDisplayMode.IfNeeded,
+                    DisplayPageCountAndCurrentLocation = true,
 
                     var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
                     var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
@@ -136,3 +190,4 @@
 
             })
 </table>
+

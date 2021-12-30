@@ -3,11 +3,22 @@
 @using eCommerce.Models;
 @model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
 @{
-    ViewBag.Title = "ListFavorite";
+    ViewBag.Title = "Danh sách yêu thích";
         Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
+    }
+</style>
+<h1 class="function-page-title">DANH SÁCH SẢN PHẨM YÊU THÍCH</h1>
 @foreach (var item in Model)
 {
     DauGiaEntities db = new DauGiaEntities();
@@ -15,7 +26,7 @@
     var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
     if (Hinh.Length > 0)
     {
-        <img src=@Html.DisplayFor(hinh => Hinh[0].LinkAnh) />
+        <img src=@Url.Content(Hinh[0].LinkAnh) style="width:150px;height:200px"/>
 
     }
 
@@ -43,7 +54,7 @@
                     using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
                     {
                         <input value="2" hidden="true" name="loai" />
-                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Bỏ Yêu thích</button>
+                        <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
                     }
                 }
                 else
@@ -56,7 +67,7 @@
                 using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
                 {
                     <input value="1" hidden="true" name="loai" />
-                    <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2"> Yêu thích</button>
+                    <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
                 }
             }
         </div>

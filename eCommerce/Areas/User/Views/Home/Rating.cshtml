@@ -3,81 +3,117 @@
     ViewBag.Title = "Rating";
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
-<div>
-    <dl class="dl-horizontal">
-   
 
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DauGia.TenSanPham)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DauGia.TenSanPham)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DauGia.MoTa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DauGia.MoTa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DauGia.GiaCuoi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DauGia.GiaCuoi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DauGia.NgayThanhToan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DauGia.NgayThanhToan)
-        </dd>
-
-
-    </dl>
-    @foreach (var item in Model.ListLoaiSanPham)
-    {
-        @Html.DisplayFor(model => item.TenLoai)
-        <p></p>
-    }
-    @foreach (var item in Model.Hinh)
-    {
-        <img src=@item />
+<style>
+    h1.function-page-title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        padding: 1.5rem 0;
+        background: #84CEEB;
+        font-weight: bold;
     }
 
+    p {
+        padding: 2px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .table1 {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h1 class="function-page-title">ĐÁNH GIÁ SẢN PHẨM</h1>
+
+<div class="row">
+    <div class="col-md-12" style="align-self:center">
+        <p>Hình ảnh sản phẩm:</p>
+        <br />
+        @foreach (var item in Model.Hinh)
+        {
+            <img src="@Url.Content(item)" style="height:300px;width:200px" />
+        }
+    </div>
+    <div class="col-md-12" style="align-self:center">
+        <p>Thông tin sản phẩm:</p>
+        <table class="table1">
+            <tr>
+                <td>Mã đấu giá:</td>
+                <td>@Html.DisplayFor(model => model.DauGia.MaDauGia)</td>
+            </tr>
+            <tr>
+                <td>Tên sản phẩm:</td>
+                <td>@Html.DisplayFor(model => model.DauGia.TenSanPham)</td>
+            </tr>
+            <tr>
+                <td>Loại sản phẩm: </td>
+                <td>
+                    @foreach (var item in Model.ListLoaiSanPham)
+                    {
+                        @Html.DisplayFor(modelItem => item.TenLoai)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Mô tả sản phẩm:</td>
+                <td>@Html.DisplayFor(model => model.DauGia.MoTa)</td>
+            </tr>
+            <tr>
+                <td>Giá cuối: </td>
+                <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
+            </tr>
+            <tr>
+                <td>Ngày thanh toán: </td>
+                <td>@Html.DisplayFor(model => model.DauGia.NgayThanhToan) </td>
+            </tr>
+        </table>  
+    </div>
 </div>
+    
 @using (Html.BeginForm("Rating", "Home", FormMethod.Post))
 {
 <div class="row">
-    <form>
-        <div id="star" class="rating">
-            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
-            <label for="star5">☆</label>
-            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
-            <label for="star4">☆</label>
-            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
-            <label for="star3">☆</label>
-            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
-            <label for="star2">☆</label>
-            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
-            <label for="star1">☆</label>
-            <div class="clear"></div>
-        </div>
-    </form>
-
-    <input id="temp" name="temp" value="0" hidden="true" />
-    <input name="id" value=@Model.DauGia.MaDauGia hidden="true" />
-    <button id="btn-1" type="submit" name="submit">Lưu</button>
-
-    <textarea id="cmt" name="cmt" rows="4" cols="50"></textarea>
+    <div class="col-md-12" style="align-self:center">
+        <p>Đánh giá sao</p>
+        <form>
+            <div id="star" class="rating">
+                <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                <label for="star5">☆</label>
+                <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                <label for="star4">☆</label>
+                <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                <label for="star3">☆</label>
+                <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                <label for="star2">☆</label>
+                <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                <label for="star1">☆</label>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <p>Bình luận & góp ý sản phẩm</p>
+        <input id="temp" name="temp" value="0" hidden="true" />
+        <input name="id" value=@Model.DauGia.MaDauGia hidden="true" />
+        <textarea id="cmt" name="cmt" rows="4" cols="50"></textarea><br />
+        <button id="btn-1" type="submit" name="submit" style="background-color:blue;color:white;font-weight:bold"><i class="fas fa-save"></i> LƯU</button>
+    </div>
+    
+    
+    
 
 </div>
 }
@@ -113,5 +149,5 @@
                 return parseInt(5)
             });
         })
-</script>
+    </script>
 }
