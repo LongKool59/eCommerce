@@ -507,7 +507,7 @@ namespace eCommerce.Areas.User.Controllers
                 db.CT_LoaiDauGia.Add(ct);
                 db.SaveChanges();
             }
-            if (v.ImageFile != null)
+            if (v.ImageFile.First() != null)
             {/*
                 *//*//*//*Xóa hình ảnh cũ trong folder*/
                 var hinh_1 = db.HinhAnhs.Where(m => m.MaDauGia == ID).ToList();
