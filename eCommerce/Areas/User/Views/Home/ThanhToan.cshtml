@@ -48,7 +48,7 @@
             <br />
             @foreach (var item in Model.Hinh)
             {
-                <img src="@Url.Content(item)" style="height:500px;width:400px" />
+                <img src="@Url.Content(item.ToString())" style="height:500px;width:400px" />
             }
         </div>
         <div class="col-md-8">
@@ -90,7 +90,7 @@
             <div class="row">
                 @using (Html.BeginForm("ThanhToan", "Home", FormMethod.Post))
                 {
-                    @* <input name="submit" value="@Model.DauGia.MaDauGia" /> *@
+                     <input name="submit" value="@Model.DauGia.MaDauGia" hidden="true" /> 
 
                     <input type="submit" value="Xác nhận thanh toán" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aqua;font-weight:bold" />
                 }

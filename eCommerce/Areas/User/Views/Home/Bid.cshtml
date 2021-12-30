@@ -165,16 +165,18 @@
                     }
 
                 }
+                <button id="plus">+</button>
+                <button id="minus">-</button>
+                <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
                 @using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
                 {
-                    <button id="minus">-</button>
-                    <input name="bid" id="bid" hidden="true" value="@TempData["value"]" />
                     <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-                    <input id="bid_1" disabled="true" value="@TempData["value"]" />
-                    <button id="plus">+</button>
-                    <input type="submit" value="Ra giá" class="btn btn-default" style="background-color:aqua;font-weight:bold" />
+                    <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+                    <input type="submit" value="Ra giá" class="btn btn-default" />
                 }
                 <input id="time" hidden="true" value="@Model.DauGia.NgayKetThuc.ToString("MM/dd/yyyy HH:mm")" />
+
+
             </p>
         </div>
         <hr />
@@ -190,8 +192,21 @@
                         <p>@nd.HoTen - @item.GiaTri VNĐ</p>
                     }
                 }
-                @section scripts {
-                    <script>
+
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12" style="text-align:center">
+        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+    </div>
+
+
+
+
+
+
+    @section scripts {
+        <script>
                         $("#plus").click(function () {
                             $("#bid").val(function () {
                                 return parseInt(this.value, 10) + @Model.DauGia.MucNangToiThieu;
@@ -208,53 +223,40 @@
                             $("#bid_1").val(function () {
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
-                    </script>
+        </script>
+    }
+
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            /**/
+
+            var a = $("#time").val().ToString("MM/dd/yyyy HH:mm");
+            var countDownDate = new Date($("#time").val()).getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                    + minutes + "m " + seconds + "s ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "EXPIRED";
                 }
-            </table>
-        </div>
-    </div>
-    <div class="col-md-12" style="text-align:center">
-        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
-    </div>
-
-
-
-
-
-    
-
-
-    
-        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-            <script>
-                /**/
-
-                var a = $("#time").val().ToString("MM/dd/yyyy HH:mm");
-                var countDownDate = new Date($("#time").val()).getTime();
-
-                // Update the count down every 1 second
-                var x = setInterval(function () {
-
-                    // Get today's date and time
-                    var now = new Date().getTime();
-
-                    // Find the distance between now and the count down date
-                    var distance = countDownDate - now;
-
-                    // Time calculations for days, hours, minutes and seconds
-                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Display the result in the element with id="demo"
-                    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-                        + minutes + "m " + seconds + "s ";
-
-                    // If the count down is finished, write some text
-                    if (distance < 0) {
-                        clearInterval(x);
-                        document.getElementById("demo").innerHTML = "EXPIRED";
-                    }
-                }, 1000);
-            </script>*@
+            }, 1000);
+        </script>*@
