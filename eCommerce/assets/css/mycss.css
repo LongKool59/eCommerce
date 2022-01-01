@@ -160,7 +160,7 @@ ul#menu-list {
     border: none;
     outline: none;
     z-index: 2;
-    margin-top: 7px;
+    margin-top: 20px;
   }
 
 
@@ -210,6 +210,15 @@ ul#menu-list {
   background-color: rgba(0,0,0,.5);
 }
 /*end hero*/
+/*Apply styles after scroll*/
+.scrolling-active {
+  background-color: #693ff5;
+  box-shadow: 0 5px 1rem rgba(0,0,0,.1);
+}
+.scrolling-active .nav{
+  height: 6.5rem;
+}
+/*Apply styles after scroll end*/
 /*footer*/
 footer h2 {
   font-size: 3rem;
