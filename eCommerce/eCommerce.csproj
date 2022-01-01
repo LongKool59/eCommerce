@@ -275,6 +275,7 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="assets\css\mycss.css" />
     <Content Include="assets\css\Rating.css" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />
