@@ -12,6 +12,7 @@
   <link href="~/Content/toastr.min.css" rel="stylesheet" />
   <link href="~/assets/css/mycss.css" rel="stylesheet" />
   @Scripts.Render("~/bundles/modernizr")
+  @using eCommerce.Models
 </head>
 
 <body>
@@ -49,14 +50,23 @@
                   <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
                 </div>
               </div>
-              <div class="notification-box">
-                <button class="notification">
-                  <i class="far fa-bell" style="font-size: 2.2rem;color:white"></i>
-                  <span class="txt-notification">&nbsp;</span>
-                </button>
-                <ul class="notification-ul">
-                </ul>
+              <div class="row">
+                <div class="notification-box">
+                  <button class="notification">
+                    <i class="far fa-bell" style="font-size: 2.2rem;color:white"></i>
+                    <span class="txt-notification">&nbsp;</span>
+                  </button>
+                  <ul class="notification-ul">
+                  </ul>
+                </div>
+                <div>
+                  <button class="notification">
+                    <i class="far fa-star" style="font-size: 2.2rem;color:white"></i>
+                    <span class="txt-notification">&nbsp;</span>
+                  </button>
+                </div>
               </div>
+              <a href="#" class="soDuVi">Số dư ví: @Session["SoDuVi"] VNĐ</a>
             </div>
           </div>
         </nav>
@@ -68,7 +78,8 @@
       </div>
     </nav>*@
     <section class="hero"></section>
-    <div class="body-content">
+    <img class="banner-shape" src="~/assets/images/banner-shape-4.png"/>
+    <div class="body-layout">
       @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
       @RenderBody()
     </div>

@@ -192,6 +192,12 @@ ul#menu-list {
   .notification-ul .notification-time {
     margin-top: 5%
   }
+
+.soDuVi {
+  font-size: 2rem;
+  color: white;
+  margin-left: 2rem;
+}
 /*start hero*/
 .hero{
   width: 100%;
@@ -207,7 +213,13 @@ ul#menu-list {
   height:inherit;
   top: 0;
   left:0;
-  background-color: rgba(0,0,0,.5);
+}
+.banner-shape {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  top: 45%;
+  left: 0;
 }
 /*end hero*/
 /*Apply styles after scroll*/
@@ -219,6 +231,22 @@ ul#menu-list {
   height: 6.5rem;
 }
 /*Apply styles after scroll end*/
+/*start body-layout*/
+.body-layout {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+}
+.form-auction {
+  width: 50%;
+  height: 250px;
+  margin: auto;
+  background: white;
+  border: 1px solid;
+  padding: 3rem;
+}
+/*end body layout*/
 /*footer*/
 footer h2 {
   font-size: 3rem;
