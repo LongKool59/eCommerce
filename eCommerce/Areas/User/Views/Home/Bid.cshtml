@@ -40,7 +40,8 @@
 </style>
 <h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
 
-
+<p id="demo"></p>
+<p>@Model.DauGia.NgayKetThuc.ToString("dd MM yyyy HH mm")</p>
 <div>
     <div class="row">
         <div class="col-md-6">
@@ -203,8 +204,6 @@
 
 
 
-
-
     @section scripts {
         <script>
                         $("#plus").click(function () {
@@ -224,15 +223,18 @@
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
         </script>
-    }
 
-
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
             /**/
-
-            var a = $("#time").val().ToString("MM/dd/yyyy HH:mm");
-            var countDownDate = new Date($("#time").val()).getTime();
+@*            var time = @Model.DauGia.NgayKetThuc.ToString("dd MM yyyy HH mm");
+*@                @*dateOut[1] + "/" + dateOut[0] + "/" + dateOut[2] + " " + dateOut[3] + ":" + dateOut[4]*@
+            var day = @Model.DauGia.NgayKetThuc.Day;
+            var month = @Model.DauGia.NgayKetThuc.Month;
+            var year = @Model.DauGia.NgayKetThuc.Year;
+            var hour =@Model.DauGia.NgayKetThuc.Hour;
+            var minute =@Model.DauGia.NgayKetThuc.Minute;
+            var countDownDate = new Date(month+"/"+day+"/"+year+" "+ hour+":"+minute).getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function () {
@@ -250,8 +252,8 @@
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Display the result in the element with id="demo"
-                document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-                    + minutes + "m " + seconds + "s ";
+                document.getElementById("demo").innerHTML = days + "d " + hours + ":"
+                    + minutes + ":" + seconds + "s ";
 
                 // If the count down is finished, write some text
                 if (distance < 0) {
@@ -259,4 +261,8 @@
                     document.getElementById("demo").innerHTML = "EXPIRED";
                 }
             }, 1000);
-        </script>*@
+        </script>
+    }
+
+
+

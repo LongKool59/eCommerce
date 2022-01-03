@@ -51,7 +51,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)&&p.MaNguoiMua==null).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -64,7 +64,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -80,7 +80,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -94,7 +94,7 @@ namespace eCommerce.Areas.User.Controllers
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.NgayBatDau >= ngay && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -119,7 +119,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) )
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) )
                                                 .OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
@@ -139,7 +139,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -163,7 +163,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
 
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -184,7 +184,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -207,7 +207,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)  &&p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -220,7 +220,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.NgayBatDau >= ngay && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -236,7 +236,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -250,7 +250,7 @@ namespace eCommerce.Areas.User.Controllers
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -275,7 +275,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.TenSanPham == ten)
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.TenSanPham == ten)
                                                 .OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
@@ -295,7 +295,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -319,7 +319,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
 
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -340,7 +340,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -472,7 +472,6 @@ namespace eCommerce.Areas.User.Controllers
                     view.YeuThich = true;
                 }    
             }
-            TempData["time"] = view.DauGia.NgayKetThuc.ToString("MM/dd/yyyy HH:mm");
 
             return View(view);
         }
