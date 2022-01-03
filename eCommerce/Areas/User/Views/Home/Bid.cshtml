@@ -169,7 +169,7 @@
                 {
                     <button id="plus">+</button>
                     <button id="minus">-</button>
-                    <input name="bid" id="bid" disabled="true" value="@Model.DauGia.GiaBanDau" />
+                    <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
                     using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
                     {
                         <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
