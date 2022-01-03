@@ -69,10 +69,12 @@
                     @Html.HiddenFor(modelItem => Model[i].MaNguoiDung)
                 </td>
                 <td>
-                    <a href="/Admin/ManageUser/ChiTietNguoiDung?id=@Model[i].MaNguoiDung"> @Html.DisplayFor(modelItem => Model[i].HoTen)</a>
+                    <a href="/Admin/ManageUser/ChiTietNguoiDung?id=@Model[i].MaNguoiDung" class="truncated-box"> @Html.DisplayFor(modelItem => Model[i].HoTen)</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model[i].Email)
+                    <div class="truncated-box">
+                        @Html.DisplayFor(modelItem => Model[i].Email, new { @class = "truncated-box" })
+                    </div>
                 </td>
                 <td>
                     @Html.FormatValue("MM-dd-yyyy", Model[i].NgayDangKy.ToString("MM-dd-yyyy"))

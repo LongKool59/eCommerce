@@ -157,8 +157,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAuctionController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageAuctionTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
+    <Compile Include="Areas\Admin\Models\DauGiaViewModel.cs" />
     <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.cs">
       <DependentUpon>_Layout.cshtml</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -274,6 +276,7 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\ThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuction\DanhSachDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\mycss.css" />
     <Content Include="assets\css\Rating.css" />
@@ -384,7 +387,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="BidImage\" />
     <Folder Include="UserImages\" />
   </ItemGroup>
