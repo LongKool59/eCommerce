@@ -37,6 +37,13 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+    #cuon {
+        border: 1px solid #dddddd;
+        height: 180px;
+        width:300px;
+        padding: 20px;
+        overflow: scroll;
+    }
 </style>
 <h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
 
@@ -51,7 +58,7 @@
                     {
                         <input value="0" hidden="true" name="loai" />
 
-                        <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
+                        <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="        background-color: orangered"> Bỏ Yêu thích</button>
 
                     }
                 }
@@ -205,8 +212,8 @@
             </p>
         </div>
         <hr />
-        <div class="col-md-6">
-            <p>Danh sách khách hàng đấu giá</p>
+        <div class="col-md-6" id="cuon">
+            <p style="color:red">Danh sách khách hàng đấu giá</p>
             <table class="table1">
                 @Html.Partial("_Notifications")
                 @{
