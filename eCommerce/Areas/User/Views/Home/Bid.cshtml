@@ -176,41 +176,63 @@
             </table>
         </div>
         <div class="col-md-6">
-            <p>Giá sản phẩm:</p>
+            @{
+                DauGiaEntities db = new DauGiaEntities();
+                var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+                if (mucnang.Count() > 0)
+                {
+                    TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
+                }
+                else
+                {
+                    TempData["value"] = Model.DauGia.GiaBanDau;
+                }
+
+            }
+            <p>Giá hiện tại:</p>
             <table>
                 <tr>
-                    <th style="font-size:40px; color: orangered">@Html.DisplayFor(model => model.DauGia.GiaCuoi)</th> @*Ở đây nên để giá đấu giá mỗi khi tăng*@
+                    <th style="font-size:40px; color: orangered">@TempData["value"]</th> @*Ở đây nên để giá đấu giá mỗi khi tăng*@
                 </tr>
             </table>
             <p>
-                @{
-                    DauGiaEntities db = new DauGiaEntities();
-                    var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Count();
-                    if (mucnang > 0)
-                    {
-                        TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
-                    }
-                    else
-                    {
-                        TempData["value"] = Model.DauGia.GiaBanDau;
 
-                    }
-
-                }
-                <button id="minus">-</button>
-                <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
-                <button id="plus">+</button>
-                @using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
+                @if (DateTime.Now > Model.DauGia.NgayBatDau)
                 {
-                    <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-                    <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
-                    <input type="submit" value="Ra giá" class="btn btn-default" style="background-color:red;font-weight:bold"/>
+                    <button id="minus">-</button>
+                    <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
+                    <button id="plus">+</button>
+                    using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
+                    {
+                        <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
+                        <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+                        <input type="submit" value="Ra giá" class="btn btn-default" style="color:black;font-weight:bold;background-color:orangered;font-size:24px" />
+                    }
                 }
-                <input id="time" hidden="true" value="@Model.DauGia.NgayKetThuc.ToString("MM/dd/yyyy HH:mm")" />
+                else
+                {
+                <p>Đấu giá chưa bắt đầu</p>
+            }
 
 
-            </p>
-        </div>
+                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now<Model.DauGia.NgayKetThuc)
+                {
+                    <p>Thời gian đấu giá còn lại: </p>
+                    <p id="demo"></p>
+
+                }
+                else if (DateTime.Now > Model.DauGia.NgayKetThuc)
+                {
+                    <p>Đấu giá kết thúc</p>
+
+                }
+                else
+                {
+                    <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
+
+                }
+                </p>
+            </div>
         <hr />
         <div class="col-md-6" id="cuon">
             <p style="color:red">Danh sách khách hàng đấu giá</p>
