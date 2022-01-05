@@ -243,9 +243,124 @@ ul#menu-list {
   height: 250px;
   margin: auto;
   background: white;
-  border: 1px solid;
   padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 13px rgb(102 109 163 / 65%);
 }
+.auction-list {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2rem 0;
+}
+.auction-item-2 {
+  width: 27%;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px 5px #9cb9fb82;
+  position: relative;
+}
+.auction-thumb img {
+  display: block;
+  margin: auto;
+  border-radius:10px;
+}
+.rating, .rating:hover {
+  color: #ff7800;
+}
+  .rating .fa-star {
+    font-size: 20px;
+    position: absolute;
+    right: 10%;
+    top: 6%;
+  }
+.bid .fa-gavel {
+  transform: rotate( 270deg);
+  position: absolute;
+  text-align: center;
+  bottom: 50%;
+  right: 10%;
+  font-size: 20px;
+  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: -webkit-linear-gradient( 135deg, #b122e6 0%, #ff63de 100%);
+}
+.title a {
+  color: black;
+  text-decoration: none;
+  font-size: 25px;
+  margin-left: 25px;
+}
+.bid-area {
+  width: 90%;
+  margin: auto;
+}
+.bid-amount {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+  padding: 10px 0;
+  border-bottom: 2px dotted #deddf5;
+  border-top: 2px dotted #deddf5;
+}
+  .bid-amount .icon .fa-gavel {
+    transform: rotate( 270deg);
+    font-size: 35px;
+    color: #2cbb44;
+  }
+  .bid-amount .icon .fa-dollar-sign {
+    font-size: 35px;
+    color: red;
+  }
+.amount-content .current {
+  color: #43b055;
+  font-size: 14px;
+}
+.amount-content .amount{
+  font-size:20px;
+}
+.countdown-area {
+  margin:10px;
+  display: flex;
+  justify-content: space-around;
+}
+  .countdown-area .countdown #bid_counter26 {
+    font-size: 16px;
+    text-shadow: 0px 5px 3px rgb(245 49 127 / 20%);
+    color: #eb0082cc;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #eb0082cc;
+  }
+  .countdown-area .total-bids {
+    color: #43b055;
+    font-size:16px;
+  }
+
+.custom-button {
+  background: -webkit-linear-gradient( 90deg, #3da9f5 0%, #683df5 100%);
+  box-shadow: -1.04px 4.891px 20px 0px rgb(69 49 183 / 50%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 20px;
+  display: inline-flex;
+  width: 250px;
+  height: 50px;
+  margin-top: 3px;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+}
+  .custom-button:hover {
+    text-decoration: none;
+    color: white;
+  }
+
 /*end body layout*/
 /*footer*/
 footer h2 {
