@@ -488,6 +488,7 @@ namespace eCommerce.Areas.User.Controllers
                 {
                     return RedirectToAction("Bid", new { id = int.Parse(id) });
                 }
+
                 int mucnang = int.Parse(bid_1);
                 int ma = int.Parse(id);
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
