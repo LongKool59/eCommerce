@@ -73,47 +73,61 @@
       </div>
     </header>
     <section class="hero"></section>
-    <img class="banner-shape" src="~/assets/images/banner-shape-4.png" />
+    @*<img class="banner-shape" src="~/assets/images/banner-shape-4.png" />*@
     <div class="body-layout">
       @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
       @RenderBody()
     </div>
     <footer class="bg-img">
       <section class="footer-top">
-        <img src="~/assets/images/footer-top-shape.png" alt="1"/>
+        <img src="~/assets/images/footer-top-shape.png" alt="1" />
+        <div class="footer-box">
+          <div class="bg-footer"></div>
+          <div class="footer-box-content">
+            <h3>đăng ký để nhận nhiều ưu đãi riêng</h3>
+            <div class="dki-email">
+              <input type="email" placeholder="Nhập email của bạn" />
+              <button>Đăng ký</button>
+            </div>
+          </div>
+        </div>
       </section>
       <div class="footer-title">
         <h3>Gia tot</h3>
         <h5>hãy chọn giá tốt vì túi tiền của bạn!</h5>
       </div>
-      <div class="footer-body">
-        <div class="row">
-          <div class="col-4">
-            <h4>Tags</h4>
-            <div class="row">
+      <div class="grid-container">
+        <div class="grid-item">
+          <div class="footer-body-item">
+            <h4 style="font-size: 2.2rem; color: white; margin-bottom: 2rem; width: 100%; ">Tags</h4>
+            <div class="footer-list">
               <button>KIA</button>
               <button>Huyndai</button>
               <button>Honda</button>
             </div>
-            <div class="row">
+            <div class="footer-list">
               <button>Suzuki</button>
               <button>Ford</button>
               <button>Toyota</button>
             </div>
           </div>
-          <div class="col-4">
-            <h4>Kết nối với chúng tôi trên:</h4>
-            <div class="row">
-              <i class="fab fa-facebook-square"></i>
-              <i class="fab fa-instagram"></i>
-              <i class="fab fa-twitter-square"></i>
+        </div>
+        <div class="grid-item">
+          <div class="footer-body-item">
+            <h4 style="font-size: 2.2rem; color: white; margin-bottom: 2rem; width: 100%;" class="text-center">Kết nối với chúng tôi trên:</h4>
+            <div class="footer-icon">
+              <i class="fab fa-facebook-square mr-3"></i>
+              <i class="fab fa-instagram mr-3"></i>
+              <i class="fab fa-twitter-square mr-3"></i>
               <i class="fas fa-dice-d6"></i>
             </div>
           </div>
-          <div class="col-4">
-            <h4>Địa chỉ liên hệ:</h4>
-            <p>Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
-            <p>giaodien@gmail.com</p>
+        </div>
+        <div class="grid-item">
+          <div class="footer-body-item">
+            <h4 style="width: 90%; font-size: 2.2rem; color: white; margin-bottom: 2rem;" class="text-right">Địa chỉ liên hệ:</h4>
+            <p style=" width: 90%; text-align: end; font-size: 1.5rem; color: white; display: inline-block; margin-right: -160px;">Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
+            <p style="width: 90%; text-align: end; font-size: 1.5rem; color: white; display: inline-block; margin-right: -120px; ">giaodien@gmail.com</p>
           </div>
         </div>
       </div>
