@@ -72,19 +72,54 @@
         </nav>
       </div>
     </header>
-    @*<nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container">
-
-      </div>
-    </nav>*@
     <section class="hero"></section>
-    <img class="banner-shape" src="~/assets/images/banner-shape-4.png"/>
+    <img class="banner-shape" src="~/assets/images/banner-shape-4.png" />
     <div class="body-layout">
       @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
       @RenderBody()
     </div>
     <footer class="bg-img">
-
+      <section class="footer-top">
+        <img src="~/assets/images/footer-top-shape.png" alt="1"/>
+      </section>
+      <div class="footer-title">
+        <h3>Gia tot</h3>
+        <h5>hãy chọn giá tốt vì túi tiền của bạn!</h5>
+      </div>
+      <div class="footer-body">
+        <div class="row">
+          <div class="col-4">
+            <h4>Tags</h4>
+            <div class="row">
+              <button>KIA</button>
+              <button>Huyndai</button>
+              <button>Honda</button>
+            </div>
+            <div class="row">
+              <button>Suzuki</button>
+              <button>Ford</button>
+              <button>Toyota</button>
+            </div>
+          </div>
+          <div class="col-4">
+            <h4>Kết nối với chúng tôi trên:</h4>
+            <div class="row">
+              <i class="fab fa-facebook-square"></i>
+              <i class="fab fa-instagram"></i>
+              <i class="fab fa-twitter-square"></i>
+              <i class="fas fa-dice-d6"></i>
+            </div>
+          </div>
+          <div class="col-4">
+            <h4>Địa chỉ liên hệ:</h4>
+            <p>Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
+            <p>giaodien@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© Copyright 2021 | Bản quyền thuộc về GiaTot</p>
+      </div>
     </footer>
   </div>
 
@@ -97,7 +132,7 @@
   <script src="~/Scripts/bootstrap.min.js"></script>
   @RenderSection("scripts", required: false)
 
-<script type="text/javascript">
+  <script type="text/javascript">
   $(document).ready(function () {
     $('button.manage').click(function (e) {
       e.stopPropagation()
@@ -195,6 +230,6 @@
     let windowPosition = window.scrollY > 0;
     header.classList.toggle("scrolling-active", windowPosition);
   });
-</script>
+  </script>
 </body>
 </html>

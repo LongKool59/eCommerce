@@ -216,9 +216,9 @@ ul#menu-list {
 }
 .banner-shape {
   width: 100%;
-  height: 400px;
+  height: 500px;
   position: absolute;
-  top: 45%;
+  top: 56%;
   left: 0;
 }
 /*end hero*/
@@ -233,9 +233,9 @@ ul#menu-list {
 /*Apply styles after scroll end*/
 /*start body-layout*/
 .body-layout {
-  position: absolute;
+  /*position: absolute;
   top: 15%;
-  left: 0;
+  left: 0;*/
   width: 100%;
 }
 .form-auction {
@@ -363,13 +363,22 @@ ul#menu-list {
 
 /*end body layout*/
 /*footer*/
-footer  {
-  background-image:url(../images/footer-bg.jpg);
+footer {
+  background-image: url(../images/footer-bg.jpg);
+  width: 100%;
+  height: 900px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 5rem;
+  position:relative;
+}
+.footer-top img {
   width:100%;
-  height:600px;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-size:cover;
+  height:500px;
+  position:absolute;
+  top:0;
+  left:0;
 }
 .row {
   margin-left: 0;
