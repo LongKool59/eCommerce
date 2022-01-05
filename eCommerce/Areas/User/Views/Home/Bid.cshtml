@@ -40,7 +40,6 @@
 </style>
 <h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
 
-
 <div>
     <div class="row">
         <div class="col-md-6">
@@ -144,61 +143,81 @@
             </table>
         </div>
         <div class="col-md-6">
-            <p>Giá sản phẩm:</p>
+           @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
+            @{
+                DauGiaEntities db = new DauGiaEntities();
+                var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+                if (mucnang.Count() > 0)
+                {
+                    TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
+                }
+                else
+                {
+                    TempData["value"] = Model.DauGia.GiaBanDau;
+                }
+
+            }
+            <p>Giá hiện tại:</p>
             <table>
                 <tr>
-                    <th style="font-size:40px; color: orangered">@Html.DisplayFor(model => model.DauGia.GiaCuoi)</th> @*Ở đây nên để giá đấu giá mỗi khi tăng*@
+                    <!--<th style="font-size:40px; color: orangered"></th>-->@TempData["value"] @*Ở đây nên để giá đấu giá mỗi khi tăng*@
                 </tr>
             </table>
             <p>
-                @{
-                    DauGiaEntities db = new DauGiaEntities();
-                    var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Count();
-                    if (mucnang > 0)
-                    {
-                        TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
-                    }
-                    else
-                    {
-                        TempData["value"] = Model.DauGia.GiaBanDau;
 
-                    }
-
-                }
-                <button id="plus">+</button>
-                <button id="minus">-</button>
-                <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
-                @using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
+                @if (DateTime.Now > Model.DauGia.NgayBatDau)
                 {
-                    <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-                    <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
-                    <input type="submit" value="Ra giá" class="btn btn-default" />
-                }
-                <input id="time" hidden="true" value="@Model.DauGia.NgayKetThuc.ToString("MM/dd/yyyy HH:mm")" />
-
-
-            </p>
-        </div>
-        <hr />
-        <div class="col-md-6">
-            <p>Danh sách khách hàng đấu giá</p>
-            <table class="table1">
-                @Html.Partial("_Notifications")
-                @{
-                    var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
-                    foreach (var item in a)
+                    <button id="plus">+</button>
+                    <button id="minus">-</button>
+                    <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
+                    using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
                     {
-                        var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
-                        <p>@nd.HoTen - @item.GiaTri VNĐ</p>
+                        <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
+                        <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+                        <input type="submit" value="Ra giá" class="btn btn-default" />
                     }
                 }
+                else
+                {
+                <p>Đấu giá chưa bắt đầu</p>
+            }
 
-            </table>
+
+                @if (DateTime.Now > Model.DauGia.NgayBatDau)
+                {
+                    <p>Thời gian đấu giá còn lại: </p>
+                    <p id="demo"></p>
+
+                }
+                else
+                {
+                    <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
+
+                }
+                @*Đến đây*@
+
+                </p>
+            </div>
+            <hr />
+            <div class="col-md-6">
+                <p>Danh sách khách hàng đấu giá</p>
+                <table class="table1">
+                    @Html.Partial("_Notifications")
+                    @{
+                        var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+                        foreach (var item in a)
+                        {
+                            var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
+                            <p>@nd.HoTen - @item.GiaTri VNĐ</p>
+                        }
+                    }
+
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="col-md-12" style="text-align:center">
-        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
-    </div>
+        <div class="col-md-12" style="text-align:center">
+            <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+        </div>
 
 
 
@@ -223,16 +242,26 @@
                             $("#bid_1").val(function () {
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
-        </script>
-    }
+            </script>
+            @*Từ đây *@
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+
+                @*var day = Model.DauGia.NgayBatDau.Day;
+                var month = Model.DauGia.NgayBatDau.Month;
+                var year = Model.DauGia.NgayBatDau.Year;
+                var hour = Model.DauGia.NgayBatDau.Hour;
+                var minute = Model.DauGia.NgayBatDau.Minute;*@
 
 
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-            /**/
+                var day = @Model.DauGia.NgayKetThuc.Day;
+                var month = @Model.DauGia.NgayKetThuc.Month;
+                var year = @Model.DauGia.NgayKetThuc.Year;
+                var hour = @Model.DauGia.NgayKetThuc.Hour;
+                var minute = @Model.DauGia.NgayKetThuc.Minute;
 
-            var a = $("#time").val().ToString("MM/dd/yyyy HH:mm");
-            var countDownDate = new Date($("#time").val()).getTime();
+
+            var countDownDate = new Date(month+"/"+day+"/"+year+" "+ hour+":"+minute).getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function () {
@@ -250,8 +279,8 @@
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Display the result in the element with id="demo"
-                document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-                    + minutes + "m " + seconds + "s ";
+                document.getElementById("demo").innerHTML = days + "ngày " + hours + ":"
+                    + minutes + ":" + seconds + "s ";
 
                 // If the count down is finished, write some text
                 if (distance < 0) {
@@ -259,4 +288,55 @@
                     document.getElementById("demo").innerHTML = "EXPIRED";
                 }
             }, 1000);
-        </script>*@
+            </script>
+
+            <script>
+
+                var day_1 = @Model.DauGia.NgayBatDau.Day;
+                var month_1 = @Model.DauGia.NgayBatDau.Month;
+                var year_1 = @Model.DauGia.NgayBatDau.Year;
+                var hour_1 = @Model.DauGia.NgayBatDau.Hour;
+                var minute_1 = @Model.DauGia.NgayBatDau.Minute;
+
+
+                @*var day = @Model.DauGia.NgayKetThuc.Day;
+                var month = @Model.DauGia.NgayKetThuc.Month;
+                var year = @Model.DauGia.NgayKetThuc.Year;
+                var hour = @Model.DauGia.NgayKetThuc.Hour;
+                var minute = @Model.DauGia.NgayKetThuc.Minute;*@
+
+
+            var countDownDate_1 = new Date(month_1+"/"+day_1+"/"+year_1+" "+ hour_1+":"+minute_1).getTime();
+
+            // Update the count down every 1 second
+            var x_1 = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance_1 = countDownDate_1 - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days_1 = Math.floor(distance_1 / (1000 * 60 * 60 * 24));
+                var hours_1 = Math.floor((distance_1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes_1 = Math.floor((distance_1 % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds_1 = Math.floor((distance_1 % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("demo_1").innerHTML = days_1 + " ngày " + hours_1 + ":"
+                    + minutes_1 + ":" + seconds_1 + "s ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x_1);
+                    document.getElementById("demo_1").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+            </script>
+            @*Đến đây*@
+
+
+        }
+
+   
