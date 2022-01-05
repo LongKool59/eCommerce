@@ -487,16 +487,35 @@ namespace eCommerce.Areas.User.Controllers
                 if (bid_1 == null || bid_1.Trim() == ""||id==null||id.Trim()=="")
                 {
                     return RedirectToAction("Bid", new { id = int.Parse(id) });
-                }    
-
+                }
                 int mucnang = int.Parse(bid_1);
                 int ma = int.Parse(id);
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
-                if (l.Count()>0)
+                var dg = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
+                if(DateTime.Now>dg.NgayKetThuc)
                 {
-                    var max = db.MucNangs.Where(m => m.MaDauGia == ma).Max(m => m.GiaTri);
-                    if (max < mucnang)
+                    if (l.Count() > 0)
+                    {
+                        var max = db.MucNangs.Where(m => m.MaDauGia == ma).Max(m => m.GiaTri);
+                        if (max < mucnang)
+                        {
+                            MucNang mn = new MucNang();
+                            mn.MaDauGia = ma;
+                            mn.MaNguoiDung = ID;
+                            mn.GiaTri = mucnang;
+                            mn.ThoiGian = DateTime.Now;
+                            db.MucNangs.Add(mn);
+                            db.SaveChanges();
+                            this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
+                        }
+                        else
+                        {
+                            this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
+
+                        }
+                    }
+                    else
                     {
                         MucNang mn = new MucNang();
                         mn.MaDauGia = ma;
@@ -506,25 +525,18 @@ namespace eCommerce.Areas.User.Controllers
                         db.MucNangs.Add(mn);
                         db.SaveChanges();
                         this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
-                    }
-                    else
-                    {
-                        this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
 
                     }
+                    return RedirectToAction("Bid", new { id = ma });
                 }
-                else {
-                    MucNang mn = new MucNang();
-                    mn.MaDauGia = ma;
-                    mn.MaNguoiDung = ID;
-                    mn.GiaTri = mucnang;
-                    mn.ThoiGian = DateTime.Now;
-                    db.MucNangs.Add(mn);
-                    db.SaveChanges();
-                    this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
+                else
+                {
+                    this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
+                    return RedirectToAction("Bid", new { id = ma });
 
                 }
-                return RedirectToAction("Bid", new { id=ma});
+
+
             }
 
         }
