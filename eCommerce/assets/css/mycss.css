@@ -212,16 +212,6 @@ ul#menu-list {
   background-position: center;
   position: relative;
 }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    top: 0;
-    left: 0;
-  }
-
 .hero-content .banner-hero {
   width: 480px;
   height: 480px;
@@ -282,12 +272,10 @@ ul#menu-list {
   border-radius: 20px;
   box-shadow: 0.487px 3.97px 81px 0px rgb(40 58 140 / 46%);
 }
-
-.auction-body {
-  width: 90%;
-  margin: auto;
+.auction-body{
+  width:90%;
+  margin:auto;
 }
-
 .auction-list {
   display: flex;
   justify-content: space-evenly;
@@ -303,10 +291,7 @@ ul#menu-list {
   border-radius: 20px;
   box-shadow: 5px 5px 10px 5px #9cb9fb82;
   position: relative;
-  margin-bottom: 3%;
-}
-.auction-thumb {
-    height: 54%;
+  margin-bottom:3%;
 }
 .auction-thumb img {
   width: 95%;
@@ -435,12 +420,6 @@ footer {
   margin-top: 5rem;
   position: relative;
 }
-
-.footer-top {
-  margin-bottom: 30%;
-  position: relative;
-}
-
   .footer-top .footer-top-shape {
     width: 100%;
     height: 500px;
@@ -448,7 +427,6 @@ footer {
     top: 0;
     left: 0;
   }
-
 .footer-title h3 {
   text-align: center;
   font-size: 4rem;
@@ -608,7 +586,6 @@ footer {
   #myBtn:hover {
     background-color: #555;
   }
-
 .rotate, .rotate1, .rotate2, .rotate3 {
   display: block;
   position: fixed;
@@ -618,23 +595,19 @@ footer {
   -webkit-animation: spin 1s linear infinite;
   -moz-animation: spin 1s linear infinite;
 }
-
 .rotate {
-  opacity: .3;
+  opacity:.3;
   top: 0%;
   left: 35%;
 }
-
 .rotate1 {
   top: 110%;
   left: 15%;
 }
-
 .rotate2 {
   top: 100%;
   left: 30%;
 }
-
 .rotate3 {
   top: 35%;
   left: 60%;
