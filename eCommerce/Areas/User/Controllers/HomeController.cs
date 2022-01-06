@@ -51,7 +51,7 @@ namespace eCommerce.Areas.User.Controllers
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)&&p.MaNguoiMua==null).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -119,7 +119,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) )
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia))
                                                 .OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
@@ -139,7 +139,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -163,7 +163,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
 
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.GiaBanDau >= price).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -275,7 +275,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.TenSanPham == ten)
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.TenSanPham == ten)
                                                 .OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
@@ -289,7 +289,7 @@ namespace eCommerce.Areas.User.Controllers
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
                                                where ct.MaTrangThai == tt.MaTrangThai
                                                select d;
-                            int temp = int.Parse(loai.ToString()); 
+                            int temp = int.Parse(loai.ToString());
                             var CT_Loai = from d in db.DauGias
                                           join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
                                           where lo.MaLoai == temp
@@ -319,7 +319,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
 
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -340,7 +340,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia)  && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiMua == null && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.NgayBatDau >= ngay && p.GiaBanDau >= price && p.TenSanPham == ten).OrderBy(x => x.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -359,7 +359,7 @@ namespace eCommerce.Areas.User.Controllers
             var yeuthich = db.YeuThiches.Where(m => m.MaNguoiDung == ID).ToList();
             var daugia = from y in db.YeuThiches
                          join dg in db.DauGias on y.MaDauGia equals dg.MaDauGia
-                         where y.MaNguoiDung == ID 
+                         where y.MaNguoiDung == ID
                          select dg;
             var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
             var DauGia_DaXoa = from y in db.YeuThiches
@@ -376,13 +376,13 @@ namespace eCommerce.Areas.User.Controllers
 
             return View("ListFavorite", DGViewModel.ToPagedList(pageNumber, pageSize));
         }
-        [HttpPost, ActionName("Favorite")]
+        //[HttpPost, ActionName("Favorite")]
         public ActionResult Favorite(int id, string loai)
         {
-            if(Session["MaNguoiDung"]==null)
+            if (Session["MaNguoiDung"] == null)
             {
                 return Redirect("/");
-            }   
+            }
             else
             {
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
@@ -392,16 +392,17 @@ namespace eCommerce.Areas.User.Controllers
                 yt.NgayThem = DateTime.Now;
                 db.YeuThiches.Add(yt);
                 db.SaveChanges();
-                if(loai=="0")
+                if (loai == "0")
                 {
                     return RedirectToAction("Bid", new { id = id });
 
                 }
-                else if(loai=="1")
+                else if (loai == "1")
                 {
                     return RedirectToAction("Home");
 
-                }else
+                }
+                else
                 {
                     return RedirectToAction("ListFavorite");
 
@@ -412,8 +413,8 @@ namespace eCommerce.Areas.User.Controllers
 
         }
 
-        [HttpPost, ActionName("UnFavorite")]
-        public ActionResult UnFavorite(int id,string loai)
+        //[HttpPost, ActionName("UnFavorite")]
+        public ActionResult UnFavorite(int id, string loai)
         {
             if (Session["MaNguoiDung"] == null)
             {
@@ -423,7 +424,7 @@ namespace eCommerce.Areas.User.Controllers
             {
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
                 YeuThich yt = new YeuThich();
-                yt = db.YeuThiches.Where(m => m.MaDauGia == id&&m.MaNguoiDung==ID).SingleOrDefault();
+                yt = db.YeuThiches.Where(m => m.MaDauGia == id && m.MaNguoiDung == ID).SingleOrDefault();
                 db.YeuThiches.Remove(yt);
                 db.SaveChanges();
                 if (loai == "0")
@@ -431,7 +432,7 @@ namespace eCommerce.Areas.User.Controllers
                     return RedirectToAction("Bid", new { id = id });
 
                 }
-                else if(loai=="1")
+                else if (loai == "1")
                 {
                     return RedirectToAction("Home");
 
@@ -467,10 +468,10 @@ namespace eCommerce.Areas.User.Controllers
             {
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
                 var yt = db.YeuThiches.Where(m => m.MaDauGia == id && m.MaNguoiDung == ID).SingleOrDefault();
-                if(yt!=null)
+                if (yt != null)
                 {
                     view.YeuThich = true;
-                }    
+                }
             }
 
             return View(view);
@@ -484,7 +485,7 @@ namespace eCommerce.Areas.User.Controllers
             }
             else
             {
-                if (bid_1 == null || bid_1.Trim() == ""||id==null||id.Trim()=="")
+                if (bid_1 == null || bid_1.Trim() == "" || id == null || id.Trim() == "")
                 {
                     return RedirectToAction("Bid", new { id = int.Parse(id) });
                 }
@@ -494,7 +495,7 @@ namespace eCommerce.Areas.User.Controllers
                 int ID = int.Parse(Session["MaNguoiDung"].ToString());
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
                 var dg = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
-                if(DateTime.Now>dg.NgayKetThuc)
+                if (DateTime.Now > dg.NgayKetThuc)
                 {
                     if (l.Count() > 0)
                     {
@@ -560,10 +561,10 @@ namespace eCommerce.Areas.User.Controllers
         [HttpPost]
         public ActionResult Rating(string id, string temp, string cmt)
         {
-            if(id==null||id.Trim()==""||temp==null||temp.Trim()==""||cmt.Trim()==null||cmt==null)
+            if (id == null || id.Trim() == "" || temp == null || temp.Trim() == "" || cmt.Trim() == null || cmt == null)
             {
                 return RedirectToAction("Rating", new { id = int.Parse(id) });
-            }    
+            }
 
             int ma = int.Parse(id);
             int rate = int.Parse(temp);
@@ -575,14 +576,14 @@ namespace eCommerce.Areas.User.Controllers
             dg.NoiDung = cmt;
             db.DanhGias.Add(dg);
             db.SaveChanges();
-            return RedirectToAction("ListBuy","Home");
+            return RedirectToAction("ListBuy", "Home");
         }
 
         public ActionResult ListBuy(int? page)
         {
             int pageNumber = page ?? 1;
             int pageSize = 5;
-         
+
             IQueryable<DauGia> DauGia;
             List<DauGiaViewModel> DGViewModel;
             var DauGia_full = db.DauGias.OrderBy(x => x.NgayDang);
@@ -659,7 +660,7 @@ namespace eCommerce.Areas.User.Controllers
             db.CT_TrangThai.Add(ct);
             db.SaveChanges();
 
-            return RedirectToAction("Rating", new { id=id});
+            return RedirectToAction("Rating", new { id = id });
         }
         public ActionResult NapTien()
         {
@@ -752,7 +753,7 @@ namespace eCommerce.Areas.User.Controllers
             int price = int.Parse(value);
             int ID = int.Parse(Session["MaNguoiDung"].ToString());
             var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == ID).SingleOrDefault();
-            if(nd.SoDuVi>price)
+            if (nd.SoDuVi > price)
             {
                 nd.SoDuVi -= price;
                 this.AddNotification("Rút tiền thành công", NotificationType.SUCCESS);

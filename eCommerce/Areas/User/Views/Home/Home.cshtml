@@ -4,370 +4,117 @@
 @model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
 
 @{
-  ViewBag.Title = "Danh sách sản phẩm đấu giá";
-  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "Danh sách sản phẩm đấu giá";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
 
 <h1 class="text-center py-5 text-light">DANH SÁCH SẢN PHẨM ĐẤU GIÁ</h1>
 <div class="list-employee">
-  <div class="form-auction">
-    @using (Html.BeginForm("Home", "Home", FormMethod.Get))
-    {
-      <form class="form-auction">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Tìm kiếm sản phẩm</label>
-            <input type="text" class="form-control" id="inputEmail4" placeholder="Nhập tên sản phẩm...">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputState">Loại sản phẩm</label>
-            @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai", @class = "form-control" })
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputAddress">Mức giá</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Nhập giá tối thiểu ban đầu">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputAddress2">Thời gian bắt đầu</label>
-            <input type="datetime-local" class="form-control" id="inputAddress2">
-          </div>
-        </div>
-        <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
-        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
-      </form>
-    }
-  </div>
-  <div class="container">
-    <h3 style="font-size: 3rem; margin: 4rem 0 0 5rem; text-transform: capitalize;">Danh sách các mặt hàng nổi bật</h3>
-    <div class="auction-list">
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="auction-list">
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-      <div class="auction-item-2">
-        <div class="auction-thumb p-3">
-          <a href="./product-details.html"><img src="http://pixner.net/sbidu/main/assets/images/auction/car/auction-3.jpg" alt="car"></a>
-          <a href="#0" class="rating"><i class="far fa-star"></i></a>
-          <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-        </div>
-        <div class="auction-content">
-          <h6 class="title">
-            <a href="#">2018 Hyundai Sonata</a>
-          </h6>
-          <div class="bid-area">
-            <div class="row">
-              <div class="bid-amount" style="border-right: 2px solid #deddf5;">
-                <div class="icon">
-                  <i class="fas fa-gavel"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Giá gần đây</div>
-                  <div class="amount">$876.00</div>
-                </div>
-              </div>
-              <div class="bid-amount">
-                <div class="icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">Mua ngay</div>
-                  <div class="amount">$5,00.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="countdown-area">
-            <div class="countdown">
-              <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
-            </div>
-            <span class="total-bids">30 Đấu giá</span>
-          </div>
-          <div class="text-center">
-            <a href="#0" class="custom-button">Tham gia đấu giá</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-
-  @foreach (var item in Model)
-  {
-    DauGiaEntities db = new DauGiaEntities();
-    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
-    if (Hinh.Length > 0)
-    {
-      <img src=@Url.Content(Hinh[0].LinkAnh) style="height:200px;width:150px" />
-    }
-
-    <a href=@Url.Action("Bid", "Home", new { id = item.MaDauGia })>
-      <div>
-        @Html.DisplayFor(modelItem => item.TenSanPham)<br />
-
-        @Html.DisplayFor(modelItem => item.MoTa)<br />
-
-        @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)<br />
-
-        @Html.DisplayFor(modelItem => item.GiaBanDau)
-        @if (Session["MaNguoiDung"] != null)
+    <div class="form-auction">
+        @using (Html.BeginForm("Home", "Home", FormMethod.Get))
         {
-          int ID = int.Parse(Session["MaNguoiDung"].ToString());
-          int ma = int.Parse(item.MaDauGia.ToString());
-          var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
-          if (yt != null)
-          {
-            using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
-            {
-              <input value="1" hidden="true" name="loai" />
-              <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
-            }
-          }
-          else
-          {
-            using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
-            {
-              <input value="1" hidden="true" name="loai" />
-
-              <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
-            }
-          }
+            <form class="form-auction">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Tìm kiếm sản phẩm</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Nhập tên sản phẩm...">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputState">Loại sản phẩm</label>
+                        @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputAddress">Mức giá</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Nhập giá tối thiểu ban đầu">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputAddress2">Thời gian bắt đầu</label>
+                        <input type="datetime-local" class="form-control" id="inputAddress2">
+                    </div>
+                </div>
+                <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+                <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+            </form>
         }
-        else
-        {
-          using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
-          {
-            <input value="1" hidden="true" name="loai" />
-            <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Yêu thích</button>
-          }
-        }
-      </div>
-    </a>
-  }
+    </div>
+    <div class="container">
+        <h3 style="font-size: 3rem; margin: 4rem 0 0 5rem; text-transform: capitalize;">Danh sách các mặt hàng nổi bật</h3>
+        <div class="auction-list">
+            @foreach (var item in Model)
+            {
+                DauGiaEntities db = new DauGiaEntities();
+                var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+                <div class="auction-item-2">
+                    <div class="auction-thumb p-3">
+                        @if (Hinh.Length > 0)
+                        {
+                            <a href="./product-details.html" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
+                        }
+                        @if (Session["MaNguoiDung"] != null)
+                        {
+                            int ID = int.Parse(Session["MaNguoiDung"].ToString());
+                            int ma = int.Parse(item.MaDauGia.ToString());
+                            var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
+                            if (yt != null)
+                            {
+                                <a href="/User/Home/UnFavorite?id=@item.MaDauGia&loai=1" class="rating"><i class="fas fa-star"></i></a>
+                            }
+                            else
+                            {
+                                <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
+                        }
+                        @*<a href="#0" class="rating"><i class="far fa-star"></i></a>*@
+                        <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
+                    </div>
+                    <div class="auction-content">
+                        <h6 class="title">
+                            <a href="#">@Html.DisplayFor(modelItem => item.TenSanPham)</a>
+                        </h6>
+                        <div class="bid-area">
+                            <div class="row" style="justify-content:center">
+                                <div class="bid-amount">
+                                    <div class="icon">
+                                        <i class="fas fa-gavel"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">Giá cao nhất</div>
+                                        <div class="amount">$876.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="countdown-area">
+                            <div class="countdown">
+                                <div id="bid_counter26">0d  : 0h  : 18m  : 25s</div>
+                            </div>
+                            <span class="total-bids">30 Đấu giá</span>
+                        </div>
+                        <div class="text-center">
+                            <a href="#0" class="custom-button">Tham gia đấu giá</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 
-  @Html.PagedListPager(Model,
-          page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
-          new PagedListRenderOptions()
-          {
-              Display = PagedListDisplayMode.IfNeeded,
-              DisplayPageCountAndCurrentLocation = true,
 
-          })
-  @*</table>
-  *@
+
+    @Html.PagedListPager(Model,
+            page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+            new PagedListRenderOptions()
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+
+            })
+    @*</table>
+    *@
 </div>
