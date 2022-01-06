@@ -305,8 +305,13 @@ ul#menu-list {
   position: relative;
   margin-bottom: 3%;
 }
-
+.auction-thumb {
+    height: 54%;
+}
 .auction-thumb img {
+  width: 95%;
+  height: 100%;
+  object-fit: cover;
   display: block;
   margin: auto;
   border-radius: 10px;
@@ -324,18 +329,18 @@ ul#menu-list {
   }
 
 .bid .fa-gavel {
-  transform: rotate( 270deg);
-  position: absolute;
-  text-align: center;
-  bottom: 50%;
-  right: 10%;
-  font-size: 20px;
-  font-weight: 600;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 50%;
-  background: -webkit-linear-gradient( 135deg, #b122e6 0%, #ff63de 100%);
+    transform: rotate( 270deg);
+    position: absolute;
+    text-align: center;
+    top: 4%;
+    left: 8%;
+    font-size: 20px;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: -webkit-linear-gradient( 135deg, #b122e6 0%, #ff63de 100%);
 }
 
 .title a {
@@ -356,8 +361,6 @@ ul#menu-list {
   align-items: center;
   width: 50%;
   padding: 10px 0;
-  border-bottom: 2px dotted #deddf5;
-  border-top: 2px dotted #deddf5;
 }
 
   .bid-amount .icon .fa-gavel {

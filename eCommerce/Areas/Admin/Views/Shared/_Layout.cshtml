@@ -37,7 +37,7 @@
                     <div class="row flex-center">
                         <div class="avatar-info">
                             <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
+                                <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2 truncated-box" style="font-size: 1.3rem; color:black; width:80px">@Session["HoTen"]</span>
                             </a>
                             <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
                                 <a class="dropdown-item" href="/Admin/HomeAdmin/ThongTinCaNhan?id=@Session["MaNguoiDung"]"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
