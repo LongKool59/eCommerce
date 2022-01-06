@@ -322,6 +322,7 @@
 
         @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)<br />
 
+
         @Html.DisplayFor(modelItem => item.GiaBanDau)
         @if (Session["MaNguoiDung"] != null)
         {
@@ -347,6 +348,7 @@
           }
         }
         else
+
         {
           using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
           {
@@ -354,6 +356,7 @@
             <button type="submit" name="id" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Yêu thích</button>
           }
         }
+
       </div>
     </a>
   }

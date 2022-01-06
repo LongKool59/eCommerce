@@ -105,7 +105,7 @@
             }
         </div>
         <div class="col-md-6" style="text-align:left">
-            @Html.ActionLink("Đổi mật khẩu", "DoiMatKhau")
+            <a href='@Url.Action("DoiMatKhau","DetailsUser")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aquamarine"><i class="fas fa-exchange-alt"></i> ĐỔI MẬT KHẨU </a>
             <a href='@Url.Action("Edit","DetailsUser", new { id = Model.MaNguoiDung})' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-edit"></i> CHỈNH SỬA </a>
         </div>
     </div>
