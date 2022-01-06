@@ -113,7 +113,7 @@
                         var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
                         if (Hinh.Length > 0)
                         {
-                            <img src="@Html.DisplayFor(hinh => Hinh[0].LinkAnh)" />
+                            <img src="@Url.Content(Hinh[0].LinkAnh)" style="width:200px;height:230px"/>
 
                         }
                     }
@@ -144,8 +144,8 @@
                     @Html.DisplayFor(modelItem => item.NgayDang)
                 </td>
                 <td>
-
-                    @Html.ActionLink("Details", "Detail", new { id = item.MaDauGia })
+                    <a href='@Url.Action("Edit","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:aqua"><i class="fas fa-edit"></i> Chỉnh sửa </a> |
+                    <a href='@Url.Action("Detail","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:antiquewhite"><i class="fas fa-info-circle"></i> Chi tiết </a>
                     @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
                     {
 
@@ -173,4 +173,3 @@
 
                 })
     </table>
-
