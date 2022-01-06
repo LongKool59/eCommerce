@@ -392,6 +392,7 @@ namespace eCommerce.Areas.User.Controllers
                 yt.NgayThem = DateTime.Now;
                 db.YeuThiches.Add(yt);
                 db.SaveChanges();
+                TempData["toastr-success"] = "Thêm vào yêu thích thành công";
                 if (loai == "0")
                 {
                     return RedirectToAction("Bid", new { id = id });
@@ -427,6 +428,7 @@ namespace eCommerce.Areas.User.Controllers
                 yt = db.YeuThiches.Where(m => m.MaDauGia == id && m.MaNguoiDung == ID).SingleOrDefault();
                 db.YeuThiches.Remove(yt);
                 db.SaveChanges();
+                TempData["toastr-success"] = "Bỏ yêu thích thành công";
                 if (loai == "0")
                 {
                     return RedirectToAction("Bid", new { id = id });
