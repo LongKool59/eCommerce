@@ -20,7 +20,7 @@
     <header>
       <div class="container">
         <nav class="nav">
-          <div class="w-75" style="display: flex; justify-content: space-between; align-items: center; margin: auto;">
+          <div style="display: flex; justify-content: space-around; align-items: center; margin: auto; width: 90%;">
             <div class="row">
               <a class="nav-link flex-center" href="#">
                 <img src="~/assets/images/revauct.jpg" width="40" height="40" class="mr-3 d-inline-block align-top" style="border-radius:50%" alt="">
@@ -72,16 +72,47 @@
         </nav>
       </div>
     </header>
-    <section class="hero"></section>
-    @*<img class="banner-shape" src="~/assets/images/banner-shape-4.png" />*@
+    <section class="hero">
+      <section class="hero-content">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="img-fluid" src="~/assets/images/3304260.jpg" alt="Los Angeles">
+              </div>
+              <div class="carousel-item">
+                <img src="~/assets/images/5698913.jpg" alt="Chicago">
+              </div>
+              <div class="carousel-item">
+                <img src="~/assets/images/5875457.jpg" alt="New York">
+              </div>
+            </div>
+          </div>
+          <img class="banner-hero" src="~/assets/images/banner-1.png" />
+      </section>
+    </section>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-chevron-up" style="font-size: 3rem;"></i></button>
     <div class="body-layout">
       @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
       @RenderBody()
     </div>
     <footer class="bg-img">
       <section class="footer-top">
-        <img src="~/assets/images/footer-top-shape.png" alt="1" />
+        <img class="footer-top-shape" src="~/assets/images/footer-top-shape.png" alt="1" />
         <div class="footer-box">
+          <img class="rotate" src="~/assets/images/2674342741552644384-128.png" alt="â" />
+          <img class="rotate1" src="~/assets/images/circle (1).png" alt="â" />
+          <img class="rotate2" src="~/assets/images/circle.png" alt="â" />
+          <img class="rotate3" src="~/assets/images/benzene.png" alt="â" />
+          <img class="rotate" src="~/assets/images/2674342741552644384-128.png" alt="â" />
           <div class="bg-footer"></div>
           <div class="footer-box-content">
             <h3>đăng ký để nhận nhiều ưu đãi riêng</h3>
@@ -244,6 +275,21 @@
     let windowPosition = window.scrollY > 0;
     header.classList.toggle("scrolling-active", windowPosition);
   });
+
+    //back to top
+    var mybutton = document.getElementById("myBtn");
+    window.onscroll = function () { scrollFunction() };
+    function scrollFunction() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
   </script>
 </body>
 </html>
