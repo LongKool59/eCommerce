@@ -1,0 +1,104 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<eCommerce.Areas.Admin.Models.DauGiaViewModel>
+@{
+    ViewBag.Title = "DanhSachDauGia";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="header-list-view">QUẢN LÝ ĐẤU GIÁ</h2>
+<div>
+    @using (Html.BeginForm("DanhSachDauGia", "ManageAuction", FormMethod.Get))
+    {
+        <div class="row search-for">
+            <span style="font-size: 1.4rem; font-weight: 500;">Tìm kiếm theo: </span>
+            <input type="radio" id="html" name="loaiTimKiem" value="MaDauGia" style="margin-left: 50px;">
+            <label for="html" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Mã đấu giá</label>
+            <input type="radio" id="html1" name="loaiTimKiem" value="TenNguoiBan" style="margin-left: 50px;">
+            <label for="html1" style="font-size: 1.4rem; font-weight: 500; margin-bottom: 0; margin-left: 10px; ">Tên người bán</label>
+        </div>
+        <div class="my-3 search-manage-user">
+            <input type="text" class="form-control" placeholder="Nhập từ khóa để tìm kiếm" name="tenTimKiem">
+            <button class="btn btn-search" type="submit" name="submit" value="btnTimKiem">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachDauGia", "ManageAuction")'">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    }
+</div>
+@Html.Partial("_Notifications")
+@using (Html.BeginForm("HandleDelete", "ManageAuction", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr class="table-title">
+            <th>
+                <input type="checkbox" value="" id="CheckDefault">
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Mã đấu giá</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên người bán</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Tên sản phẩm</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày đăng</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày bắt đầu</p>
+            </th>
+            <th>
+                <p style="font-size: 1.3rem; margin-bottom: 0rem;">Ngày kết thúc</p>
+            </th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>@Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { @class = "checkItem" })</td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].MaDauGia)
+                    @Html.HiddenFor(modelItem => Model[i].MaDauGia)
+                </td>
+                <td>
+                    <div class="truncated-box">
+                        @Html.DisplayFor(modelItem => Model[i].NguoiDung.HoTen)
+                        @Html.HiddenFor(modelItem => Model[i].MaNguoiBan)
+                    </div>
+                </td>
+                <td>
+                    <a href="/Admin/ManageAuction/ChiTietDauGia?id=@Model[i].MaDauGia" class="truncated-box"> @Html.DisplayFor(modelItem => Model[i].TenSanPham)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NgayDang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NgayBatDau)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NgayKetThuc)
+                </td>
+
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model,
+          page => Url.Action("DanhSachLoaiDauGia", new { page, loaiTimKiem = Request.QueryString["loaiTimKiem"], tenTimKiem = Request.QueryString["tenTimKiem"] }),
+          new PagedListRenderOptions()
+          {
+              Display = PagedListDisplayMode.IfNeeded,
+              DisplayPageCountAndCurrentLocation = true,
+          })
+    <div style="display: flex; margin-left: 1%;">
+        <button id="btn-delete" type="submit" name="submit" value="XoaLoaiDauGia">Vô hiệu hóa</button>
+    </div>
+
+}
+
