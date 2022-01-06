@@ -4,27 +4,17 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-<style>
-    h1 {
-        font-size: 2.2rem;
-        font-weight:bold;
-    }
-    .naptien{
-        border: 3px solid black;
-        height:200px;
-        width:300px;
-        background-color:aqua;
-        text-align:center;
-    }
-</style>
-<div class="naptien">
-    <h1>NẠP TIỀN</h1>
-    @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
-    {
-        <input type="number" name="value" /><br /><br />
-        <button type="submit">Nạp ngay</button>
-    }
-</div>
-
+<section class="footer-top">
+    <div class="footer-box">
+        <div class="footer-box-content">
+            <h3 style="text-align:center">NẠP TIỀN</h3>
+            @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
+            {
+                <input type="number" name="value" placeholder="Nhập số tiền muốn nạp" />
+                <button type="submit" class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aqua">Nạp ngay</button>
+            }
+        </div>
+    </div>
+</section>
 
 
