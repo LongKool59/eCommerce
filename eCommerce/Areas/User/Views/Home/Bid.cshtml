@@ -143,7 +143,7 @@
             </table>
         </div>
         <div class="col-md-6">
-           @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
+            @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
             @{
                 DauGiaEntities db = new DauGiaEntities();
                 var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
@@ -179,14 +179,18 @@
                 }
                 else
                 {
-                <p>Đấu giá chưa bắt đầu</p>
-            }
+                }
 
 
-                @if (DateTime.Now > Model.DauGia.NgayBatDau)
+                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
                 {
                     <p>Thời gian đấu giá còn lại: </p>
                     <p id="demo"></p>
+
+                }
+                else if (DateTime.Now > Model.DauGia.NgayKetThuc)
+                {
+                    <p>Đấu giá kết thúc</p>
 
                 }
                 else
