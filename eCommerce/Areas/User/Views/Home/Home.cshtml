@@ -101,7 +101,6 @@
     <!--Ngày đăng
     </th>
     <th></th>-->
-
     @foreach (var item in Model)
     {
         DauGiaEntities db = new DauGiaEntities();
@@ -110,7 +109,6 @@
         {
             <img src=@Url.Content(Hinh[0].LinkAnh) style="height:200px;width:150px" />
         }
-
         <a href=@Url.Action("Bid", "Home", new { id = item.MaDauGia })>
             <div>
                 @Html.DisplayFor(modelItem => item.TenSanPham)<br />
@@ -154,6 +152,8 @@
             </div>
         </a>
     }
+</div>
+
 
     @Html.PagedListPager(Model,
             page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
