@@ -43,6 +43,7 @@ namespace eCommerce.Controllers
 
             Session["HoTen"] = taiKhoanHopLe.HoTen.ToString();
             Session["MaNguoiDung"] = taiKhoanHopLe.MaNguoiDung.ToString();
+            Session["SoDuVi"] = taiKhoanHopLe.SoDuVi.ToString("#,##0"); // string format thousand
             string linkHinhAnh = taiKhoanHopLe.HinhAnh.ToString();
             string formatLink = linkHinhAnh.Remove(0, 1); //bỏ ký tự ~  vị trí đầu tiên của link hình ảnh
             Session["HinhAnh"] = formatLink;

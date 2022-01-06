@@ -194,6 +194,7 @@
                 <tr>
                     <th style="font-size:40px; color: orangered">@TempData["value"]</th> @*Ở đây nên để giá đấu giá mỗi khi tăng*@
 
+
                 </tr>
             </table>
             <p>
@@ -219,6 +220,7 @@
 
 
                 @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now<Model.DauGia.NgayKetThuc)
+
 
                 {
                     <p>Thời gian đấu giá còn lại: </p>
@@ -249,6 +251,7 @@
                         var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
                         <p>@nd.HoTen - @item.GiaTri VNĐ</p>
 
+
                     }
 
                 </table>
@@ -261,6 +264,7 @@
     <div class="col-md-12" style="text-align:center">
         <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
     </div>
+
 
 
 
