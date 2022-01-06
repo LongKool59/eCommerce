@@ -420,6 +420,9 @@ footer {
   margin-top: 5rem;
   position: relative;
 }
+.footer-top{
+  margin-bottom:30%;
+}
   .footer-top .footer-top-shape {
     width: 100%;
     height: 500px;
