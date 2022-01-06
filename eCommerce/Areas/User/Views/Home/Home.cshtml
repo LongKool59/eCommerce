@@ -4,8 +4,8 @@
 @model IPagedList<eCommerce.Areas.User.Models.DauGiaViewModel>
 
 @{
-  ViewBag.Title = "Danh sách sản phẩm đấu giá";
-  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "Danh sách sản phẩm đấu giá";
+    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
 
 <h1 class="text-center py-5">DANH SÁCH SẢN PHẨM ĐẤU GIÁ</h1>
@@ -361,14 +361,13 @@
     </a>
   }
 
-  @Html.PagedListPager(Model,
-          page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
-          new PagedListRenderOptions()
-          {
-              Display = PagedListDisplayMode.IfNeeded,
-              DisplayPageCountAndCurrentLocation = true,
-
-          })
-  @*</table>
-  *@
+    @Html.PagedListPager(Model,
+            page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+            new PagedListRenderOptions()
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+            })
+    @*</table>
+    *@
 </div>
