@@ -2,7 +2,7 @@
 @using eCommerce.Models;
 @{
   ViewBag.Title = "Đấu giá";
-  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";}
+  Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";}
 
 
 <style>
@@ -38,185 +38,214 @@
     background-color: #dddddd;
   }
 </style>
-<h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
 
-<div>
-  <div class="row">
-    <div class="col-md-6">
-      <div>
-        @if (Model.YeuThich)
-        {
-          using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
-          {
-            <input value="0" hidden="true" name="loai" />
+<div class="bid">
 
-            <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
+  @*<h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>*@
 
-          }
-        }
-        else
-        {
-          using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
-          {
-            <input value="0" hidden="true" name="loai" />
-
-            <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
-
-          }
-        }
-      </div>
-      <p>Hình ảnh sản phẩm:</p>
-      <br />
+  <div id="demo" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    <div class="carousel-inner" role="listbox">
+      @{int i = 0;}
       @foreach (var item in Model.Hinh)
       {
-        <img src="@Url.Content(item)" style="height:500px;width:400px" />
+        i++;
+        var active = i == 1 ? "active" : "";
+        <div class="carousel-item @active">
+          <img src="@Url.Content(item)" style="height:500px;width:400px" alt="11">
+        </div>
       }
     </div>
-    <div class="col-md-6">
-      <p>Thông tin sản phẩm:</p>
-      <table class="table1">
-        <tr>
-          <td>Mã đấu giá:</td>
-          <td>@Html.DisplayFor(model => model.DauGia.MaDauGia)</td>
-        </tr>
-        <tr>
-          <td>Tên sản phẩm:</td>
-          <td>@Html.DisplayFor(model => model.DauGia.TenSanPham)</td>
-        </tr>
-        <tr>
-          <td>Loại sản phẩm: </td>
-          <td>
-            @foreach (var item in Model.ListLoaiSanPham)
-            {
-              @Html.DisplayFor(modelItem => item.TenLoai)
-            }
-          </td>
-        </tr>
-        <tr>
-          <td>Mô tả sản phẩm:</td>
-          <td>@Html.DisplayFor(model => model.DauGia.MoTa)</td>
-        </tr>
-        <tr>
-          <td>Vị trí: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.ViTri)</td>
-        </tr>
-        <tr>
-          <td>Giá khởi điểm: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.GiaBanDau) </td>
-        </tr>
-        <tr>
-          <td>Mức nâng tối thiểu: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.MucNangToiThieu) </td>
-        </tr>
-        <tr>
-          <td>Ngày bắt đầu: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.NgayBatDau) </td>
-        </tr>
-        <tr>
-          <td>Ngày kết thúc: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.NgayKetThuc) </td>
-        </tr>
-        <tr>
-          <td>Ngày đăng: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.NgayDang) </td>
-        </tr>
-      </table>
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
 
-      <p>Thông tin giao dịch: </p>
-      <table class="table1">
-        <tr>
-          <td>Mã người bán: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.MaNguoiBan) </td>
-        </tr>
-        <tr>
-          <td>Mã người mua: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.MaNguoiMua) </td>
-        </tr>
-        <tr>
-          <td>Ngày thanh toán: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.NgayThanhToan) </td>
-        </tr>
-        <tr>
-          <td>Giá khi thanh toán: </td>
-          <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-6">
-      @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
-      @{
-        DauGiaEntities db = new DauGiaEntities();
-        var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
-        if (mucnang.Count() > 0)
-        {
-          TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
-        }
-        else
-        {
-          TempData["value"] = Model.DauGia.GiaBanDau;
-        }
-
-      }
-      <p>Giá hiện tại:</p>
-      <table>
-        <tr>
-          <!--<th style="font-size:40px; color: orangered"></th>-->@TempData["value"] @*Ở đây nên để giá đấu giá mỗi khi tăng*@
-        </tr>
-      </table>
-      <p>
-
-        @if (DateTime.Now > Model.DauGia.NgayBatDau)
-        {
-          <button id="plus">+</button>
-          <button id="minus">-</button>
-          <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
-          using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
-          {
-            <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-            <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
-            <input type="submit" value="Ra giá" class="btn btn-default" />
-          }
-        }
-        else
-        {
-        <p>Đấu giá chưa bắt đầu</p>
-      }
-
-
-        @if (DateTime.Now > Model.DauGia.NgayBatDau)
-        {
-          <p>Thời gian đấu giá còn lại: </p>
-          <p id="demo"></p>
-
-        }
-        else
-        {
-          <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
-
-        }
-        @*Đến đây*@
-
-        </p>
-      </div>
-      <hr />
+  <div>
+    <div class="row">
       <div class="col-md-6">
-        <p>Danh sách khách hàng đấu giá</p>
-        <table class="table1">
-          @Html.Partial("_Notifications")
-          @{
-            var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
-            foreach (var item in a)
+        <div>
+          @if (Model.YeuThich)
+          {
+            using (Html.BeginForm("UnFavorite", "Home", FormMethod.Post))
             {
-              var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
-              <p>@nd.HoTen - @item.GiaTri VNĐ</p>
+              <input value="0" hidden="true" name="loai" />
+
+              <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:orangered"> Bỏ Yêu thích</button>
+
             }
           }
+          else
+          {
+            using (Html.BeginForm("Favorite", "Home", FormMethod.Post))
+            {
+              <input value="0" hidden="true" name="loai" />
 
+              <button type="submit" name="id" value="@Model.DauGia.MaDauGia" class="btn btn-delete_employeemr-2" style="background-color:greenyellow"> Yêu thích</button>
+
+            }
+          }
+        </div>
+        <p>Hình ảnh sản phẩm:</p>
+        <br />
+        @foreach (var item in Model.Hinh)
+        {
+          <img src="@Url.Content(item)" style="height:500px;width:400px" />
+        }
+      </div>
+      <div class="col-md-6">
+        <p>Thông tin sản phẩm:</p>
+        <table class="table1">
+          <tr>
+            <td>Mã đấu giá:</td>
+            <td>@Html.DisplayFor(model => model.DauGia.MaDauGia)</td>
+          </tr>
+          <tr>
+            <td>Tên sản phẩm:</td>
+            <td>@Html.DisplayFor(model => model.DauGia.TenSanPham)</td>
+          </tr>
+          <tr>
+            <td>Loại sản phẩm: </td>
+            <td>
+              @foreach (var item in Model.ListLoaiSanPham)
+              {
+                @Html.DisplayFor(modelItem => item.TenLoai)
+              }
+            </td>
+          </tr>
+          <tr>
+            <td>Mô tả sản phẩm:</td>
+            <td>@Html.DisplayFor(model => model.DauGia.MoTa)</td>
+          </tr>
+          <tr>
+            <td>Vị trí: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.ViTri)</td>
+          </tr>
+          <tr>
+            <td>Giá khởi điểm: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.GiaBanDau) </td>
+          </tr>
+          <tr>
+            <td>Mức nâng tối thiểu: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.MucNangToiThieu) </td>
+          </tr>
+          <tr>
+            <td>Ngày bắt đầu: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.NgayBatDau) </td>
+          </tr>
+          <tr>
+            <td>Ngày kết thúc: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.NgayKetThuc) </td>
+          </tr>
+          <tr>
+            <td>Ngày đăng: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.NgayDang) </td>
+          </tr>
+        </table>
+
+        <p>Thông tin giao dịch: </p>
+        <table class="table1">
+          <tr>
+            <td>Mã người bán: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.MaNguoiBan) </td>
+          </tr>
+          <tr>
+            <td>Mã người mua: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.MaNguoiMua) </td>
+          </tr>
+          <tr>
+            <td>Ngày thanh toán: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.NgayThanhToan) </td>
+          </tr>
+          <tr>
+            <td>Giá khi thanh toán: </td>
+            <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
+          </tr>
         </table>
       </div>
-    </div>
-    <div class="col-md-12" style="text-align:center">
-      <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+      <div class="col-md-6">
+        @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
+        @{
+          DauGiaEntities db = new DauGiaEntities();
+          var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+          if (mucnang.Count() > 0)
+          {
+            TempData["value"] = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).Max(m => m.GiaTri);
+          }
+          else
+          {
+            TempData["value"] = Model.DauGia.GiaBanDau;
+          }
+
+        }
+        <p>Giá hiện tại:</p>
+        <table>
+          <tr>
+            <!--<th style="font-size:40px; color: orangered"></th>-->@TempData["value"] @*Ở đây nên để giá đấu giá mỗi khi tăng*@
+          </tr>
+        </table>
+        <p>
+
+          @if (DateTime.Now > Model.DauGia.NgayBatDau)
+          {
+            <button id="plus">+</button>
+            <button id="minus">-</button>
+            <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
+            using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
+            {
+              <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
+              <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+              <input type="submit" value="Ra giá" class="btn btn-default" />
+            }
+          }
+          else
+          {
+          <p>Đấu giá chưa bắt đầu</p>
+        }
+
+
+          @if (DateTime.Now > Model.DauGia.NgayBatDau)
+          {
+            <p>Thời gian đấu giá còn lại: </p>
+            <p id="demo"></p>
+
+          }
+          else
+          {
+            <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
+
+          }
+          @*Đến đây*@
+
+          </p>
+        </div>
+        <hr />
+        <div class="col-md-6">
+          <p>Danh sách khách hàng đấu giá</p>
+          <table class="table1">
+            @Html.Partial("_Notifications")
+            @{
+              var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+              foreach (var item in a)
+              {
+                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
+                <p>@nd.HoTen - @item.GiaTri VNĐ</p>
+              }
+            }
+
+          </table>
+        </div>
+      </div>
+      <div class="col-md-12" style="text-align:center">
+        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+      </div>
     </div>
 
 

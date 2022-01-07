@@ -279,6 +279,7 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuction\DanhSachDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="assets\css\main.css" />
     <Content Include="assets\css\mycss.css" />
     <Content Include="assets\css\Rating.css" />
     <Content Include="assets\css\SignInStyle.css" />
