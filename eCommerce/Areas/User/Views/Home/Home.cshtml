@@ -50,7 +50,8 @@
           <div class="auction-thumb p-3">
             @if (Hinh.Length > 0)
             {
-              <a href="./product-details.html" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
+              <a href="/User/Home/Bid/@item.MaDauGia" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
+
             }
             @if (Session["MaNguoiDung"] != null)
             {
