@@ -63,13 +63,13 @@ namespace eCommerce.Models
         public virtual ICollection<Loai> Loais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MucNang> MucNangs { get; set; }
+        public virtual Phuong Phuong { get; set; }
+        public virtual Quan Quan { get; set; }
+        public virtual ThanhPho ThanhPho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrangThaiDauGia> TrangThaiDauGias { get; set; }
-        public virtual Phuong Phuong { get; set; }
-        public virtual Quan Quan { get; set; }
-        public virtual ThanhPho ThanhPho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YeuThich> YeuThiches { get; set; }
     }

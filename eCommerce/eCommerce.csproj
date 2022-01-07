@@ -157,8 +157,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAuctionController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageAuctionTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
+    <Compile Include="Areas\Admin\Models\DauGiaViewModel.cs" />
     <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.cs">
       <DependentUpon>_Layout.cshtml</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -168,6 +170,7 @@
     </Compile>
     <Compile Include="Areas\User\Controllers\DauGiaController.cs" />
     <Compile Include="Areas\User\Controllers\DetailsUserController.cs" />
+    <Compile Include="Areas\User\Controllers\GuestController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Models\CT_LoaiViewModel.cs" />
     <Compile Include="Areas\User\Models\DauGiaViewModel.cs" />
@@ -274,7 +277,9 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\ThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuction\DanhSachDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="assets\css\mycss.css" />
     <Content Include="assets\css\Rating.css" />
     <Content Include="assets\css\SignInStyle.css" />
     <Content Include="assets\css\Style.css" />
@@ -320,13 +325,6 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="Areas\Admin\Views\ManageUser\DanhSachNguoiDung.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Shared\_ModalThemLoaiDauGia.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ToastrMessage.cshtml" />
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
@@ -350,6 +348,15 @@
     <Content Include="Areas\User\Views\Home\ConfirmPaymentClient.cshtml" />
     <Content Include="Areas\User\Views\Home\RutTien.cshtml" />
     <Content Include="Areas\User\Views\DetailsUser\DoiMatKhau.cshtml" />
+
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\User\Views\Guest\GuestHome.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -383,7 +390,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="BidImage\" />
     <Folder Include="UserImages\" />
   </ItemGroup>

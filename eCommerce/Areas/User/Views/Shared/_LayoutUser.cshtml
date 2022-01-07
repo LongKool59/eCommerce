@@ -10,60 +10,127 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Paprika&display=swap" rel="stylesheet">
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
-    <link href="~/assets/css/Style.css" rel="stylesheet" />
+
+    <link href="~/assets/css/mycss.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+    @using eCommerce.Models
 </head>
 
 <body>
     <div style="display: flex; flex-direction: column; justify-content: space-between;">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container">
-                <div class="w-100" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="row">
-                        <a class="navbar-brand flex-center" href="#">
-                            <img src="~/assets/images/revauct.jpg" width="30" height="30" class="mr-2 d-inline-block align-top" style="border-radius:50%" alt="">
-                            Trang chủ
-                        </a>
-                    </div>
 
-                    <div>
-                        <button class="manage">Quản lý<i class="fas fa-angle-double-down ml-3"></i></button>
-                        <ul id="menu-list">
-                            <li><a href="/Admin/ManageUser/DanhSachNguoiDung">Người dùng</a></li>
-                            <li><a href="/Admin/ManageAuction/DanhSachDauGia">Buổi đấu giá</a></li>
-                            <li><a href="/Admin/ManageAuctionType/DanhSachLoaiDauGia">Loại đấu giá</a></li>
-                        </ul>
-                    </div>
-                    <div class="row flex-center">
-                        <div class="avatar-info">
-                            <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%" /><span class="ml-2" style="font-size: 1.3rem; color:black">@Session["HoTen"]</span>
+        <header>
+            <div class="container">
+                <nav class="nav">
+                    <div class="w-75" style="display: flex; justify-content: space-between; align-items: center; margin: auto;">
+                        <div class="row">
+                            <a class="nav-link flex-center" href="#">
+                                <img src="~/assets/images/revauct.jpg" width="40" height="40" class="mr-3 d-inline-block align-top" style="border-radius:50%" alt="">
+                                Trang chủ
                             </a>
-                            <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
-                                <a class="dropdown-item" href="/User/DetailsUser/Index"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
-                                <a class="dropdown-item" href="/User/Home/ListBuy"><i class="fas fa-shopping-cart mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Danh sách đã mua</span></a>
-                                <a class="dropdown-item" href="/User/Home/ListFavorite"><i class="fas fa-heart mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Danh sách yêu thích</span></a>
-                                <a class="dropdown-item" href="/User/Home/RutTien"><i class="fas fa-wallet mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Rút tiền</span></a>
-                                <a class="dropdown-item" href="~/User/Home/NapTien"><i class="fas fa-wallet mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Nạp tiền</span></a>
-                                <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
-                            </div>
                         </div>
-                        <div class="notification-box">
-                            <button class="notification">
-                                <i class="far fa-bell" style="font-size: 1.8rem;"></i>
-                                <span class="txt-notification">&nbsp;</span>
-                            </button>
-                            <ul class="notification-ul">
-                            </ul>
+
+
+                        @{
+                            DauGiaEntities db = new DauGiaEntities();
+                            int maNguoiDung = Convert.ToInt32(Session["MaNguoiDung"]);
+                            NguoiDung isApproved = db.NguoiDungs.Where(s => s.IsApproved == true && s.MaNguoiDung == maNguoiDung).FirstOrDefault();
+                            if (isApproved != null)
+                            {
+                                <div>
+                                    <button class="manage">Quản lý<i class="fas fa-angle-double-down ml-3"></i></button>
+                                    <ul id="menu-list">
+                                        <li><a href="">Tổ chức buổi đấu giá</a></li>
+                                        <li><a href="">Buổi đấu giá đã tổ chức</a></li>
+                                    </ul>
+                                </div>
+                            }
+                        }
+
+                        <div class="row flex-center">
+                            <div class="avatar-info">
+                                <a class="nav-link mr-5 flex-center" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="@Session["HinhAnh"]" width="35" height="35" style="border-radius:50%" /><span class="ml-4" style="font-size: 1.3rem; color:white">@Session["HoTen"]</span>
+                                </a>
+                                <div class="dropdown-menu dangXuat" aria-labelledby="navbar-dropdown">
+                                    <a class="dropdown-item" href="/User/DetailsUser/Index"><i class="far fa-address-card mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Thông tin cá nhân</span></a>
+                                    <a class="dropdown-item" href="/User/Home/ListBuy"><i class="fas fa-shopping-cart mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Danh sách đã đấu giá</span></a>
+                                    <a class="dropdown-item" href="/User/Home/ListFavorite"><i class="fas fa-heart mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Danh sách yêu thích</span></a>
+                                    <a class="dropdown-item" href="/User/Home/RutTien"><i class="fas fa-wallet mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Rút tiền</span></a>
+                                    <a class="dropdown-item" href="~/User/Home/NapTien"><i class="fas fa-wallet mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Nạp tiền</span></a>
+                                    <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
+                                </div>
+                            </div>
+                            <a href="#" class="soDuVi">Số dư ví: @Session["SoDuVi"] VNĐ</a>
                         </div>
                     </div>
-                </div>
+                </nav>
             </div>
-        </nav>
-        <div class="body-content">
+        </header>
+        <section class="hero"></section>
+        @*<img class="banner-shape" src="~/assets/images/banner-shape-4.png" />*@
+        <div class="body-layout">
             @Html.Partial("~/Views/Shared/_ToastrMessage.cshtml")
             @RenderBody()
         </div>
+        <footer class="bg-img">
+            <section class="footer-top">
+                <img src="~/assets/images/footer-top-shape.png" alt="1" />
+                <div class="footer-box">
+                    <div class="bg-footer"></div>
+                    <div class="footer-box-content">
+                        <h3>đăng ký để nhận nhiều ưu đãi riêng</h3>
+                        <div class="dki-email">
+                            <input type="email" placeholder="Nhập email của bạn" />
+                            <button>Đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="footer-title">
+                <h3>Gia tot</h3>
+                <h5>hãy chọn giá tốt vì túi tiền của bạn!</h5>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="footer-body-item">
+                        <h4 style="font-size: 2.2rem; color: white; margin-bottom: 2rem; width: 100%; ">Tags</h4>
+                        <div class="footer-list">
+                            <button>KIA</button>
+                            <button>Huyndai</button>
+                            <button>Honda</button>
+                        </div>
+                        <div class="footer-list">
+                            <button>Suzuki</button>
+                            <button>Ford</button>
+                            <button>Toyota</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="footer-body-item">
+                        <h4 style="font-size: 2.2rem; color: white; margin-bottom: 2rem; width: 100%;" class="text-center">Kết nối với chúng tôi trên:</h4>
+                        <div class="footer-icon">
+                            <i class="fab fa-facebook-square mr-3"></i>
+                            <i class="fab fa-instagram mr-3"></i>
+                            <i class="fab fa-twitter-square mr-3"></i>
+                            <i class="fas fa-dice-d6"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="footer-body-item">
+                        <h4 style="width: 90%; font-size: 2.2rem; color: white; margin-bottom: 2rem;" class="text-right">Địa chỉ liên hệ:</h4>
+                        <p style=" width: 90%; text-align: end; font-size: 1.5rem; color: white; display: inline-block; margin-right: -160px;">Số 828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
+                        <p style="width: 90%; text-align: end; font-size: 1.5rem; color: white; display: inline-block; margin-right: -120px; ">giaodien@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© Copyright 2021 | Bản quyền thuộc về GiaTot</p>
+            </div>
+        </footer>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -76,96 +143,104 @@
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('button.manage').click(function (e) {
-                e.stopPropagation()
-                $('ul#menu-list').toggleClass('active')
-            })
 
-            $('.notification').click(function (e) {
-                e.stopPropagation()
-                $('.notification-ul').toggleClass('active')
-                var count = 0
-                updateNotification();
+  $(document).ready(function () {
+    $('button.manage').click(function (e) {
+      e.stopPropagation()
+      $('ul#menu-list').toggleClass('active')
+    })
 
-                if (count > 0) {
-                    updateNotification();
-                }
-                count = parseInt($('span.txt-notification').html()) || 0;
-                $('span.txt-notification', this).html('&nbsp;')
-            })
+    $('.notification').click(function (e) {
+      e.stopPropagation()
+      $('.notification-ul').toggleClass('active')
+      var count = 0
+      updateNotification();
 
-            //hide notification and menu
-            $('html').click(function (e) {
-                if ($('ul#menu-list').hasClass("active")) {
-                    $('ul#menu-list').removeClass("active")
-                }
-                if ($('.notification-ul').hasClass("active")) {
-                    $('.notification-ul').removeClass("active")
-                }
-            })
+      if (count > 0) {
+        updateNotification();
+        const a = updateNotification().count();
+        console.log(a);
+      }
+      count = parseInt($('span.txt-notification').html()) || 0;
+      $('span.txt-notification', this).html('&nbsp;')
+    })
 
-            //substract two dates
-            function SubstractTwoDates(TimeRequesting) {
-                if (TimeRequesting == null) {
-                    return undefined
-                }
-                var dateTimeNow = new Date()
-                var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
-                var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
-                if (substract <= 24) {
-                    let time = substract + " giờ trước";
-                    return time
-                }
-                var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
-                    dateTimeJSObject.getUTCDate() +
-                    "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
-                    ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
-                return str
-            }
-            //update notification
-            function updateNotification() {
-                $('.notification-ul').empty()
-                $('.notification-ul').append($('<li>Loading...</li>'))
-                $.ajax({
-                    type: 'GET',
-                    url: '/Admin/HomeAdmin/ThongBaoDSNguoiDung',
-                    success: function (response) {
-                        $('.notification-ul').empty();
-                        if (response.length == 0) {
-                            $('.notification-ul').append($('<li>No data available</li>'));
-                        }
-                        $.each(response, function (index, value) {
-                            $('.notification-ul').append($(
+    //hide notification and menu
+    $('html').click(function (e) {
+      if ($('ul#menu-list').hasClass("active")) {
+        $('ul#menu-list').removeClass("active")
+      }
+      if ($('.notification-ul').hasClass("active")) {
+        $('.notification-ul').removeClass("active")
+      }
+    })
+
+    //substract two dates
+    function SubstractTwoDates(TimeRequesting) {
+      if (TimeRequesting == null) {
+        return undefined
+      }
+      var dateTimeNow = new Date()
+      var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
+      var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
+      if (substract <= 24) {
+        let time = substract + " giờ trước";
+        return time
+      }
+      var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
+        dateTimeJSObject.getUTCDate() +
+        "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
+        ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
+      return str
+    }
+    //update notification
+    function updateNotification() {
+      $('.notification-ul').empty()
+      $('.notification-ul').append($('<li>Loading...</li>'))
+      $.ajax({
+        type: 'GET',
+        url: '/Admin/HomeAdmin/ThongBaoDSNguoiDung',
+        success: function (response) {
+          $('.notification-ul').empty();
+          if (response.length == 0) {
+            $('.notification-ul').append($('<li>No data available</li>'));
+          }
+          $.each(response, function (index, value) {
+            $('.notification-ul').append($(
                                 @*'<li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%; margin-right:10px" />' + value.HoTen + ' (' + value.MaNguoiDung + ') vùa gửi yêu cầu trở thành approved user</a></li>'*@
-                                ' <li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" /><div class="notification-text"><div class="notification-header">' + value.HoTen + ' (' + value.MaNguoiDung + ') vừa gửi một yêu cầu cấp quyền đăng đấu giá</div><div class="notification-time">' + SubstractTwoDates(value.TimeRequesting) +' </div> </div></a></li>'
-                            ));
-                        });
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                })
-            }
-            function updateNotificationCount() {
-                var count = 0;
-                count = parseInt($('span.txt-notification').html()) || 0;
-                count++;
-                $('span.txt-notification').html(count);
-            }
-            // signalr js code for start hub and send receive notification
-            var notificationHub = $.connection.notificationHub;
-            $.connection.hub.start().done(function () {
-                console.log('Notification hub started');
-            });
-            //signalr method for push server message to client
-            notificationHub.client.notify = function (message) {
-                if (message && message.toLowerCase() == "added") {
-                    updateNotification();
-                    updateNotificationCount();
-                }
-            }
-        })
+              ' <li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" /><div class="notification-text"><div class="notification-header">' + value.HoTen + ' (' + value.MaNguoiDung + ') vừa gửi một yêu cầu cấp quyền đăng đấu giá</div><div class="notification-time">' + SubstractTwoDates(value.TimeRequesting) + ' </div> </div></a></li>'
+            ));
+          });
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }
+    function updateNotificationCount() {
+      var count = 0;
+      count = parseInt($('span.txt-notification').html()) || 0;
+      count++;
+      $('span.txt-notification').html(count);
+    }
+    // signalr js code for start hub and send receive notification
+    var notificationHub = $.connection.notificationHub;
+    $.connection.hub.start().done(function () {
+      console.log('Notification hub started');
+    });
+    //signalr method for push server message to client
+    notificationHub.client.notify = function (message) {
+      if (message && message.toLowerCase() == "added") {
+        updateNotification();
+        updateNotificationCount();
+      }
+    }
+  });
+  window.addEventListener("scroll", function () {
+    let header = document.querySelector("header");
+    let windowPosition = window.scrollY > 0;
+    header.classList.toggle("scrolling-active", windowPosition);
+  });
     </script>
 </body>
 </html>

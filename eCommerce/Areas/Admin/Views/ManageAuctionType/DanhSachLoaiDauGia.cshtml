@@ -24,7 +24,7 @@
                 <i class="fas fa-search"></i>
             </button>
 
-            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachNguoiDung", "ManageUser")'">
+            <button class="btn btn-redo" onclick="location.href='@Url.Action("DanhSachLoaiDauGia", "ManageAuctionType")'">
                 <i class="fas fa-redo"></i>
             </button>
         </div>
@@ -62,7 +62,7 @@
                     @Html.HiddenFor(modelItem => Model[i].MaLoai)
                 </td>
                 <td>
-                    <a href="/Admin/ManageAuctionType/ChiTietLoaiDauGia?id=@Model[i].MaLoai"> @Html.DisplayFor(modelItem => Model[i].TenLoai)</a>
+                    <a href="/Admin/ManageAuctionType/ChiTietLoaiDauGia?id=@Model[i].MaLoai" class="truncated-box"> @Html.DisplayFor(modelItem => Model[i].TenLoai)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].TrangThai)
