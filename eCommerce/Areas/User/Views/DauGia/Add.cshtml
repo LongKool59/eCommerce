@@ -38,6 +38,7 @@
                 @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
             </div>
+
             <div class="col-md-3">
                 @*@Html.LabelFor(model => model.Loai.TenLoai, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>LOẠI SẢN PHẨM</p>
                 @Html.ListBoxFor(model => model.ListLoaiSanPham, (MultiSelectList)ViewBag.ListLoai, new { id = "dropdownLoai", multiple = "multiple" })
@@ -71,6 +72,7 @@
             </div>
         </div>
 
+
         <div class="row">
             <div class="col-md-6">
                 @*@Html.LabelFor(model => model.DauGia.NgayBatDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY BẮT ĐẦU</p>
@@ -83,6 +85,7 @@
                 @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="row">
             <div class="col-md-10">
@@ -98,6 +101,7 @@
             </div>
         </div>
     </div>
+
 }
 
 @section Scripts {

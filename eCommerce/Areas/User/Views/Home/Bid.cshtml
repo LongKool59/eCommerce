@@ -176,6 +176,7 @@
         </div>
         <div class="col-md-6">
 
+
             @{
                 DauGiaEntities db = new DauGiaEntities();
                 var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
@@ -192,6 +193,7 @@
             <p>Giá hiện tại:</p>
             <table>
                 <tr>
+
                     <th style="font-size:40px; color: orangered">@TempData["value"]</th> @*Ở đây nên để giá đấu giá mỗi khi tăng*@
 
 
@@ -201,6 +203,7 @@
 
                 @if (DateTime.Now > Model.DauGia.NgayBatDau)
                 {
+
                     <button id="minus">-</button>
                     <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
                     <button id="plus">+</button>
@@ -209,6 +212,7 @@
                     {
                         <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
                         <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+
                         <input type="submit" value="Ra giá" class="btn btn-default" style="color:black;font-weight:bold;background-color:orangered;font-size:24px" />
 
                     }
@@ -237,6 +241,7 @@
                     <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
 
                 }
+
                 </p>
             </div>
         <hr />
@@ -260,10 +265,12 @@
         <div class="col-md-12" style="text-align:center">
             <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
         </div>
+
     </div>
     <div class="col-md-12" style="text-align:center">
         <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
     </div>
+
 
 
 
@@ -302,6 +309,7 @@
                 var minute = Model.DauGia.NgayBatDau.Minute;*@
 
 
+
                 var day = @Model.DauGia.NgayKetThuc.Day;
                 var month = @Model.DauGia.NgayKetThuc.Month;
                 var year = @Model.DauGia.NgayKetThuc.Year;
@@ -316,6 +324,7 @@
 
                 // Get today's date and time
                 var now = new Date().getTime();
+
 
                 // Find the distance between now and the count down date
                 var distance = countDownDate - now;
@@ -355,6 +364,7 @@
 
 
             var countDownDate_1 = new Date(month_1+"/"+day_1+"/"+year_1+" "+ hour_1+":"+minute_1).getTime();
+
 
             // Update the count down every 1 second
             var x_1 = setInterval(function () {

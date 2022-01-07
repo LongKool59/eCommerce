@@ -348,6 +348,7 @@
     <Content Include="Areas\User\Views\Home\ConfirmPaymentClient.cshtml" />
     <Content Include="Areas\User\Views\Home\RutTien.cshtml" />
     <Content Include="Areas\User\Views\DetailsUser\DoiMatKhau.cshtml" />
+
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
