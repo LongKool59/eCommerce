@@ -222,7 +222,7 @@
             </table>
             <p>
 
-                @if (DateTime.Now > Model.DauGia.NgayBatDau)
+                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now<Model.DauGia.NgayKetThuc)
                 {
                     <button id="plus">+</button>
                     <button id="minus">-</button>
@@ -234,24 +234,25 @@
                         <input type="submit" value="Ra giá" class="btn btn-default" />
                     }
                 }
-                else
-                {
-                <p>Đấu giá chưa bắt đầu</p>
-            }
+                
 
 
-                @if (DateTime.Now > Model.DauGia.NgayBatDau)
+                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
                 {
                     <p>Thời gian đấu giá còn lại: </p>
-                    <p id="demo"></p>
+
+                    <p id="bidtime"></p>
+
+                }
+                else if (DateTime.Now < Model.DauGia.NgayBatDau)
+                {
+                    <p>Đấu giá sẽ bắt đầu trong: </p> <p id="start"></p>
 
                 }
                 else
                 {
-                    <p>Đấu giá sẽ bắt đầu trong: </p> <p id="demo_1"></p>
-
+                    <p> Buổi đấu giá đã kết thúc</p>
                 }
-                @*Đến đây*@
 
                 </p>
             </div>
@@ -295,7 +296,6 @@
                         });
 
         </script>
-        @*Từ đây *@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
                 @*var day = Model.DauGia.NgayBatDau.Day;
@@ -321,12 +321,12 @@
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 // Display the result in the element with id="demo"
-                document.getElementById("demo").innerHTML = days + "ngày " + hours + ":"
+                document.getElementById("bidtime").innerHTML = days + "ngày " + hours + ":"
                     + minutes + ":" + seconds + "s ";
                 // If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(x);
-                    document.getElementById("demo").innerHTML = "EXPIRED";
+                    document.getElementById("bidtime").innerHTML = "EXPIRED";
                 }
             }, 1000);
         </script>
@@ -356,16 +356,15 @@
                 var minutes_1 = Math.floor((distance_1 % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds_1 = Math.floor((distance_1 % (1000 * 60)) / 1000);
                 // Display the result in the element with id="demo"
-                document.getElementById("demo_1").innerHTML = days_1 + " ngày " + hours_1 + ":"
+                document.getElementById("start").innerHTML = days_1 + " ngày " + hours_1 + ":"
                     + minutes_1 + ":" + seconds_1 + "s ";
                 // If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(x_1);
-                    document.getElementById("demo_1").innerHTML = "EXPIRED";
+                    document.getElementById("start").innerHTML = "EXPIRED";
                 }
             }, 1000);
         </script>
-        @*Đến đây*@
 
 
 
