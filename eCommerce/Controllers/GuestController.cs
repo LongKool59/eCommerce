@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace eCommerce.Areas.User.Controllers
+namespace eCommerce.Controllers
 {
     public class GuestController : Controller
     {
-        // GET: User/Guest
-        public ActionResult GuestHome()
+        // GET: Guest
+        public ActionResult Home()
         {
-            return View();
+            return RedirectToAction("Home", "User/Home");
         }
     }
 }
