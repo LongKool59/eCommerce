@@ -1,8 +1,8 @@
 ﻿@model eCommerce.Areas.User.Models.ViewModel
 @using eCommerce.Models;
 @{
-    ViewBag.Title = "Đấu giá";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";}
+  ViewBag.Title = "Đấu giá";
+  Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";}
 
 
 <style>
@@ -37,10 +37,39 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-</style>
-<h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
 
-<div>
+</style>
+
+<div class="bid">
+
+  @*<h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>*@
+
+  <div id="demo" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    <div class="carousel-inner" role="listbox">
+      @{int i = 0;}
+      @foreach (var item in Model.Hinh)
+      {
+        i++;
+        var active = i == 1 ? "active" : "";
+        <div class="carousel-item @active">
+          <img src="@Url.Content(item)" style="height:500px;width:400px" alt="11">
+        </div>
+      }
+    </div>
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+
+  <div>
     <div class="row">
         <div class="col-md-6">
             <div>
@@ -165,7 +194,25 @@
                 {
                     TempData["value"] = Model.DauGia.GiaBanDau;
                 }
+        }
+        <p>Giá hiện tại:</p>
+        <table>
+          <tr>
+            <!--<th style="font-size:40px; color: orangered"></th>-->@TempData["value"] @*Ở đây nên để giá đấu giá mỗi khi tăng*@
+          </tr>
+        </table>
+        <p>
 
+          @if (DateTime.Now > Model.DauGia.NgayBatDau)
+          {
+            <button id="plus">+</button>
+            <button id="minus">-</button>
+            <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
+            using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
+            {
+              <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
+              <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+              <input type="submit" value="Ra giá" class="btn btn-default" />
             }
             <p>Giá hiện tại:</p>
             <table>
@@ -230,11 +277,8 @@
         </div>
     </div>
 
-
-
-
     @section scripts {
-        <script>
+      <script>
                         $("#plus").click(function () {
                             $("#bid").val(function () {
                                 return parseInt(this.value, 10) + @Model.DauGia.MucNangToiThieu;
@@ -249,6 +293,7 @@
                             $("#bid_1").val(function () {
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
+
         </script>
         @*Từ đây *@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -287,6 +332,7 @@
         </script>
 
         <script>
+
                 var day_1 = @Model.DauGia.NgayBatDau.Day;
                 var month_1 = @Model.DauGia.NgayBatDau.Month;
                 var year_1 = @Model.DauGia.NgayBatDau.Year;
@@ -320,6 +366,7 @@
             }, 1000);
         </script>
         @*Đến đây*@
+
 
 
     }
