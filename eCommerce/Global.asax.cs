@@ -40,18 +40,18 @@ namespace eCommerce
         DauGiaEntities db = new DauGiaEntities();
         public void UpdateTrangThai()
         {
-            DateTime now = DateTime.Now;
-            var hethan = db.DauGias.Where(m => m.NgayKetThuc <= now).ToList();
-            foreach(var dg in hethan)
-            {
-                var ten = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
-                CT_TrangThai tt = new CT_TrangThai();
-                tt.MaDauGia = dg.MaDauGia;
-                tt.MaTrangThai = ten.MaTrangThai;
-                tt.ThoiGian = dg.NgayKetThuc;
-                db.CT_TrangThai.Add(tt);
-                db.SaveChanges();
-            }    
+            //DateTime now = DateTime.Now;
+            //var hethan = db.DauGias.Where(m => m.NgayKetThuc <= now).ToList();
+            //foreach(var dg in hethan)
+            //{
+            //    var ten = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
+            //    CT_TrangThai tt = new CT_TrangThai();
+            //    tt.MaDauGia = dg.MaDauGia;
+            //    tt.MaTrangThai = ten.MaTrangThai;
+            //    tt.ThoiGian = dg.NgayKetThuc;
+            //    db.CT_TrangThai.Add(tt);
+            //    db.SaveChanges();
+            //}    
         }
         public class MyRegistry : Registry
         {
@@ -64,7 +64,7 @@ namespace eCommerce
                 {
                     mvcApplication.UpdateTrangThai();
                 });
-                this.Schedule(taoDSNhanVienNghiVaTinhLuongThang).ToRunEvery(1).Days().At(0,0);
+                this.Schedule(taoDSNhanVienNghiVaTinhLuongThang).ToRunEvery(1).Days().At(0, 0);
             }
         }
     }
