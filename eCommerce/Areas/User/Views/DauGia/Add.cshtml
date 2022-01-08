@@ -26,10 +26,15 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Add", "DauGia", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.MaDauGia)
+    @Html.HiddenFor(model => model.NguoiDung1)
+    @Html.HiddenFor(model => model.NguoiDung)
+    @Html.HiddenFor(model => model.GiaCuoi)
+    @Html.HiddenFor(model => model.NgayThanhToan)
+    @Html.HiddenFor(model => model.NgayDang)
     <div class="form-horizontal">
         <hr />
         <div class="row">
@@ -76,27 +81,49 @@
         <div class="row">
             <div class="col-md-6">
                 @*@Html.LabelFor(model => model.DauGia.NgayBatDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY BẮT ĐẦU</p>
-                @Html.EditorFor(model => model.NgayBatDau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NgayBatDau, new { htmlAttributes = new { @class = "datefield form-control", type = "datetime-local", @placeholder = "Nhập ngày bắt đầu..." } })
                 @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6">
                 @*@Html.LabelFor(model => model.DauGia.NgayKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY KẾT THÚC</p>
-                @Html.EditorFor(model => model.NgayKetThuc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NgayKetThuc, new { htmlAttributes = new { @class = "datefield form-control", type = "datetime-local", @placeholder = "Nhập ngày bắt đầu..." } })
                 @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="row">
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.DauGia.ViTri, new { htmlAttributes = new { @class = "form-control" } })*@ <p>HÌNH ẢNH SẢN PHẨM</p>
-                @Html.TextBoxFor(m => m.HinhAnh, new { type = "file", multiple = "multiple", @accept = "image/png, image/jpeg" })
+        <div class="form-group">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @*<input type="file" id="file" multiple="true" name="ImageFile" accept="image/*" size="40">
+                <div class="upload-image">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <label for="file">Hình ảnh</label>
+                </div>
+                <p id="fileBoxName" style=" display: inline-block; color: black;"></p>*@
+                    <div class="form-group col-md-6">
+                        <input type="file" id="file" name="ImageFile" multiple="true" accept="image/*" size="40">
+                        <div class="upload-image">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <label for="file">Hình ảnh</label>
+                        </div>
+                        <p id="fileBoxName" style=" display: inline-block; color: black;"></p>
+                        <script type="text/javascript">
+                            document.getElementById('file').onchange = function () {
+                                document.getElementById('fileBoxName').innerHTML = this.value
+                            };
+
+                        </script>
+                        @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-offset-2 col-md-10" style="text-align:right">
-                <input type="submit" value="THÊM SẢN PHẨM" class="btn btn-default" style="background-color:aquamarine; font-weight:bold"/>
+                <input type="submit" value="THÊM SẢN PHẨM" class="btn btn-default" style="background-color:aquamarine; font-weight:bold" />
                 <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
             </div>
         </div>

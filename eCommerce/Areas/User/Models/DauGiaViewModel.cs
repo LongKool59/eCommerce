@@ -5,7 +5,8 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using eCommerce.Models;
-using eCommerce.Models;
+
+
 namespace eCommerce.Areas.User.Models
 {
     public class DauGiaViewModel : IValidatableObject
@@ -65,10 +66,11 @@ namespace eCommerce.Areas.User.Models
         /*        public string[] Hinh { get; set; }
         */  
         [DisplayName("Loại")]
-        [Required(ErrorMessage = "Vị Trí không được để trống...")]
+        [Required(ErrorMessage = "Chọn ít nhất 1 loại sản phẩm")]
         public List<string> ListLoaiSanPham { get; set; }
 
         public List<HttpPostedFileBase> ImageFile { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (DateTime.Now.AddDays(2) > NgayBatDau)
@@ -97,8 +99,12 @@ namespace eCommerce.Areas.User.Models
                     }
                 }
             }
-               
-           
+            if (ImageFile.Count() > 4)
+            {
+                yield return new ValidationResult(errorMessage: "Không thêm quá 4 bức ảnh", memberNames: new[] { "ImageFile" });
+
+            }
+
         }
 
         public static implicit operator DauGiaViewModel(DauGia dauGia)
