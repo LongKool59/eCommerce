@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eCommerce</RootNamespace>
     <AssemblyName>eCommerce</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -170,7 +171,6 @@
     </Compile>
     <Compile Include="Areas\User\Controllers\DauGiaController.cs" />
     <Compile Include="Areas\User\Controllers\DetailsUserController.cs" />
-    <Compile Include="Areas\User\Controllers\GuestController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Models\CT_LoaiViewModel.cs" />
     <Compile Include="Areas\User\Models\DauGiaViewModel.cs" />
@@ -187,6 +187,7 @@
     <Compile Include="Areas\User\Others\MoMoSecurity.cs" />
     <Compile Include="Areas\User\Others\PaymentRequest.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,7 +349,6 @@
     <Content Include="Areas\User\Views\Home\ConfirmPaymentClient.cshtml" />
     <Content Include="Areas\User\Views\Home\RutTien.cshtml" />
     <Content Include="Areas\User\Views\DetailsUser\DoiMatKhau.cshtml" />
-    <Content Include="Areas\User\Views\Guest\GuestHome.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -391,6 +391,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="BidImage\" />
     <Folder Include="UserImages\" />
+    <Folder Include="Views\Guest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

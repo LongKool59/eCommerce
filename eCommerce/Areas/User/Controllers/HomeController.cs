@@ -388,7 +388,8 @@ namespace eCommerce.Areas.User.Controllers
         {
             if (Session["MaNguoiDung"] == null)
             {
-                return Redirect("/");
+                TempData["toastr-warning"] = "Vui lòng đăng nhập để thêm sản phẩm yêu thích!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
             }
             else
             {
@@ -415,10 +416,7 @@ namespace eCommerce.Areas.User.Controllers
                     return RedirectToAction("ListFavorite");
 
                 }
-
-
             }
-
         }
 
         //[HttpPost, ActionName("UnFavorite")]
@@ -426,7 +424,8 @@ namespace eCommerce.Areas.User.Controllers
         {
             if (Session["MaNguoiDung"] == null)
             {
-                return Redirect("/");
+                TempData["toastr-warning"] = "Vui lòng đăng nhập để bỏ sản phẩm yêu thích!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
             }
             else
             {
@@ -451,8 +450,6 @@ namespace eCommerce.Areas.User.Controllers
                     return RedirectToAction("ListFavorite");
                 }
             }
-
-
         }
         // Trang đấu giá - Chi tiết sản phẩm
         public ActionResult Bid(int id)
@@ -490,7 +487,8 @@ namespace eCommerce.Areas.User.Controllers
         {
             if (Session["MaNguoiDung"] == null)
             {
-                return Redirect("/");
+                TempData["toastr-warning"] = "Vui lòng đăng nhập để đấu giá sản phẩm!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
             }
             else
             {
