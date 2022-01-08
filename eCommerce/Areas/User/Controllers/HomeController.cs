@@ -504,7 +504,7 @@ namespace eCommerce.Areas.User.Controllers
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
                 var dg = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
 
-                if (DateTime.Now > dg.NgayKetThuc)
+                if (DateTime.Now <= dg.NgayKetThuc)
                 {
                     if (l.Count() > 0)
                     {
@@ -542,14 +542,10 @@ namespace eCommerce.Areas.User.Controllers
                 }
                 else
                 {
-                    this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
+                    this.AddNotification("Đã quá thời gian có thể đấu giá", NotificationType.ERROR);
                     return RedirectToAction("Bid", new { id = ma });
-
                 }
-
-
             }
-
         }
 
         public ActionResult Rating(int id)
