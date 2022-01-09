@@ -18,6 +18,7 @@ namespace eCommerce.Models
         public int ToID { get; set; }
         public int Rating { get; set; }
         public string NoiDung { get; set; }
+        public int MaDanhGia { get; set; }
     
         public virtual NguoiDung NguoiDung { get; set; }
         public virtual NguoiDung NguoiDung1 { get; set; }

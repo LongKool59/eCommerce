@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BienDongSoDu">
           <Key>
             <PropertyRef Name="MaBienDong" />
@@ -34,9 +34,9 @@
         </EntityType>
         <EntityType Name="DanhGia">
           <Key>
-            <PropertyRef Name="FromID" />
-            <PropertyRef Name="ToID" />
+            <PropertyRef Name="MaDanhGia" />
           </Key>
+          <Property Name="MaDanhGia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FromID" Type="int" Nullable="false" />
           <Property Name="ToID" Type="int" Nullable="false" />
           <Property Name="Rating" Type="int" Nullable="false" />
@@ -548,8 +548,7 @@
             <End Role="YeuThich" EntitySet="YeuThich" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -587,8 +586,7 @@
         </EntityType>
         <EntityType Name="DanhGia">
           <Key>
-            <PropertyRef Name="FromID" />
-            <PropertyRef Name="ToID" />
+            <PropertyRef Name="MaDanhGia" />
           </Key>
           <Property Name="FromID" Type="Int32" Nullable="false" />
           <Property Name="ToID" Type="Int32" Nullable="false" />
@@ -596,6 +594,7 @@
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DanhGia_NguoiDung" FromRole="DanhGia" ToRole="NguoiDung" />
           <NavigationProperty Name="NguoiDung1" Relationship="Self.FK_DanhGia_NguoiDung1" FromRole="DanhGia" ToRole="NguoiDung" />
+          <Property Name="MaDanhGia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="DauGia">
           <Key>
@@ -1180,6 +1179,7 @@
           <EntitySetMapping Name="DanhGias">
             <EntityTypeMapping TypeName="DauGiaModel.DanhGia">
               <MappingFragment StoreEntitySet="DanhGia">
+                <ScalarProperty Name="MaDanhGia" ColumnName="MaDanhGia" />
                 <ScalarProperty Name="FromID" ColumnName="FromID" />
                 <ScalarProperty Name="ToID" ColumnName="ToID" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
