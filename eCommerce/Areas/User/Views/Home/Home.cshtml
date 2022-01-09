@@ -17,7 +17,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Tìm kiếm sản phẩm</label>
-            <input type="text" class="form-control" id="inputEmail4" placeholder="Nhập tên sản phẩm...">
+            <input type="text" class="form-control" id="inputEmail4" name="ten" placeholder="Nhập tên sản phẩm...">
           </div>
           <div class="form-group col-md-6">
             <label for="inputState">Loại sản phẩm</label>
@@ -27,11 +27,11 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputAddress">Mức giá</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Nhập giá tối thiểu ban đầu">
+            <input type="text" class="form-control" id="inputAddress" name="gia" placeholder="Nhập giá tối thiểu ban đầu">
           </div>
           <div class="form-group col-md-6">
             <label for="inputAddress2">Thời gian bắt đầu</label>
-            <input type="datetime-local" class="form-control" id="inputAddress2">
+            <input type="datetime-local" class="form-control" id="inputAddress2" name="startdate">
           </div>
         </div>
         <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
@@ -42,94 +42,99 @@
   <div class="container">
     <h3 style="font-size: 3rem; margin: 4rem 0 0 5rem; text-transform: capitalize;">Danh sách các mặt hàng nổi bật</h3>
     <div class="auction-list">
-      @foreach (var item in Model)
-      {
-          DauGiaEntities db = new DauGiaEntities();
-          var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
-        <div class="auction-item-2">
-            <div class="auction-thumb p-3">
-                @if (Hinh.Length > 0)
-                {
-                    <a href="/User/Home/Bid/@item.MaDauGia" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
-
-                }
-                @if (Session["MaNguoiDung"] != null)
-                {
-                    int ID = int.Parse(Session["MaNguoiDung"].ToString());
-                    int ma = int.Parse(item.MaDauGia.ToString());
-                    var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
-                    if (yt != null)
-                    {
-                        <a href="/User/Home/UnFavorite?id=@item.MaDauGia&loai=1" class="rating"><i class="fas fa-star"></i></a>
-                    }
-                    else
-                    {
-                        <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
-                    }
-                }
-                else
-                {
-                    <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
-                }
-                @{
-                    var mucnang = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).ToList();
-                    if (mucnang.Count() > 0)
-                    {
-                        TempData["home"] = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).Max(m => m.GiaTri);
-                    }
-                    else
-                    {
-                        TempData["home"] = item.GiaBanDau;
-                    }
-                    TempData["count"] = mucnang.Count();
-
-                }
-                @*<a href="#0" class="rating"><i class="far fa-star"></i></a>*@
-                <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
-            </div>
-          <div class="auction-content">
-            <h6 class="title">
-              <a href="#">@Html.DisplayFor(modelItem => item.TenSanPham)</a>
-            </h6>
-            <div class="bid-area">
-              <div class="row" style="justify-content:center">
-                <div class="bid-amount">
-                  <div class="icon">
-                    <i class="fas fa-gavel"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">Giá cao nhất</div>
-                    <div class="amount">@TempData["home"]</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area">
-                <div class="countdown">
-                    Trạng thái:
-                    @{ var now = DateTime.Now;
-                        if (item.NgayBatDau > now)
+        @foreach (var item in Model)
+        {
+            DauGiaEntities db = new DauGiaEntities();
+            DateTime time = DateTime.Now;
+            if (time<item.NgayKetThuc)
+            {
+                
+                var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+                <div class="auction-item-2">
+                    <div class="auction-thumb p-3">
+                        @if (Hinh.Length > 0)
                         {
-                            <p>Đấu giá chưa bắt đầu</p>
+                            <a href="/User/Home/Bid/@item.MaDauGia" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
+
                         }
-                        else if (item.NgayKetThuc >= now)
+                        @if (Session["MaNguoiDung"] != null)
                         {
-                            <p>Đấu giá đang diễn ra</p>
+                            int ID = int.Parse(Session["MaNguoiDung"].ToString());
+                            int ma = int.Parse(item.MaDauGia.ToString());
+                            var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
+                            if (yt != null)
+                            {
+                                <a href="/User/Home/UnFavorite?id=@item.MaDauGia&loai=1" class="rating"><i class="fas fa-star"></i></a>
+                            }
+                            else
+                            {
+                                <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
+                            }
                         }
                         else
                         {
-                            <p>Buổi đấu giá đã kết thúc</p>
+                            <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
                         }
-                     }
+                        @{
+                            var mucnang = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).ToList();
+                            if (mucnang.Count() > 0)
+                            {
+                                TempData["home"] = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).Max(m => m.GiaTri);
+                            }
+                            else
+                            {
+                                TempData["home"] = item.GiaBanDau;
+                            }
+                            TempData["count"] = mucnang.Count();
+
+                        }
+                        @*<a href="#0" class="rating"><i class="far fa-star"></i></a>*@
+                        <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
                     </div>
-              <span class="total-bids">@TempData["count"] Đấu giá</span>
-            </div>
-            <div class="text-center">
-              <a href="/User/Home/Bid/@item.MaDauGia" class="custom-button">Tham gia đấu giá</a>
-            </div>
-          </div>
-        </div>
-      }
+                    <div class="auction-content">
+                        <h6 class="title">
+                            <a href="#">@Html.DisplayFor(modelItem => item.TenSanPham)</a>
+                        </h6>
+                        <div class="bid-area">
+                            <div class="row" style="justify-content:center">
+                                <div class="bid-amount">
+                                    <div class="icon">
+                                        <i class="fas fa-gavel"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">Giá cao nhất</div>
+                                        <div class="amount">@TempData["home"]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="countdown-area">
+                            <div class="countdown">
+                                Trạng thái:
+                                @{ var now = DateTime.Now;
+                                    if (item.NgayBatDau > now)
+                                    {
+                                        <p>Đấu giá chưa bắt đầu</p>
+                                    }
+                                    else if (item.NgayKetThuc >= now)
+                                    {
+                                        <p>Đấu giá đang diễn ra</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Buổi đấu giá đã kết thúc</p>
+                                    }
+                                }
+                            </div>
+                            <span class="total-bids">@TempData["count"] Đấu giá</span>
+                        </div>
+                        <div class="text-center">
+                            <a href="/User/Home/Bid/@item.MaDauGia" class="custom-button">Tham gia đấu giá</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
   </div>
 
