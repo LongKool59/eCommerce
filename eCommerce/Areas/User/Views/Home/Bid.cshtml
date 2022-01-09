@@ -167,12 +167,12 @@
                 }
 
             }
-            <p>Giá hiện tại:</p>
-            <table>
-                <tr>
-                    <!--<th style="font-size:40px; color: orangered"></th>-->@TempData["value"] @*Ở đây nên để giá đấu giá mỗi khi tăng*@
-                </tr>
-            </table>
+            <p>Giá hiện tại: <span style="font-size:26px" id="gia-hien-tai"></span></p>
+            <!--<table>
+                <tr id="gia-hien-tai">-->
+            <!--<th style="font-size:40px; color: orangered"></th>Ở đây nên để giá đấu giá mỗi khi tăng-->
+            <!--</tr>
+            </table>-->
             <p>
 
                 @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
@@ -323,6 +323,9 @@
         <script type="text/javascript">
             //hiển thị danh sách người dùng đấu giá trực tiếp
             let tableDauGia = $('#danh-sach-dau-gia')
+            let giaHienTai = $('#gia-hien-tai')
+            let inputNangGia = $('#bid')
+            let inputNangGia_1 = $('#bid_1')
             function updateLiveDanhSachDauGia() {
                 tableDauGia.empty()
                 tableDauGia.append($('<li>Loading...</li>'))
@@ -336,6 +339,12 @@
                         }
                         $.each(response, function (index, value) {
                             tableDauGia.append($('<p>' + value.TenNguoiDung + ' - ' + value.GiaTri + ' VNĐ - ' + ShowDateLiveAuction(value.ThoiGian) + '</p>'))
+                            if (index === 0) {
+                                giaHienTai.empty()
+                                giaHienTai.append(value.GiaTri)
+                                inputNangGia.val(value.GiaTri + @Model.DauGia.MucNangToiThieu)
+                                inputNangGia_1.val(value.GiaTri + @Model.DauGia.MucNangToiThieu)
+                            }
                         })
                     },
                     error: function (error) {
