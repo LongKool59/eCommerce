@@ -49,7 +49,7 @@
     </a>
     <p>Trạng Thái</p>
 
-    var tt = db.CT_TrangThai.Where(m => m.MaDauGia == 31).OrderByDescending(s => s.ThoiGian).First();
+    var tt = db.CT_TrangThai.Where(m => m.MaDauGia == item.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
     var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
     if (item.NgayThanhToan == null)
     {
