@@ -116,13 +116,15 @@
             <div class="row">
                 @using (Html.BeginForm("ThanhToan", "Home", FormMethod.Post))
                 {
-                     <input name="submit" value="@Model.DauGia.MaDauGia" hidden="true" /> 
+                    <input name="submit" value="@Model.DauGia.MaDauGia" hidden="true" />
 
                     <input type="submit" value="Xác nhận thanh toán" onclick="return confirm('Bạn chắc chắn muốn thanh toán')" style="background-color:aqua;font-weight:bold" />
                 }
                 <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
             </div>
-      </div>
+            @Html.Partial("_Notifications")
+
+        </div>
     </div>
 </div>
 
