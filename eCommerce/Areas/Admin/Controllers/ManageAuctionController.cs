@@ -1,4 +1,5 @@
 ﻿using eCommerce.Areas.Admin.Models;
+using eCommerce.Areas.User.Models;
 using eCommerce.Extensions;
 using eCommerce.Models;
 using PagedList;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DauGiaViewModel = eCommerce.Areas.Admin.Models.DauGiaViewModel;
 
 namespace eCommerce.Areas.Admin.Controllers
 {
@@ -64,14 +66,52 @@ namespace eCommerce.Areas.Admin.Controllers
         {
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            DauGia dauGia = db.DauGias.Find(id);
-            if (dauGia == null)
+            ViewModel view = new ViewModel();
+            var dg = db.DauGias.Where(m => m.MaDauGia == id).SingleOrDefault();
+            var loai = from l in db.Loais
+                       join ct in db.CT_LoaiDauGia on l.MaLoai equals ct.MaLoai
+                       join b in db.DauGias on ct.MaDauGia equals b.MaDauGia
+                       where b.MaDauGia == id
+                       select l;
+            var hinh = db.HinhAnhs.Where(m => m.MaDauGia == id).Select(m => m.LinkAnh).ToArray();
+            view.ListLoaiSanPham = loai.ToList().ConvertAll<LoaiViewModel>(x => x);
+            view.DauGia = dg;
+            view.Hinh = hinh;
+            view.YeuThich = false;
+            if (Session["MaNguoiDung"] == null)
+            {
+                view.YeuThich = false;
+            }
+            else
+            {
+                int ID = int.Parse(Session["MaNguoiDung"].ToString());
+                var yt = db.YeuThiches.Where(m => m.MaDauGia == id && m.MaNguoiDung == ID).SingleOrDefault();
+                if (yt != null)
+                {
+                    view.YeuThich = true;
+                }
+            }
+            NotificationComponents components = new NotificationComponents((int)id);
+            components.RegisterLiveAuction((int)id);
+            TempData["MaDauGia"] = id;
+            return View(view);
+        }
+
+        public ActionResult VoHieuHoaDauGia(int? maDauGia)
+        {
+            if (maDauGia == null)
                 return HttpNotFound();
 
-            DauGiaViewModel dauGiaViewModel = dauGia;
-            return View(dauGiaViewModel);
+            DauGiaEntities db = new DauGiaEntities();
+            CT_TrangThai ct = new CT_TrangThai();
+            ct.MaDauGia = (int)maDauGia;
+            var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
+            ct.MaTrangThai = tt.MaTrangThai;
+            ct.ThoiGian = DateTime.Now;
+            db.CT_TrangThai.Add(ct);
+            db.SaveChanges();
+            TempData["toastr-success"] = $"Vô hiệu hóa buổi đấu giá (Mã {maDauGia}) thành công.";
+            return RedirectToAction("DanhSachDauGia");
         }
     }
 }

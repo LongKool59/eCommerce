@@ -11,8 +11,7 @@ using System.Data.Entity;
 using PagedList.Mvc;
 using MoMo;
 using Newtonsoft.Json.Linq;
-
-
+using Newtonsoft.Json;
 
 namespace eCommerce.Areas.User.Controllers
 {
@@ -479,7 +478,9 @@ namespace eCommerce.Areas.User.Controllers
                     view.YeuThich = true;
                 }
             }
-
+            NotificationComponents components = new NotificationComponents(id);
+            components.RegisterLiveAuction(id);
+            TempData["MaDauGia"] = id;
             return View(view);
         }
         [HttpPost]
@@ -504,7 +505,7 @@ namespace eCommerce.Areas.User.Controllers
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
                 var dg = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
 
-                if (DateTime.Now > dg.NgayKetThuc)
+                if (DateTime.Now <= dg.NgayKetThuc)
                 {
                     if (l.Count() > 0)
                     {
@@ -542,16 +543,21 @@ namespace eCommerce.Areas.User.Controllers
                 }
                 else
                 {
-                    this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
+                    this.AddNotification("Đã quá thời gian có thể đấu giá", NotificationType.ERROR);
                     return RedirectToAction("Bid", new { id = ma });
-
                 }
-
-
             }
-
         }
 
+        [HttpGet]
+        public JsonResult DSNguoiDungDauGiaLive()
+        {
+            TempData.Keep();
+            NotificationComponents components = new NotificationComponents();
+            int maDauGia = Convert.ToInt32(TempData["MaDauGia"]);
+            var list = components.GetNguoiDungDauGia(maDauGia);
+            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public ActionResult Rating(int id)
         {
             ViewModel view = new ViewModel();

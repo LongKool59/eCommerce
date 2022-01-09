@@ -176,6 +176,7 @@
     <Compile Include="Areas\User\Models\DauGiaViewModel.cs" />
     <Compile Include="Areas\User\Models\HinhAnhViewModel.cs" />
     <Compile Include="Areas\User\Models\LoaiViewModel.cs" />
+    <Compile Include="Areas\User\Models\NangGiaViewModel.cs" />
     <Compile Include="Areas\User\Models\NguoiDungViewModel.cs" />
     <Compile Include="Areas\User\Models\PhuongViewModel.cs" />
     <Compile Include="Areas\User\Models\QuanViewModel.cs" />
@@ -279,6 +280,7 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\DoiMatKhau.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuction\DanhSachDauGia.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAuction\ChiTietDauGia.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\main.css" />
     <Content Include="assets\css\mycss.css" />

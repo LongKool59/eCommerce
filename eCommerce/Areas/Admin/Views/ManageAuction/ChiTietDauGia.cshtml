@@ -1,9 +1,9 @@
 ﻿@model eCommerce.Areas.User.Models.ViewModel
 @using eCommerce.Models;
 @{
-    ViewBag.Title = "Đấu giá";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";}
-
+    ViewBag.Title = "ChiTietDauGia";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
 
 <style>
     h1.function-page-title {
@@ -38,21 +38,11 @@
         background-color: #dddddd;
     }
 </style>
-<h1 class="function-page-title">ĐẤU GIÁ SẢN PHẨM</h1>
+<h1 class="function-page-title" style="margin-top:45px">ĐẤU GIÁ SẢN PHẨM</h1>
 
 <div>
     <div class="row">
         <div class="col-md-6">
-            <div>
-                @if (Model.YeuThich)
-                {
-                    <a href="/User/Home/UnFavorite?id=@Model.DauGia.MaDauGia&loai=0" class="rating"><i class="fas fa-star" style="z-index: 2; right: 3%; top: 1%;"></i></a>
-                }
-                else
-                {
-                    <a href="/User/Home/Favorite?id=@Model.DauGia.MaDauGia&loai=0" class="rating"><i class="far fa-star" style="z-index: 2; right: 3%; top: 1%;"></i></a>
-                }
-            </div>
             <p>Hình ảnh sản phẩm:</p>
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -173,25 +163,10 @@
             <!--<th style="font-size:40px; color: orangered"></th>Ở đây nên để giá đấu giá mỗi khi tăng-->
             <!--</tr>
             </table>-->
-            <p>
-
-                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
-                {
-                    <button id="plus">+</button>
-                    <button id="minus">-</button>
-                    <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
-                    using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
-                    {
-                        <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-                        <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
-                        <input type="submit" value="Ra giá" class="btn btn-default" />
-                    }
-                }
 
 
-
-                @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
-                {
+            @if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
+            {
                 <p>Thời gian đấu giá còn lại: </p>
 
                 <p id="bidtime"></p>
@@ -206,35 +181,40 @@
             {
                 <p> Buổi đấu giá đã kết thúc</p>
             }
-
-                </p>
-            </div>
-            <hr />
-            <div class="col-md-6">
-                <p>Danh sách khách hàng đấu giá</p>
-                @Html.Partial("_Notifications")
-                <div style="overflow: auto;height: 200px;margin-bottom: 30px;">
-                    <table class="table1" id="danh-sach-dau-gia">
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="col-md-12" style="text-align:center">
-            <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+        <hr />
+        <div class="col-md-6">
+            <p>Danh sách khách hàng đấu giá</p>
+            @Html.Partial("_Notifications")
+            <div style="overflow: auto;height: 200px;margin-bottom: 30px;">
+                <table class="table1" id="danh-sach-dau-gia">
+                </table>
+            </div>
         </div>
     </div>
+    <div class="col-md-12" style="text-align:center; margin-bottom:50px">
+        @{
+            var maDG_BiXoa = db.CT_TrangThai.Where(s => s.MaDauGia == Model.DauGia.MaDauGia && s.TrangThaiDauGia.TenTrangThai == "UnActive").FirstOrDefault();
+            if (maDG_BiXoa == null)
+            {
+                <a href='@Url.Action("VoHieuHoaDauGia", "ManageAuction", new { maDauGia = Model.DauGia.MaDauGia })' class="btn btn-reload btn-danger ml-3" id="btn-delete">VÔ HIỆU HÓA</a>
+            }
+        }
+        <a href='@Url.Action("DanhSachDauGia", "ManageAuction")' class="btn btn-reload btn-danger ml-3" id="btn-back">QUAY LẠI </a>
+    </div>
+</div>
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
-    <script src="/signalr/hubs"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    @section scripts {
-        <script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+<script src="/signalr/hubs"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@section scripts {
+    <script>
                         $("#plus").click(function () {
                             $("#bid").val(function () {
                                 return parseInt(this.value, 10) + @Model.DauGia.MucNangToiThieu;
@@ -249,9 +229,9 @@
                             $("#bid_1").val(function () {
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
-        </script>
-        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
-        <script>
+    </script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+    <script>
                 @*var day = Model.DauGia.NgayBatDau.Day;
                 var month = Model.DauGia.NgayBatDau.Month;
                 var year = Model.DauGia.NgayBatDau.Year;
@@ -283,9 +263,9 @@
                     document.getElementById("bidtime").innerHTML = "EXPIRED";
                 }
             }, 1000);
-        </script>
+    </script>
 
-        <script>
+    <script>
                 var day_1 = @Model.DauGia.NgayBatDau.Day;
                 var month_1 = @Model.DauGia.NgayBatDau.Month;
                 var year_1 = @Model.DauGia.NgayBatDau.Year;
@@ -317,10 +297,10 @@
                     document.getElementById("start").innerHTML = "EXPIRED";
                 }
             }, 1000);
-        </script>
+    </script>
 
 
-        <script type="text/javascript">
+    <script type="text/javascript">
             //hiển thị danh sách người dùng đấu giá trực tiếp
             let tableDauGia = $('#danh-sach-dau-gia')
             let giaHienTai = $('#gia-hien-tai')
@@ -377,5 +357,7 @@
                 }
             }
             updateLiveDanhSachDauGia()
-        </script>
-    }
+    </script>
+}
+
+
