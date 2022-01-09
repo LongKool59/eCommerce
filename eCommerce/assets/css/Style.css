@@ -62,6 +62,7 @@ ul#menu-list {
     transform-origin: top;
     transform: perspective(100px) rotateX(-90deg);
     transition: .5s;
+    left: 38%;
 }
 
     ul#menu-list.active {
