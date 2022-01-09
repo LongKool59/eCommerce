@@ -206,117 +206,75 @@
 
     <script type="text/javascript">
 
-  $(document).ready(function () {
-    $('button.manage').click(function (e) {
-      e.stopPropagation()
-      $('ul#menu-list').toggleClass('active')
-    })
+        $(document).ready(function () {
+            $('button.manage').click(function (e) {
+                e.stopPropagation()
+                $('ul#menu-list').toggleClass('active')
+            })
 
-    $('.notification').click(function (e) {
-      e.stopPropagation()
-      $('.notification-ul').toggleClass('active')
-      var count = 0
-      updateNotification();
+            $('.notification').click(function (e) {
+                e.stopPropagation()
+                $('.notification-ul').toggleClass('active')
+                var count = 0
+                updateNotification();
 
-      if (count > 0) {
-        updateNotification();
-        const a = updateNotification().count();
-        console.log(a);
-      }
-      count = parseInt($('span.txt-notification').html()) || 0;
-      $('span.txt-notification', this).html('&nbsp;')
-    })
+                if (count > 0) {
+                    updateNotification();
+                    const a = updateNotification().count();
+                    console.log(a);
+                }
+                count = parseInt($('span.txt-notification').html()) || 0;
+                $('span.txt-notification', this).html('&nbsp;')
+            })
 
-    //hide notification and menu
-    $('html').click(function (e) {
-      if ($('ul#menu-list').hasClass("active")) {
-        $('ul#menu-list').removeClass("active")
-      }
-      if ($('.notification-ul').hasClass("active")) {
-        $('.notification-ul').removeClass("active")
-      }
-    })
+            //hide notification and menu
+            $('html').click(function (e) {
+                if ($('ul#menu-list').hasClass("active")) {
+                    $('ul#menu-list').removeClass("active")
+                }
+                if ($('.notification-ul').hasClass("active")) {
+                    $('.notification-ul').removeClass("active")
+                }
+            })
 
-    //substract two dates
-    function SubstractTwoDates(TimeRequesting) {
-      if (TimeRequesting == null) {
-        return undefined
-      }
-      var dateTimeNow = new Date()
-      var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
-      var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
-      if (substract <= 24) {
-        let time = substract + " giờ trước";
-        return time
-      }
-      var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
-        dateTimeJSObject.getUTCDate() +
-        "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
-        ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
-      return str
-    }
-    //update notification
-    function updateNotification() {
-      $('.notification-ul').empty()
-      $('.notification-ul').append($('<li>Loading...</li>'))
-      $.ajax({
-        type: 'GET',
-        url: '/Admin/HomeAdmin/ThongBaoDSNguoiDung',
-        success: function (response) {
-          $('.notification-ul').empty();
-          if (response.length == 0) {
-            $('.notification-ul').append($('<li>No data available</li>'));
-          }
-          $.each(response, function (index, value) {
-            $('.notification-ul').append($(
-                                @*'<li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" width="25" height="25" style="border-radius:50%; margin-right:10px" />' + value.HoTen + ' (' + value.MaNguoiDung + ') vùa gửi yêu cầu trở thành approved user</a></li>'*@
-              ' <li><a href="/Admin/ManageUser/ChiTietYeuCau?id=' + value.MaNguoiDung + '"><img src="@Session["HinhAnh"]" /><div class="notification-text"><div class="notification-header">' + value.HoTen + ' (' + value.MaNguoiDung + ') vừa gửi một yêu cầu cấp quyền đăng đấu giá</div><div class="notification-time">' + SubstractTwoDates(value.TimeRequesting) + ' </div> </div></a></li>'
-            ));
-          });
-        },
-        error: function (error) {
-          console.log(error);
+            //substract two dates
+            function SubstractTwoDates(TimeRequesting) {
+                if (TimeRequesting == null) {
+                    return undefined
+                }
+                var dateTimeNow = new Date()
+                var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
+                var substract = Math.floor(Math.abs(dateTimeNow - dateTimeJSObject) / 36e5)
+                if (substract <= 24) {
+                    let time = substract + " giờ trước";
+                    return time
+                }
+                var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
+                    dateTimeJSObject.getUTCDate() +
+                    "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getUTCHours() +
+                    ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
+                return str
+            }
+        });
+        window.addEventListener("scroll", function () {
+            let header = document.querySelector("header");
+            let windowPosition = window.scrollY > 0;
+            header.classList.toggle("scrolling-active", windowPosition);
+        });
+        //back to top
+        var mybutton = document.getElementById("myBtn");
+        window.onscroll = function () { scrollFunction() };
+        function scrollFunction() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
-      })
-    }
-    function updateNotificationCount() {
-      var count = 0;
-      count = parseInt($('span.txt-notification').html()) || 0;
-      count++;
-      $('span.txt-notification').html(count);
-    }
-    // signalr js code for start hub and send receive notification
-    var notificationHub = $.connection.notificationHub;
-    $.connection.hub.start().done(function () {
-      console.log('Notification hub started');
-    });
-    //signalr method for push server message to client
-    notificationHub.client.notify = function (message) {
-      if (message && message.toLowerCase() == "added") {
-        updateNotification();
-        updateNotificationCount();
-      }
-    }
-  });
-  window.addEventListener("scroll", function () {
-    let header = document.querySelector("header");
-    let windowPosition = window.scrollY > 0;
-    header.classList.toggle("scrolling-active", windowPosition);
-  });
-    //back to top
-    var mybutton = document.getElementById("myBtn");
-    window.onscroll = function () { scrollFunction() };
-    function scrollFunction() {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    }
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
     </script>
 </body>
 </html>

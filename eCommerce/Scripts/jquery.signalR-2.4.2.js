@@ -9,7 +9,7 @@
  *
  */
 
-/// <reference path="Scripts/jquery-1.6.4.js" />
+/// <reference path="Scripts/jquery-3.4.1.js" />
 /// <reference path="jquery.signalR.version.js" />
 (function ($, window, undefined) {
 
@@ -1546,7 +1546,7 @@
                     headers: requestHeaders
                 });
             }
-            else { 
+            else {
                 // fetch is not available - fallback to $.ajax
                 transportLogic.ajax(connection, {
                     url: url,
@@ -1563,11 +1563,11 @@
 
         ajaxStart: function (connection, onSuccess) {
             var rejectDeferred = function (error) {
-                    var deferred = connection._deferral;
-                    if (deferred) {
-                        deferred.reject(error);
-                    }
-                },
+                var deferred = connection._deferral;
+                if (deferred) {
+                    deferred.reject(error);
+                }
+            },
                 triggerStartError = function (error) {
                     connection.log("The start request failed. Stopping the connection.");
                     $(connection).triggerHandler(events.onError, [error]);
@@ -1641,7 +1641,7 @@
         processMessages: function (connection, minData, onInitialized) {
             var data;
 
-            if(minData && (typeof minData.I !== "undefined")) {
+            if (minData && (typeof minData.I !== "undefined")) {
                 // This is a response to a message the client sent
                 transportLogic.triggerReceived(connection, minData);
                 return;
@@ -1740,13 +1740,13 @@
 
         isConnectedOrReconnecting: function (connection) {
             return connection.state === signalR.connectionState.connected ||
-                   connection.state === signalR.connectionState.reconnecting;
+                connection.state === signalR.connectionState.reconnecting;
         },
 
         ensureReconnectingState: function (connection) {
             if (changeState(connection,
-                        signalR.connectionState.connected,
-                        signalR.connectionState.reconnecting) === true) {
+                signalR.connectionState.connected,
+                signalR.connectionState.reconnecting) === true) {
                 $(connection).triggerHandler(events.onReconnecting);
             }
             return connection.state === signalR.connectionState.reconnecting;
@@ -1863,7 +1863,7 @@
                         ex,
                         connection.socket
                     ),
-                    data]);
+                        data]);
             }
         },
 
@@ -1898,8 +1898,8 @@
                     transportLogic.clearReconnectTimeout(connection);
 
                     if (changeState(connection,
-                                    signalR.connectionState.reconnecting,
-                                    signalR.connectionState.connected) === true) {
+                        signalR.connectionState.reconnecting,
+                        signalR.connectionState.connected) === true) {
                         $connection.triggerHandler(events.onReconnect);
                     }
                 };
@@ -2058,7 +2058,7 @@
                         }
                     }
                 },
-                that.timeOut);
+                    that.timeOut);
             }
 
             connection.eventSource.addEventListener("open", function (e) {
@@ -2071,8 +2071,8 @@
                     opened = true;
 
                     if (changeState(connection,
-                                         signalR.connectionState.reconnecting,
-                                         signalR.connectionState.connected) === true) {
+                        signalR.connectionState.reconnecting,
+                        signalR.connectionState.connected) === true) {
                         $connection.triggerHandler(events.onReconnect);
                     }
                 }
@@ -2473,8 +2473,8 @@
                     privateData.reconnectTimeoutId = null;
 
                     if (changeState(instance,
-                                    signalR.connectionState.reconnecting,
-                                    signalR.connectionState.connected) === true) {
+                        signalR.connectionState.reconnecting,
+                        signalR.connectionState.connected) === true) {
                         // Successfully reconnected!
                         instance.log("Raising the reconnect event");
                         $(instance).triggerHandler(events.onReconnect);
@@ -2796,7 +2796,7 @@
             callbackIdentity = callbackIdentity || callback;
 
             // Assign a global ID to the identity object. This tags the object so we can detect the same object when it comes back.
-            if(!callbackIdentity._signalRGuid) {
+            if (!callbackIdentity._signalRGuid) {
                 callbackIdentity._signalRGuid = nextGuid++;
             }
 

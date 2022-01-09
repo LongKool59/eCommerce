@@ -11,8 +11,7 @@ using System.Data.Entity;
 using PagedList.Mvc;
 using MoMo;
 using Newtonsoft.Json.Linq;
-
-
+using Newtonsoft.Json;
 
 namespace eCommerce.Areas.User.Controllers
 {
@@ -479,7 +478,9 @@ namespace eCommerce.Areas.User.Controllers
                     view.YeuThich = true;
                 }
             }
-
+            NotificationComponents components = new NotificationComponents(id);
+            components.RegisterLiveAuction(id);
+            TempData["MaDauGia"] = id;
             return View(view);
         }
         [HttpPost]
@@ -548,6 +549,15 @@ namespace eCommerce.Areas.User.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult DSNguoiDungDauGiaLive()
+        {
+            TempData.Keep();
+            NotificationComponents components = new NotificationComponents();
+            int maDauGia = Convert.ToInt32(TempData["MaDauGia"]);
+            var list = components.GetNguoiDungDauGia(maDauGia);
+            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public ActionResult Rating(int id)
         {
             ViewModel view = new ViewModel();

@@ -176,6 +176,7 @@
     <Compile Include="Areas\User\Models\DauGiaViewModel.cs" />
     <Compile Include="Areas\User\Models\HinhAnhViewModel.cs" />
     <Compile Include="Areas\User\Models\LoaiViewModel.cs" />
+    <Compile Include="Areas\User\Models\NangGiaViewModel.cs" />
     <Compile Include="Areas\User\Models\NguoiDungViewModel.cs" />
     <Compile Include="Areas\User\Models\PhuongViewModel.cs" />
     <Compile Include="Areas\User\Models\QuanViewModel.cs" />

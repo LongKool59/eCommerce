@@ -212,16 +212,16 @@
             <hr />
             <div class="col-md-6">
                 <p>Danh sách khách hàng đấu giá</p>
-                <table class="table1">
-                    @Html.Partial("_Notifications")
-                    @{
-                        var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
-                        foreach (var item in a)
-                        {
-                            var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
-                            <p>@nd.HoTen - @item.GiaTri VNĐ</p>
-                        }
-                    }
+                @Html.Partial("_Notifications")
+                <table class="table1" id="danh-sach-dau-gia">
+                    @*@{
+                            var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
+                            foreach (var item in a)
+                            {
+                                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
+                                <p>@nd.HoTen - @item.GiaTri VNĐ</p>
+                            }
+                        }*@
 
                 </table>
             </div>
@@ -233,7 +233,13 @@
 
 
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     @section scripts {
         <script>
                         $("#plus").click(function () {
@@ -251,7 +257,7 @@
                                 return parseInt(this.value, 10) - @Model.DauGia.MucNangToiThieu});
                         });
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
         <script>
                 @*var day = Model.DauGia.NgayBatDau.Day;
                 var month = Model.DauGia.NgayBatDau.Month;
@@ -321,4 +327,42 @@
         </script>
 
 
+        <script type="text/javascript">
+            //hiển thị danh sách người dùng đấu giá trực tiếp
+            let tableDauGia = $('#danh-sach-dau-gia')
+            function updateLiveDanhSachDauGia() {
+                tableDauGia.empty()
+                tableDauGia.append($('<li>Loading...</li>'))
+                $.ajax({
+                    type: 'GET',
+                    url: '/User/Home/DSNguoiDungDauGiaLive',
+                    success: function (response) {
+                        tableDauGia.empty()
+                        if (response.length == 0) {
+                            tableDauGia.append($('<p>Không có người dùng nào đấu giá</p>'))
+                        }
+                        $.each(response, function (index, value) {
+                            tableDauGia.append($('<p>' + value.TenNguoiDung + ' - ' + value.GiaTri + ' VNĐ</p>'))
+                        })
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    },
+                })
+            }
+
+            // signalr js code for start hub and send receive notification
+            var notificationHub = $.connection.notificationHub;
+            $.connection.hub.start().done(function () {
+                console.log('Notification hub started');
+            });
+            //signalr method for push server message to client
+            notificationHub.client.notify = function (message) {
+                if (message && message.toLowerCase() == "addlive") {
+                    updateLiveDanhSachDauGia()
+                    console.log("add live auction")
+                }
+            }
+            updateLiveDanhSachDauGia()
+        </script>
     }
