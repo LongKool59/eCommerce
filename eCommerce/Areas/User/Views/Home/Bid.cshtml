@@ -213,17 +213,10 @@
             <div class="col-md-6">
                 <p>Danh sách khách hàng đấu giá</p>
                 @Html.Partial("_Notifications")
-                <table class="table1" id="danh-sach-dau-gia">
-                    @*@{
-                            var a = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
-                            foreach (var item in a)
-                            {
-                                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == item.MaNguoiDung).SingleOrDefault();
-                                <p>@nd.HoTen - @item.GiaTri VNĐ</p>
-                            }
-                        }*@
-
-                </table>
+                <div style="overflow: auto;height: 200px;margin-bottom: 30px;">
+                    <table class="table1" id="danh-sach-dau-gia">
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-12" style="text-align:center">
@@ -342,13 +335,24 @@
                             tableDauGia.append($('<p>Không có người dùng nào đấu giá</p>'))
                         }
                         $.each(response, function (index, value) {
-                            tableDauGia.append($('<p>' + value.TenNguoiDung + ' - ' + value.GiaTri + ' VNĐ</p>'))
+                            tableDauGia.append($('<p>' + value.TenNguoiDung + ' - ' + value.GiaTri + ' VNĐ - ' + ShowDateLiveAuction(value.ThoiGian) + '</p>'))
                         })
                     },
                     error: function (error) {
                         console.log(error)
                     },
                 })
+            }
+            function ShowDateLiveAuction(TimeRequesting) {
+                if (TimeRequesting == null) {
+                    return undefined
+                }
+                var dateTimeJSObject = new Date(parseInt(TimeRequesting.substr(6)))
+                var str = (dateTimeJSObject.getUTCMonth() + 1).toString() + "/" +
+                    dateTimeJSObject.getUTCDate() +
+                    "/" + dateTimeJSObject.getUTCFullYear().toString() + " " + dateTimeJSObject.getHours() +
+                    ":" + dateTimeJSObject.getUTCMinutes() + ":" + dateTimeJSObject.getUTCSeconds();
+                return str
             }
 
             // signalr js code for start hub and send receive notification

@@ -104,15 +104,11 @@ namespace eCommerce
         public List<NangGiaViewModel> GetNguoiDungDauGia(int maDauGia)
         {
             DauGiaEntities db = new DauGiaEntities();
-            //var mucNangs = db.MucNangs
-            //    .Join(db.NguoiDungs,
-            //    maNguoi => maNguoi.MaNguoiDung,
-            //    )
-            //    .Where(s => s.MaDauGia == maDauGia).OrderByDescending(s => s.GiaTri).ToList();
             var mucNangs = (from ma in db.MucNangs
                             join nguoiDung in db.NguoiDungs on ma.MaNguoiDung equals nguoiDung.MaNguoiDung
                             join dauGia in db.DauGias on ma.MaDauGia equals dauGia.MaDauGia
                             where dauGia.MaDauGia == maDauGia
+                            orderby ma.GiaTri descending
                             select new
                             {
                                 MaMucNang = ma.MaMucNang,
