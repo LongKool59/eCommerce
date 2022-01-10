@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
-                <a href='@Url.Action("DauGia", "Index")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+                <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
             </form>
         }
     </div>
@@ -162,7 +162,7 @@
                 </td>
                 <td>
 
-
+                    <a href='@Url.Action("Detail","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:antiquewhite"><i class="fas fa-info-circle"></i> Chi tiết </a>
                     @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
                     {
 
@@ -171,8 +171,7 @@
                         if (DateTime.Now < item.NgayBatDau.AddDays(2) && trangthai == null)
                         {
                             <a href='@Url.Action("Edit","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:aqua"><i class="fas fa-edit"></i> Chỉnh sửa </a>
-                            <a href='@Url.Action("Detail","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:antiquewhite"><i class="fas fa-info-circle"></i> Chi tiết </a>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
+
 
                             <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
                         }

@@ -30,7 +30,7 @@ namespace eCommerce.Areas.User.Controllers
             listL.Add(l);
             ViewBag.ListLoai = new SelectList(listL, "MaLoai", "TenLoai", "0");
             int pageNumber = page ?? 1;
-            int pageSize = 5;
+            int pageSize = 9;
             IQueryable<DauGia> DauGia;
             List<DauGiaViewModel> DGViewModel;
             var DauGia_full = db.DauGias.OrderBy(x => x.NgayDang);

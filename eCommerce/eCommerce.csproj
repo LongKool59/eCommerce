@@ -162,13 +162,6 @@
     <Compile Include="Areas\Admin\Controllers\ManageAuctionTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
     <Compile Include="Areas\Admin\Models\DauGiaViewModel.cs" />
-    <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.cs">
-      <DependentUpon>_Layout.cshtml</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\Admin\Views\Shared\_Layout.aspx.designer.cs">
-      <DependentUpon>_Layout.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Areas\User\Controllers\DauGiaController.cs" />
     <Compile Include="Areas\User\Controllers\DetailsUserController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
@@ -284,7 +277,6 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\SuaThongTinCaNhan.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuction\DanhSachDauGia.cshtml" />
     <Content Include="Areas\Admin\Views\ManageAuction\ChiTietDauGia.cshtml" />
-    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="assets\css\main.css" />
     <Content Include="assets\css\mycss.css" />
     <Content Include="assets\css\Rating.css" />
@@ -365,6 +357,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\DauGiaTrucTuyen - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
