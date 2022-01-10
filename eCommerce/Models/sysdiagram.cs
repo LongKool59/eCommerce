@@ -12,15 +12,12 @@ namespace eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DanhGia
+    public partial class sysdiagram
     {
-        public int MaDanhGia { get; set; }
-        public int FromID { get; set; }
-        public int ToID { get; set; }
-        public int Rating { get; set; }
-        public string NoiDung { get; set; }
-    
-        public virtual NguoiDung NguoiDung { get; set; }
-        public virtual NguoiDung NguoiDung1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

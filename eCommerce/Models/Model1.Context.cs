@@ -36,6 +36,7 @@ namespace eCommerce.Models
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<Phuong> Phuongs { get; set; }
         public virtual DbSet<Quan> Quans { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThanhPho> ThanhPhoes { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
         public virtual DbSet<TrangThaiDauGia> TrangThaiDauGias { get; set; }
