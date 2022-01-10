@@ -173,29 +173,30 @@
             <!--<th style="font-size:40px; color: orangered"></th>Ở đây nên để giá đấu giá mỗi khi tăng-->
             <!--</tr>
     </table>-->
-            <p>
-                @{
-                    var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == 2 && m.MaDauGia == Model.DauGia.MaDauGia).SingleOrDefault();
-                    if (trangthai == null)
+        <p>
+            @{
+                var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == 2 && m.MaDauGia == Model.DauGia.MaDauGia).SingleOrDefault();
+                if (trangthai == null)
+                {
+                    if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
                     {
-                        if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
+
+                        <button id="minus">-</button>
+                        <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
+                        <button id="plus">+</button>
+                        using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
                         {
-                            <button id="plus">+</button>
-                            <button id="minus">-</button>
-                            <input name="bid" id="bid" disabled="true" value="@TempData["value"]" />
-                            using (Html.BeginForm("Bid_1", "Home", FormMethod.Post))
-                            {
-                                <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
-                                <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
-                                <input type="submit" value="Ra giá" class="btn btn-default" />
-                            }
+                            <input name="id" hidden="true" value="@Model.DauGia.MaDauGia" />
+                            <input id="bid_1" name="bid_1" hidden="true" value="@TempData["value"]" />
+                            <input type="submit" value="Ra giá" class="btn btn-default" />
                         }
+                    }
 
 
 
-                        if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
-                        {
-                        <p>Thời gian đấu giá còn lại: </p>
+                    if (DateTime.Now > Model.DauGia.NgayBatDau && DateTime.Now < Model.DauGia.NgayKetThuc)
+                    {
+<p>Thời gian đấu giá còn lại: </p>
 
                         <p id="bidtime"></p>
                         }

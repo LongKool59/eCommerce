@@ -7,74 +7,110 @@
     ViewBag.Title = "Danh sách đã đấu giá";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
-<style>
-    h1.function-page-title {
-        font-size: 2.2rem;
-        font-weight: 400;
-        color: black;
-        text-align: center;
-        padding: 1.5rem 0;
-        background: #84CEEB;
-        font-weight: bold;
-    }
-</style>
-<h1 class="function-page-title">DANH SÁCH SẢN PHẨM ĐÃ ĐẤU GIÁ</h1>
-@foreach (var item in Model)
-{
-    DauGiaEntities db = new DauGiaEntities();
 
-    var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
-    if (Hinh.Length > 0)
-    {
-        <img src=@Url.Content(Hinh[0].LinkAnh) style="width:150px;height:200px" />
+<h1 class="text-center py-5">DANH SÁCH SẢN PHẨM ĐÃ ĐẤU GIÁ</h1>
+<div class="list-employee">
+    <div class="container">
+        <div class="auction-list">
+            @foreach (var item in Model)
+            {
+                DauGiaEntities db = new DauGiaEntities();
+                var Hinh = db.HinhAnhs.Where(m => m.MaDauGia == item.MaDauGia).ToArray();
+                <div class="auction-item-2">
+                    <div class="auction-thumb p-3">
+                        @if (Hinh.Length > 0)
+                        {
+                            <a href="/User/Home/ChiTietDaMua/@item.MaDauGia" style="height:100%; display:block;"><img src=@Url.Content(Hinh[0].LinkAnh) alt="car"></a>
 
-    }
+                        }
+                        @if (Session["MaNguoiDung"] != null)
+                        {
+                            int ID = int.Parse(Session["MaNguoiDung"].ToString());
+                            int ma = int.Parse(item.MaDauGia.ToString());
+                            var yt = db.YeuThiches.Where(m => m.MaDauGia == ma && m.MaNguoiDung == ID).SingleOrDefault();
+                            if (yt != null)
+                            {
+                                <a href="/User/Home/UnFavorite?id=@item.MaDauGia&loai=1" class="rating"><i class="fas fa-star"></i></a>
+                            }
+                            else
+                            {
+                                <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="/User/Home/Favorite?id=@item.MaDauGia&loai=1" class="rating"><i class="far fa-star"></i></a>
+                        }
+                        @{
+                            var mucnang = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).ToList();
+                            if (mucnang.Count() > 0)
+                            {
+                                TempData["home"] = db.MucNangs.Where(m => m.MaDauGia == item.MaDauGia).Max(m => m.GiaTri);
+                            }
+                            else
+                            {
+                                TempData["home"] = item.GiaBanDau;
+                            }
+                            TempData["count"] = mucnang.Count();
 
-
-    <a href=@Url.Action("ChiTietDaMua", "Home", new { id = item.MaDauGia })>
-        <div>
-            @Html.DisplayFor(modelItem => item.TenSanPham)
-
-            @Html.DisplayFor(modelItem => item.MoTa)
-
-
-
-            @Html.DisplayFor(modelItem => item.NgayBatDau)   ~  @Html.DisplayFor(modelItem => item.NgayKetThuc)
-
-
-
-            @Html.DisplayFor(modelItem => item.GiaBanDau)
-
+                        }
+                        @*<a href="#0" class="rating"><i class="far fa-star"></i></a>*@
+                        <a href="#0" class="bid text-light"><i class="fas fa-gavel"></i></a>
+                    </div>
+                    <div class="auction-content">
+                        <h6 class="title">
+                            <a href="#">@Html.DisplayFor(modelItem => item.TenSanPham)</a>
+                        </h6>
+                        <div class="bid-area">
+                            <div class="row" style="justify-content:center">
+                                <div class="bid-amount">
+                                    <div class="icon">
+                                        <i class="fas fa-gavel"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">Giá cao nhất</div>
+                                        <div class="amount">@TempData["home"]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="countdown-area">
+                            <div class="countdown">
+                                Trạng thái:
+                                @{
+                                    var tt = db.CT_TrangThai.Where(m => m.MaDauGia == item.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
+                                    var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
+                                    if (item.NgayThanhToan == null)
+                                    {
+                                        <p>Chưa thanh toán</p>
+                                    }
+                                    else if (ten.TenTrangThai != "Done")
+                                    {
+                                        <p>Đã thanh toán</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Đơn hàng hoàn tất</p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="/User/Home/ChiTietDaMua/@item.MaDauGia" class="custom-button">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    </a>
-    <p>Trạng Thái</p>
+    </div>
 
-    var tt = db.CT_TrangThai.Where(m => m.MaDauGia == item.MaDauGia).OrderByDescending(s => s.ThoiGian).First();
-    var ten = db.TrangThaiDauGias.Where(m => m.MaTrangThai == tt.MaTrangThai).SingleOrDefault();
-    if (item.NgayThanhToan == null)
-    {
-        <p>Chưa thanh toán</p>
-    }
-    else if (ten.TenTrangThai != "Done")
-    {
-        <p>Đã thanh toán</p>
-    }
-    else
-    {
-        <p>Đơn hàng hoàn tất</p>
-    }
-
-}
-
-
-@Html.PagedListPager(Model,
-page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
-new PagedListRenderOptions()
-{
-    Display = PagedListDisplayMode.IfNeeded,
-    DisplayPageCountAndCurrentLocation = true,
-
-})
-
-
-
+    @Html.PagedListPager(Model,
+            page => Url.Action("Home", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),
+            new PagedListRenderOptions()
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+            })
+    @*</table>
+    *@
+</div>
