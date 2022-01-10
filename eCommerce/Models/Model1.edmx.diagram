@@ -4,22 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f4bad802e88e4a549d74830709d29282" Name="Diagram1" ZoomLevel="97">
-        <EntityTypeShape EntityType="DauGiaModel.BienDongSoDu" Width="1.5" PointX="9.75" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.CT_LoaiDauGia" Width="1.5" PointX="12" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.CT_TrangThai" Width="1.5" PointX="15" PointY="28.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.DanhGia" Width="1.5" PointX="9.75" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.DauGia" Width="1.5" PointX="9.75" PointY="24.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.HinhAnh" Width="1.5" PointX="12" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.Loai" Width="1.5" PointX="9.75" PointY="30.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.MucNang" Width="1.5" PointX="12" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.NguoiDung" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.Phuong" Width="1.5" PointX="5.25" PointY="34.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.Quan" Width="1.5" PointX="3" PointY="34.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.ThanhPho" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.ThongBao" Width="1.5" PointX="15" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.TrangThaiDauGia" Width="1.5" PointX="9.75" PointY="33.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DauGiaModel.YeuThich" Width="1.5" PointX="15" PointY="22.875" IsExpanded="true" />
+      <Diagram DiagramId="9f483e988f3f45c289a79c05779d3fbd" Name="Diagram1" ZoomLevel="101">
+        <EntityTypeShape EntityType="DauGiaModel.BienDongSoDu" Width="1.5" PointX="9.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.CT_LoaiDauGia" Width="1.5" PointX="12" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.CT_TrangThai" Width="1.5" PointX="15" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.DanhGia" Width="1.5" PointX="9.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.DauGia" Width="1.5" PointX="9.75" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.HinhAnh" Width="1.5" PointX="12" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.Loai" Width="1.5" PointX="9.75" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.MucNang" Width="1.5" PointX="12" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.NguoiDung" Width="1.5" PointX="7.5" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.Phuong" Width="1.5" PointX="5.25" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.Quan" Width="1.5" PointX="3" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.ThanhPho" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.ThongBao" Width="1.5" PointX="15" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.TrangThaiDauGia" Width="1.5" PointX="9.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DauGiaModel.YeuThich" Width="1.5" PointX="15" PointY="23" IsExpanded="true" />
         <AssociationConnector Association="DauGiaModel.FK_BienDongSoDu_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_CT_LoaiDauGia_DauGia" ManuallyRouted="false" />
         <AssociationConnector Association="DauGiaModel.FK_CT_LoaiDauGia_Loai" ManuallyRouted="false" />
