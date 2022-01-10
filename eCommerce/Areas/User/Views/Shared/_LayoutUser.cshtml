@@ -84,7 +84,9 @@
                                             <a class="dropdown-item" href="/SignIn/SignOut"><i class="fas fa-sign-out-alt mr-2" style="font-size: 1.3rem;"></i><span style="font-size: 1.3rem;">Đăng xuất</span></a>
                                         </div>
                                     </div>
-                                    <a href="#" class="soDuVi">Số dư ví: @Session["SoDuVi"] VNĐ</a>
+                                    @{ NguoiDung nd = db.NguoiDungs.Where(m => m.MaNguoiDung == maNguoiDung).SingleOrDefault();
+                                        }
+                                    <a href="#" class="soDuVi">Số dư ví: @nd.SoDuVi  VNĐ</a>
                                 </div>
                             </div>
                         </nav>

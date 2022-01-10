@@ -495,14 +495,34 @@ namespace eCommerce.Areas.User.Controllers
                 var l = db.MucNangs.Where(m => m.MaDauGia == ma).ToList();
                 var dg = db.DauGias.Where(m => m.MaDauGia == ma).SingleOrDefault();
                 var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == 2 && m.MaDauGia == ma).SingleOrDefault();
+                var nguoidung = db.NguoiDungs.Where(m => m.MaNguoiDung == ID).SingleOrDefault();
                 if (DateTime.Now <= dg.NgayKetThuc)
                 {
                     if (trangthai == null)
                     {
-                        if (l.Count() > 0)
+                        if (nguoidung.SoDuVi > mucnang)
                         {
-                            var max = db.MucNangs.Where(m => m.MaDauGia == ma).Max(m => m.GiaTri);
-                            if (max < mucnang)
+                            if (l.Count() > 0)
+                            {
+                                var max = db.MucNangs.Where(m => m.MaDauGia == ma).Max(m => m.GiaTri);
+                                if (max < mucnang)
+                                {
+                                    MucNang mn = new MucNang();
+                                    mn.MaDauGia = ma;
+                                    mn.MaNguoiDung = ID;
+                                    mn.GiaTri = mucnang;
+                                    mn.ThoiGian = DateTime.Now;
+                                    db.MucNangs.Add(mn);
+                                    db.SaveChanges();
+                                    this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
+                                }
+                                else
+                                {
+                                    this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
+
+                                }
+                            }
+                            else
                             {
                                 MucNang mn = new MucNang();
                                 mn.MaDauGia = ma;
@@ -512,26 +532,19 @@ namespace eCommerce.Areas.User.Controllers
                                 db.MucNangs.Add(mn);
                                 db.SaveChanges();
                                 this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
-                            }
-                            else
-                            {
-                                this.AddNotification("Vui lòng nâng giá cao hơn", NotificationType.ERROR);
 
                             }
+                            return RedirectToAction("Bid", new { id = ma });
+
                         }
                         else
                         {
-                            MucNang mn = new MucNang();
-                            mn.MaDauGia = ma;
-                            mn.MaNguoiDung = ID;
-                            mn.GiaTri = mucnang;
-                            mn.ThoiGian = DateTime.Now;
-                            db.MucNangs.Add(mn);
-                            db.SaveChanges();
-                            this.AddNotification("Nâng giá thành công", NotificationType.SUCCESS);
+                            this.AddNotification("S dư ví không đủ để nâng giá", NotificationType.ERROR);
+
+                            return RedirectToAction("Bid", new { id = ma });
 
                         }
-                        return RedirectToAction("Bid", new { id = ma });
+
                     }
                     else
                     {
