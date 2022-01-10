@@ -127,8 +127,8 @@ namespace eCommerce.Areas.Admin.Controllers
                 //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
                 string extension = Path.GetExtension(thongTinAdmin.ImageFile.FileName);
                 string fileName = DateTime.Now.ToString("ddMMyyyymmssfff") + extension;
-                thongTinAdmin.HinhAnh = "~/UserImages/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
+                thongTinAdmin.HinhAnh = "~/assets/UserImages/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/assets/UserImages/"), fileName);
                 thongTinAdmin.ImageFile.SaveAs(fileName);
             }
 

@@ -101,8 +101,8 @@ namespace eCommerce.Controllers
             //thêm hình ảnh vào thư mục UserImages và lưu đường dẫn vào database
             string extension = Path.GetExtension(nguoiDungViewModel.ImageFile.FileName);
             string fileName = DateTime.Now.ToString("ddMMyyyymmssfff") + extension;
-            nguoiDungViewModel.HinhAnh = "~/UserImages/" + fileName;
-            fileName = Path.Combine(Server.MapPath("~/UserImages/"), fileName);
+            nguoiDungViewModel.HinhAnh = "~/assets/UserImages/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/assets/UserImages/"), fileName);
             nguoiDungViewModel.ImageFile.SaveAs(fileName);
 
             //gán các giá trị IsAdmin, IsApprove, SoDuVi là giá trị mặc định

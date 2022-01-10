@@ -294,6 +294,8 @@
     <Content Include="assets\images\2.jpg" />
     <Content Include="assets\images\admin_index.jpg" />
     <Content Include="assets\images\gavel-auction-hammer-justice.jpg" />
+    <Content Include="assets\UserImages\*.*"/>
+    <Content Include="assets\images\*.*"/>
     <Content Include="assets\js\GetDSQuan_Phuong.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -395,8 +397,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\UserImages\" />
     <Folder Include="BidImage\" />
-    <Folder Include="UserImages\" />
     <Folder Include="Views\Guest\" />
   </ItemGroup>
   <ItemGroup>
