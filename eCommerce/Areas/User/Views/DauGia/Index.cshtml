@@ -55,30 +55,30 @@
     <div class="list-detail">
         @using (Html.BeginForm("Index", "DauGia", FormMethod.Get))
         {
-        <form class="form-auction">
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="inputEmail4">Tìm kiếm sản phẩm</label>
-                    <input type="text" class="form-control" id="inputEmail4" name="ten" placeholder="Nhập tên sản phẩm...">
+            <form class="form-auction">
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputEmail4">Tìm kiếm sản phẩm</label>
+                        <input type="text" class="form-control" id="inputEmail4" name="ten" placeholder="Nhập tên sản phẩm...">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputState">Loại sản phẩm</label>
+                        @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai", @class = "form-control" })
+                    </div>
                 </div>
-                <div class="form-group col-md-5">
-                    <label for="inputState">Loại sản phẩm</label>
-                    @Html.DropDownList("loai", (SelectList)ViewBag.ListLoai, new { id = "loai", @class = "form-control" })
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputAddress">Mức giá</label>
+                        <input type="text" class="form-control" id="inputAddress" name="gia" placeholder="Nhập giá tối thiểu ban đầu">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputAddress2">Thời gian bắt đầu</label>
+                        <input type="datetime-local" class="form-control" id="inputAddress2" name="startdate">
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="inputAddress">Mức giá</label>
-                    <input type="text" class="form-control" id="inputAddress" name="gia" placeholder="Nhập giá tối thiểu ban đầu">
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="inputAddress2">Thời gian bắt đầu</label>
-                    <input type="datetime-local" class="form-control" id="inputAddress2" name="startdate">
-                </div>
-            </div>
-            <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
-            <a href='@Url.Action("DauGia", "Index")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
-        </form>
+                <button class="btn btn-search btn-info ml-3" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+                <a href='@Url.Action("DauGia", "Index")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-sync-alt"></i> Tải lại</a>
+            </form>
         }
     </div>
 
@@ -130,7 +130,7 @@
                         if (Hinh.Length > 0)
                         {
 
-                            <img src="@Url.Content(Hinh[0].LinkAnh)" style="width:200px;height:230px"/>
+                            <img src="@Url.Content(Hinh[0].LinkAnh)" style="width:200px;height:230px" />
 
                         }
                     }
@@ -162,25 +162,23 @@
                 </td>
                 <td>
 
-                    <a href='@Url.Action("Edit","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:aqua"><i class="fas fa-edit"></i> Chỉnh sửa </a> |
-                    <a href='@Url.Action("Detail","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:antiquewhite"><i class="fas fa-info-circle"></i> Chi tiết </a>
+
                     @using (Html.BeginForm("Delete", "DauGia", FormMethod.Post))
                     {
 
                         var tt = db.TrangThaiDauGias.Where(m => m.TenTrangThai == "UnActive").SingleOrDefault();
                         var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == tt.MaTrangThai && m.MaDauGia == item.MaDauGia).SingleOrDefault();
-                        if (DateTime.Now > item.NgayBatDau.AddDays(2) && trangthai == null)
+                        if (DateTime.Now < item.NgayBatDau.AddDays(2) && trangthai == null)
                         {
+                            <a href='@Url.Action("Edit","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:aqua"><i class="fas fa-edit"></i> Chỉnh sửa </a>
+                            <a href='@Url.Action("Detail","DauGia", new { id = item.MaDauGia })' class="btn btn-delete_employeemr-2" style="color:black;background-color:antiquewhite"><i class="fas fa-info-circle"></i> Chi tiết </a>
                             @Html.ActionLink("Edit", "Edit", new { id = item.MaDauGia })
 
                             <button type="submit" name="submit" value="@item.MaDauGia" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn xóa chứ?')"><i class="fas fa-user-minus"></i> Xóa sản phẩm</button>
                         }
-
-
                     }
                 </td>
             </tr>
-
         }
         @Html.PagedListPager(Model,
                 page => Url.Action("Index", new { page, ten = Request.QueryString["ten"], loai = Request.QueryString["loai"], gia = Request.QueryString["gia"], startdate = Request.QueryString["startdate"] }),

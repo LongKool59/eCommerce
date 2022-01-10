@@ -497,7 +497,7 @@ namespace eCommerce.Areas.User.Controllers
                 var trangthai = db.CT_TrangThai.Where(m => m.MaTrangThai == 2 && m.MaDauGia == ma).SingleOrDefault();
                 if (DateTime.Now <= dg.NgayKetThuc)
                 {
-                    if(trangthai==null)
+                    if (trangthai == null)
                     {
                         if (l.Count() > 0)
                         {
@@ -537,8 +537,8 @@ namespace eCommerce.Areas.User.Controllers
                     {
                         this.AddNotification("Buổi đấu giá đã bị vô hiệu hóa", NotificationType.ERROR);
                         return RedirectToAction("Bid", new { id = ma });
-                    }    
-                    
+                    }
+
                 }
                 else
                 {
@@ -649,13 +649,13 @@ namespace eCommerce.Areas.User.Controllers
         [HttpPost]
         public ActionResult ThanhToan(string submit)
         {
-            
+
             int id = int.Parse(submit);
             var dg = db.DauGias.Where(m => m.MaDauGia == id).SingleOrDefault();
             dg.NgayThanhToan = DateTime.Now;
             int ID = int.Parse(Session["MaNguoiDung"].ToString());
             var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == ID).SingleOrDefault();
-            if(nd.SoDuVi>= int.Parse(dg.GiaCuoi.ToString()))
+            if (nd.SoDuVi >= int.Parse(dg.GiaCuoi.ToString()))
             {
                 nd.SoDuVi -= int.Parse(dg.GiaCuoi.ToString());
                 var nguoiban = db.NguoiDungs.Where(n => n.MaNguoiDung == dg.MaNguoiBan).SingleOrDefault();
@@ -700,8 +700,8 @@ namespace eCommerce.Areas.User.Controllers
             string accessKey = "RmpFc3sFvJPdoQ3s";
             string serectkey = "kUnpWmcCuXSZC1tiEYW7zpDCgygsiBY6";
             string orderInfo = "test";
-            string returnUrl = "https://daugiaviet.online/User/Home/ConfirmPaymentClient";
-            string notifyurl = "http://daugiaviet.online/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string returnUrl = "https://daugiatructuyen.azurewebsites.net/User/Home/ConfirmPaymentClient";
+            string notifyurl = "https://daugiatructuyen.azurewebsites.net/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
             string amount = value.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();

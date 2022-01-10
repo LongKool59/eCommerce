@@ -28,7 +28,7 @@ namespace eCommerce.Areas.User.Controllers
             l.Ngay = DateTime.Now;
             l.MaNguoiDung = 1;
             listL.Add(l);
-            ViewBag.ListLoai = new SelectList(listL, "MaLoai", "TenLoai","0");
+            ViewBag.ListLoai = new SelectList(listL, "MaLoai", "TenLoai", "0");
             int ID = int.Parse(Session["MaNguoiDung"].ToString());
             int pageNumber = page ?? 1;
             int pageSize = 5;
@@ -37,21 +37,21 @@ namespace eCommerce.Areas.User.Controllers
             var DauGia_full = db.DauGias.OrderBy(x => x.NgayDang);
             /*            DauGia= from d in db.DauGias join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia where 
             */
-            if(ten==null||ten.Trim()=="")
+            if (ten == null || ten.Trim() == "")
             {
-                if (loai == "0" || loai==null)
+                if (loai == "0" || loai == null)
                 {
-                    if (gia == "" || gia==null)
+                    if (gia == "" || gia == null)
                     {
-                        if (startdate == null||startdate.Trim()=="")
+                        if (startdate == null || startdate.Trim() == "")
                         {
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
-                                               where ct.MaTrangThai == 3 
+                                               where ct.MaTrangThai == 3
                                                select d;
 
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID ).OrderByDescending(m => m.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID).OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -61,10 +61,10 @@ namespace eCommerce.Areas.User.Controllers
                         {
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
-                                               where ct.MaTrangThai == 3  
+                                               where ct.MaTrangThai == 3
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID&& p.NgayBatDau>=ngay).OrderByDescending(m => m.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID && p.NgayBatDau >= ngay).OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -77,10 +77,10 @@ namespace eCommerce.Areas.User.Controllers
                         {
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
-                                               where ct.MaTrangThai == 3  
+                                               where ct.MaTrangThai == 3
                                                select d;
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID&& p.GiaBanDau>=price).OrderByDescending(m => m.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID && p.GiaBanDau >= price).OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -90,7 +90,7 @@ namespace eCommerce.Areas.User.Controllers
                         {
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
-                                               where ct.MaTrangThai ==3 
+                                               where ct.MaTrangThai == 3
                                                select d;
                             DateTime ngay = DateTime.Parse(startdate);
                             int price = int.Parse(gia);
@@ -104,14 +104,14 @@ namespace eCommerce.Areas.User.Controllers
                 }
                 else
                 {
-                    if (gia.Trim() == ""|| gia==null)
+                    if (gia.Trim() == "" || gia == null)
                     {
-                        if (startdate == null||startdate.Trim()=="")
+                        if (startdate == null || startdate.Trim() == "")
                         {
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
-                                               where ct.MaTrangThai == 3 
+                                               where ct.MaTrangThai == 3
                                                select d;
                             int temp = int.Parse(loai.ToString());
                             var CT_Loai = from d in db.DauGias
@@ -119,7 +119,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
 
-                            DauGia = DauGia_full .Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia)&&CT_Loai.Any(l1=>l1.MaDauGia==p.MaDauGia) && p.MaNguoiBan == ID)
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID)
                                                 .OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
@@ -131,7 +131,7 @@ namespace eCommerce.Areas.User.Controllers
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
-                                               where ct.MaTrangThai == 3  
+                                               where ct.MaTrangThai == 3
                                                select d;
                             int temp = int.Parse(loai.ToString());
                             var CT_Loai = from d in db.DauGias
@@ -139,7 +139,7 @@ namespace eCommerce.Areas.User.Controllers
                                           where lo.MaLoai == temp
                                           select d;
                             DateTime ngay = DateTime.Parse(startdate);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID&&p.NgayBatDau>=ngay).OrderByDescending(m => m.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID && p.NgayBatDau >= ngay).OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -153,7 +153,7 @@ namespace eCommerce.Areas.User.Controllers
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
-                                               where ct.MaTrangThai == 3 
+                                               where ct.MaTrangThai == 3
                                                select d;
 
                             int temp = int.Parse(loai.ToString());
@@ -163,7 +163,7 @@ namespace eCommerce.Areas.User.Controllers
                                           select d;
 
                             int price = int.Parse(gia);
-                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID && p.GiaBanDau>=price).OrderByDescending(m => m.NgayDang);
+                            DauGia = DauGia_full.Where(p => !DauGia_DaXoa.Any(p2 => p2.MaDauGia == p.MaDauGia) && CT_Loai.Any(l1 => l1.MaDauGia == p.MaDauGia) && p.MaNguoiBan == ID && p.GiaBanDau >= price).OrderByDescending(m => m.NgayDang);
                             DGViewModel = DauGia.ToList().ConvertAll<DauGiaViewModel>(x => x);
 
 
@@ -174,7 +174,7 @@ namespace eCommerce.Areas.User.Controllers
                             var DauGia_DaXoa = from d in db.DauGias
                                                join ct in db.CT_TrangThai on d.MaDauGia equals ct.MaDauGia
                                                join lo in db.CT_LoaiDauGia on d.MaDauGia equals lo.MaDauGia
-                                               where ct.MaTrangThai == 3 
+                                               where ct.MaTrangThai == 3
                                                select d;
 
                             int temp = int.Parse(loai.ToString());
@@ -350,7 +350,7 @@ namespace eCommerce.Areas.User.Controllers
                 }
 
             }
-            
+
         }
         public ActionResult Detail(int id)
         {
@@ -427,9 +427,9 @@ namespace eCommerce.Areas.User.Controllers
                 var hi = db.HinhAnhs.Where(m => m.MaDauGia == ID).Count() + 1;
                 string extension = Path.GetExtension(hinh.FileName);
                 string fileName = hi + "_" + ID + extension;
-                
+
                 HinhAnh h = new HinhAnh();
-                h.LinkAnh = "~/BidImage/"+ fileName;
+                h.LinkAnh = "~/BidImage/" + fileName;
                 h.MaDauGia = ID;
                 db.HinhAnhs.Add(h);
                 db.SaveChanges();
@@ -437,8 +437,9 @@ namespace eCommerce.Areas.User.Controllers
                 hinh.SaveAs(fileName);
             }
             var registry = new Registry();
-/*            registry.Schedule<>
-*/            return Redirect("Index");
+            /*            registry.Schedule<>
+            */
+            return Redirect("Index");
         }
         public void DoiTrangThai()
         {
@@ -447,7 +448,7 @@ namespace eCommerce.Areas.User.Controllers
         }
         public ActionResult Edit(int id)
         {
-        
+
             DauGiaViewModel view = new DauGiaViewModel();
 
             List<Loai> listL = db.Loais.ToList();
@@ -490,14 +491,14 @@ namespace eCommerce.Areas.User.Controllers
             int ID = v.MaDauGia;
 
             var l = db.CT_LoaiDauGia.Where(m => m.MaDauGia == ID).ToList();
-            
+
 
             foreach (var rm in l)
             {
                 db.CT_LoaiDauGia.Remove(rm);
                 db.SaveChanges();
             }
-            
+
             foreach (var loai in v.ListLoaiSanPham)
             {
                 CT_LoaiDauGia ct = new CT_LoaiDauGia();
@@ -511,7 +512,7 @@ namespace eCommerce.Areas.User.Controllers
             {/*
                 *//*//*//*Xóa hình ảnh cũ trong folder*/
                 var hinh_1 = db.HinhAnhs.Where(m => m.MaDauGia == ID).ToList();
-                foreach(var item in hinh_1 )
+                foreach (var item in hinh_1)
                 {
                     string oldImgPath = item.LinkAnh;
                     FileInfo fi = new FileInfo(oldImgPath);
@@ -529,7 +530,7 @@ namespace eCommerce.Areas.User.Controllers
                         string extension = Path.GetExtension(hinh.FileName);
                         string fileName = hi + "_" + ID + extension;
                         HinhAnh h = new HinhAnh();
-                        h.LinkAnh = "~/BidImage" + fileName;
+                        h.LinkAnh = "~/BidImage/" + fileName;
                         h.MaDauGia = ID;
                         db.HinhAnhs.Add(h);
                         db.SaveChanges();
@@ -537,7 +538,6 @@ namespace eCommerce.Areas.User.Controllers
                         hinh.SaveAs(fileName);
 
                     }
-                    
                 }
             }
 
@@ -556,6 +556,6 @@ namespace eCommerce.Areas.User.Controllers
             return Redirect("Index");
         }
         // Trang chủ
-       
+
     }
 }
