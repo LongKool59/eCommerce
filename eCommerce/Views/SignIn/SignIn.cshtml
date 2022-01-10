@@ -1,48 +1,53 @@
 ﻿@model eCommerce.Models.ViewModels.TaiKhoanViewModel
 @{
-  Layout = "~/Views/Shared/_LayoutSignIn.cshtml";
-  ViewBag.Title = "SignIn";
+    Layout = "~/Views/Shared/_LayoutSignIn.cshtml";
+    ViewBag.Title = "SignIn";
 }
 
 <section class="w3l-forms-23">
-  <div class="forms23-block-hny">
-    <div class="wrapper">
-      <div class="d-grid forms23-grids">
-        <div class="form23">
-          <div class="main-bg">
-            <h6 class="sec-one"></h6>
-            <div class="speci-login first-look">
-              <img src="images/user.png" alt="" class="img-responsive">
+    <div class="forms23-block-hny">
+        <div class="wrapper">
+            <div class="d-grid forms23-grids">
+                <div class="form23">
+                    <div class="main-bg" style="cursor: pointer">
+                        <h6 class="sec-one"></h6>
+                        <div class="speci-login first-look">
+                            <img src="images/user.png" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="bottom-content">
+                        @*@using (Html.BeginForm("CheckSignIn", "SignIn", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.TextBoxFor(model => model.Email, new { style = "field-validation-error", placeholder = "Nhập tên tài khoản" })
+                            }*@
+                        <form action="/SignIn/CheckSignIn" method="post">
+                            <input type="email" name="email" class="input-form" placeholder="Email"
+                                   required="required" />
+                            <input type="password" name="password" class="input-form"
+                                   placeholder="Mật Khẩu" required="required" />
+                            <div class="form-check">
+                                @*<label class="form-check-label" for="check1">
+                                      <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something">Hiện mật khẩu
+                                    </label>*@
+                            </div>
+                            @Html.Partial("_Notifications")
+                            <button type="submit" class="loginhny-btn btn">Đăng Nhập</button>
+                        </form>
+
+                        @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", "SignIn")
+
+                        <br />
+                        @Html.ActionLink("Tạo tài khoản mới", "SignUp", "SignIn")
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="bottom-content">
-            @*@using (Html.BeginForm("CheckSignIn", "SignIn", FormMethod.Post))
-              {
-                  @Html.AntiForgeryToken();
-                  @Html.TextBoxFor(model => model.Email, new { style = "field-validation-error", placeholder = "Nhập tên tài khoản" })
-              }*@
-            <form action="/SignIn/CheckSignIn" method="post">
-              <input type="email" name="email" class="input-form" placeholder="Email"
-                     required="required" />
-              <input type="password" name="password" class="input-form"
-                     placeholder="Mật Khẩu" required="required" />
-              <div class="form-check">
-                <label class="form-check-label" for="check1">
-                  <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something">Hiện mật khẩu
-                </label>
-              </div>
-              @Html.Partial("_Notifications")
-              <button type="submit" class="loginhny-btn btn">Đăng Nhập</button>
-            </form>
-
-            @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", "SignIn")
-
-            <br />
-            @Html.ActionLink("Tạo tài khoản mới", "SignUp", "SignIn")
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
-
+<script type="text/javascript">
+    let backToMainPage = document.querySelector(".main-bg")
+    backToMainPage.addEventListener('click', function (){
+        location.href = "/User/Home/Home"
+    })
+</script>
