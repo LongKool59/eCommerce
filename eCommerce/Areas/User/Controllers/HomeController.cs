@@ -752,6 +752,17 @@ namespace eCommerce.Areas.User.Controllers
         //Tham khảo bảng mã lỗi tại: https://developers.momo.vn/#/docs/aio/?id=b%e1%ba%a3ng-m%c3%a3-l%e1%bb%97i
         public ActionResult ConfirmPaymentClient()
         {
+            int code = int.Parse(Request.QueryString["errorCode"].ToString());
+
+            if (code==0)
+            {
+                TempData["Status"] = "Nạp tiền thành công";
+            }
+            else
+            {
+                TempData["Status"] = "Nạp tiền thất bại";
+
+            }
             //hiển thị thông báo cho người dùng
             return View();
         }
@@ -759,10 +770,14 @@ namespace eCommerce.Areas.User.Controllers
         [HttpPost]
         public void SavePayment()
         {
-            int id = int.Parse(Request["extraData"].ToString());
-            var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == id).SingleOrDefault();
-            nd.SoDuVi += int.Parse(Request["amount"].ToString());
-            db.SaveChanges();
+            int code = int.Parse(Request.QueryString["errorCode"].ToString());
+            if (code == 0)
+            {
+                int id = int.Parse(Request["extraData"].ToString());
+                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == id).SingleOrDefault();
+                nd.SoDuVi += int.Parse(Request["amount"].ToString());
+                db.SaveChanges();
+            }
             //cập nhật dữ liệu vào db
         }
 
