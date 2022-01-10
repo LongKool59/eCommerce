@@ -18,6 +18,11 @@ namespace eCommerce.Areas.Admin.Controllers
         // GET: Admin/ManageAuction
         public ActionResult DanhSachDauGia(int? page, string loaiTimKiem, string tenTimKiem, string submit)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             DauGiaEntities db = new DauGiaEntities();
             int pageNumber = page ?? 1;
             int pageSize = 10;
@@ -64,6 +69,11 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult ChiTietDauGia(int? id)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             ViewModel view = new ViewModel();
@@ -99,6 +109,11 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult VoHieuHoaDauGia(int? maDauGia)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             if (maDauGia == null)
                 return HttpNotFound();
 

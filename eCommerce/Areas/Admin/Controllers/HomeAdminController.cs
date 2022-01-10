@@ -16,6 +16,11 @@ namespace eCommerce.Areas.Admin.Controllers
         // GET: Admin/HomeAdmin
         public ActionResult Index()
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             return View();
         }
         [HttpGet]
@@ -28,6 +33,11 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult ThongTinCaNhan(int? id)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             if (id == null)
@@ -42,6 +52,11 @@ namespace eCommerce.Areas.Admin.Controllers
 
         public ActionResult DoiMatKhau()
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             return View();
         }
 
@@ -73,6 +88,11 @@ namespace eCommerce.Areas.Admin.Controllers
         }
         public ActionResult SuaThongTinCaNhan(int? id)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                TempData["toastr-warning"] = "Vui lòng đăng nhập với quyền admin để tiếp tục!";
+                return RedirectToAction("SignIn", "SignIn", new { area = "" });
+            }
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             NguoiDung nguoi = db.NguoiDungs.Find(id);
