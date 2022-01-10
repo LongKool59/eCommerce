@@ -295,6 +295,7 @@
     <Content Include="assets\images\admin_index.jpg" />
     <Content Include="assets\images\gavel-auction-hammer-justice.jpg" />
     <Content Include="assets\UserImages\*.*"/>
+    <Content Include="assets\images\*.*"/>
     <Content Include="assets\js\GetDSQuan_Phuong.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
