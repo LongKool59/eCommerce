@@ -68,7 +68,7 @@
                     @for (int i = 1; i < Model.Hinh.Length; i++)
                     {
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="@Url.Content(Model.Hinh[i])" alt="slide @(i+1)" style="width:400px; height:600px">
+                            <img class="d-block w-100" src="@Url.Content(Model.Hinh[i])" alt="slide @(i + 1)" style="width:400px; height:600px">
                         </div>
                     }
                 </div>
@@ -131,31 +131,24 @@
                     <td>@Html.DisplayFor(model => model.DauGia.NgayDang) </td>
                 </tr>
             </table>
+            @{ DauGiaEntities db = new DauGiaEntities();
+                var nb = db.NguoiDungs.Where(m => m.MaNguoiDung == Model.DauGia.MaNguoiBan).SingleOrDefault();
+                TempData["ten"] = nb.HoTen;
+                }
 
             <p>Thông tin giao dịch: </p>
             <table class="table1">
                 <tr>
-                    <td>Mã người bán: </td>
-                    <td>@Html.DisplayFor(model => model.DauGia.MaNguoiBan) </td>
+                    <td>Tên người bán: </td>
+                    <td> @TempData["ten"]</td>
                 </tr>
-                <tr>
-                    <td>Mã người mua: </td>
-                    <td>@Html.DisplayFor(model => model.DauGia.MaNguoiMua) </td>
-                </tr>
-                <tr>
-                    <td>Ngày thanh toán: </td>
-                    <td>@Html.DisplayFor(model => model.DauGia.NgayThanhToan) </td>
-                </tr>
-                <tr>
-                    <td>Giá khi thanh toán: </td>
-                    <td>@Html.DisplayFor(model => model.DauGia.GiaCuoi) </td>
-                </tr>
+
             </table>
         </div>
         <div class="col-md-6">
             @*Bắt đầ copy từ chỗ này ------ Chỗ này thay cho cái chỗ từ chỗ giá sản phẩm đến hết đoạn cụm button và using *@
             @{
-                DauGiaEntities db = new DauGiaEntities();
+
                 var mucnang = db.MucNangs.Where(m => m.MaDauGia == Model.DauGia.MaDauGia).ToList();
                 if (mucnang.Count() > 0)
                 {
