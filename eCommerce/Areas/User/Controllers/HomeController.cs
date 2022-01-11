@@ -712,9 +712,9 @@ namespace eCommerce.Areas.User.Controllers
             string partnerCode = "MOMOE9NN20211208";
             string accessKey = "RmpFc3sFvJPdoQ3s";
             string serectkey = "kUnpWmcCuXSZC1tiEYW7zpDCgygsiBY6";
-            string orderInfo = "test";
+            string orderInfo = "Nạp tiền";
             string returnUrl = "https://daugiatructuyen.azurewebsites.net/User/Home/ConfirmPaymentClient";
-            string notifyurl = "https://daugiatructuyen.azurewebsites.net/User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string notifyurl = "http://daugiatructuyen.azurewebsites.net//User/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
             string amount = value.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();
@@ -769,6 +769,10 @@ namespace eCommerce.Areas.User.Controllers
 
             if (code==0)
             {
+                int id = int.Parse(Request["extraData"].ToString());
+                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == id).SingleOrDefault();
+                nd.SoDuVi += int.Parse(Request["amount"].ToString());
+                db.SaveChanges();
                 TempData["Status"] = "Nạp tiền thành công";
             }
             else
@@ -783,14 +787,9 @@ namespace eCommerce.Areas.User.Controllers
         [HttpPost]
         public void SavePayment()
         {
-            int code = int.Parse(Request.QueryString["errorCode"].ToString());
-            if (code == 0)
-            {
-                int id = int.Parse(Request["extraData"].ToString());
-                var nd = db.NguoiDungs.Where(m => m.MaNguoiDung == id).SingleOrDefault();
-                nd.SoDuVi += int.Parse(Request["amount"].ToString());
-                db.SaveChanges();
-            }
+            
+                /**/
+            
             //cập nhật dữ liệu vào db
         }
 
