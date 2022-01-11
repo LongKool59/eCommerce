@@ -1,13 +1,15 @@
 ﻿@{
-    ViewBag.Title = "ConfirmPaymentClient";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+  ViewBag.Title = "ConfirmPaymentClient";
+  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-<section class="footer-top">
+<section class="body-content">
+  <section class="footer-top">
     <div class="footer-box">
-        <div class="footer-box-content">
-            <h3 style="align-self:center">@TempData["Status"]</h3>
-            <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aquamarine; font-size:32px">OK</a>
-        </div>
+      <div class="footer-box-content">
+        <h3 style="align-self:center">@TempData["Status"]</h3>
+        <a href='@Url.Action("Home", "Home")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aquamarine; font-size:32px">OK</a>
+      </div>
     </div>
+  </section>
 </section>

@@ -1,19 +1,22 @@
 ﻿
 @{
-    ViewBag.Title = "Nạp tiền";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+  ViewBag.Title = "Nạp tiền";
+  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-<section class="footer-top">
-    <div class="footer-box">
-        <div class="footer-box-content">
-            <h3 style="text-align:center">NẠP TIỀN</h3>
-            @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
-            {
-                <input type="number" name="value" placeholder="Nhập số tiền muốn nạp" />
-                <button type="submit" class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aqua">Nạp ngay</button>
-            }
-        </div>
+<section class="body-content">
+  <section class="footer-top">
+    <div class="footerBox">
+      <div class="footerBox-content">
+        <h3 style="text-align:center">NẠP TIỀN</h3>
+        @using (Html.BeginForm("Payment", "Home", FormMethod.Post))
+        {
+          <input type="number" name="value" placeholder="Nhập số tiền muốn nạp" class="inputMoney" />
+          <button type="submit" class="btn btn-naptien">Nạp ngay</button>
+        }
+      </div>
     </div>
+  </section>
 </section>
+
 

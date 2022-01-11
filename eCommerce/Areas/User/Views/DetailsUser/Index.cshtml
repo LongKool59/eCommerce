@@ -1,114 +1,90 @@
 ﻿@model eCommerce.Areas.User.Models.NguoiDungViewModel
 @using eCommerce.Models;
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+  ViewBag.Title = "Index";
+  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-<style>
-    h1.function-page-title {
-        font-size: 2.2rem;
-        font-weight: 400;
-        color: black;
-        text-align: center;
-        padding: 1.5rem 0;
-        background: #84CEEB;
-        font-weight: bold;
-    }
 
-    p {
-        padding: 2px;
-        font-weight: bold;
-        font-size: 14px;
-    }
+<section class="body-content">
 
-    .table1 {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
+  <div style="width: 80%; height: 520px; margin: auto; background-color: rgb(214 213 243 / 96%); border-radius: 20px; margin-top: 3%; box-shadow: -1.04px 4.891px 20px 0px rgb(69 49 183 / 50%); ">
+    <h1 class="function-page-title">THÔNG TIN CÁ NHÂN</h1>
 
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-        font-weight:bold;
-    }
+    <div class="info-list">
+      <div class="info-list-img">
+        <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh người dùng" />
+      </div>
+      <div class="info-list-item">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Mã người dùng: </label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="@Html.DisplayFor(model => model.MaNguoiDung)">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Họ tên: </label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="@Html.DisplayFor(model => model.HoTen)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Ngày sinh: </label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="@Html.DisplayFor(model => model.NgaySinh)">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Số CMND/CCCD: </label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="@Html.DisplayFor(model => model.SoCMND)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Email: </label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="@Html.DisplayFor(model => model.Email)">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Số điện thoại: </label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="@Html.DisplayFor(model => model.SDT)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Địa chỉ: </label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="@Html.DisplayFor(model => model.DiaChi)">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Số dư trong ví: </label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="@Html.DisplayFor(model => model.SoDuVi)">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Ngày đăng ký: </label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="@Html.DisplayFor(model => model.NgayDangKy)">
+            </div>
+          </div>
+        </form>
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-</style>
-<h1 class="function-page-title">THÔNG TIN CÁ NHÂN</h1>
+        <div class="edit-form">
+          @using (Html.BeginForm("Request", "DetailsUser", FormMethod.Post))
+          {
 
-<div>
-    <hr />
-
-    <div class="row">
-        <div class="col-md-4">
-            <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh người dùng" height="500" width="400" />
-        </div>
-        <div class="col-md-8">
-            <table class="table1">
-                <tr>
-                    <td>Mã người dùng:</td>
-                    <td>@Html.DisplayFor(model => model.MaNguoiDung)</td>
-                </tr>
-                <tr>
-                    <td>Họ tên: </td>
-                    <td>@Html.DisplayFor(model => model.HoTen)</td>
-                </tr>
-                <tr>
-                    <td>Ngày sinh: </td>
-                    <td>@Html.DisplayFor(model => model.NgaySinh)</td>
-                </tr>
-                <tr>
-                    <td>Số CMND/CCCD: </td>
-                    <td>@Html.DisplayFor(model => model.SoCMND)</td>
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td>@Html.DisplayFor(model => model.Email)</td>
-                </tr>
-                <tr>
-                    <td>Số điện thoại: </td>
-                    <td>@Html.DisplayFor(model => model.SDT)</td>
-                </tr>
-                <tr>
-                    <td>Địa chỉ: </td>
-                    <td>@Html.DisplayFor(model => model.DiaChi)</td>
-                </tr>
-                <tr>
-                    <td>Số dư trong ví:  </td>
-                    <td>@Html.DisplayFor(model => model.SoDuVi)</td>
-                </tr>
-                <tr>
-                    <td>Ngày đăng ký: </td>
-                    <td>@Html.DisplayFor(model => model.NgayDangKy)</td>
-                </tr>
-            </table>
-        </div>
-        <br />
-        <div class="col-md-6" style="text-align:right">
-            @using (Html.BeginForm("Request", "DetailsUser", FormMethod.Post))
+            if (Model.IsApproved || Model.IsRequesting)
             {
 
-                if (Model.IsApproved || Model.IsRequesting)
-                {
-
-                }
-                else
-                {
-                    <button type="submit" name="submit" value="@Model.MaNguoiDung" style="background-color:aqua;font-weight:bold" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn chứ?')">Gửi yêu cầu nâng cấp tài khoản</button>
-
-                }
             }
-        </div>
-        <div class="col-md-6" style="text-align:left">
+            else
+            {
+              <button type="submit" name="submit" value="@Model.MaNguoiDung" style="background-color:aqua;font-weight:bold" class="btn btn-delete_employeemr-2" onclick="return confirm('Bạn chắc chắn chứ?')">Gửi yêu cầu nâng cấp tài khoản</button>
 
-            <a href='@Url.Action("DoiMatKhau","DetailsUser")' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aquamarine"><i class="fas fa-exchange-alt"></i> ĐỔI MẬT KHẨU </a>
-            <a href='@Url.Action("Edit","DetailsUser", new { id = Model.MaNguoiDung})' class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold"><i class="fas fa-edit"></i> CHỈNH SỬA </a>
+            }
+          }
+          <a href='@Url.Action("DoiMatKhau","DetailsUser")' class="btn btn-reload change-pass"><i class="fas fa-exchange-alt"></i> ĐỔI MẬT KHẨU </a>
+          <a href='@Url.Action("Edit","DetailsUser", new { id = Model.MaNguoiDung})' class="btn edit-user"><i class="fas fa-edit"></i> CHỈNH SỬA </a>
         </div>
+
+
+      </div>
     </div>
-</div>
+  </div>
+</section>
+
 

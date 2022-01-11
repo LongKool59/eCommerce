@@ -1,142 +1,142 @@
 ﻿@model eCommerce.Areas.User.Models.DauGiaViewModel
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+  ViewBag.Title = "Edit";
+  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 }
 <style>
-    h1.function-page-title {
-        font-size: 2.2rem;
-        font-weight: 400;
-        color: black;
-        text-align: center;
-        padding: 1.5rem 0;
-        background: #84CEEB;
-        font-weight: bold;
-    }
+  h1.function-page-title {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    padding: 1.5rem 0;
+    background: #84CEEB;
+    font-weight: bold;
+  }
 
-    p {
-        padding: 2px;
-        font-weight: bold;
-        font-size: 14px;
-    }
+  p {
+    padding: 2px;
+    font-weight: bold;
+    font-size: 14px;
+  }
 </style>
 <h1 class="function-page-title">CHỈNH SỬA THÔNG TIN SẢN PHẨM</h1>
 
 
 @using (Html.BeginForm("Edit", "DauGia", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.MaDauGia)
-    @Html.HiddenFor(model => model.NguoiDung1)
-    @Html.HiddenFor(model => model.NguoiDung)
-    @Html.HiddenFor(model => model.GiaCuoi)
-    @Html.HiddenFor(model => model.NgayThanhToan)
-    @Html.HiddenFor(model => model.NgayDang)
-    <div class="form-horizontal">
-        <h4>DauGiaViewModel</h4>
-        <hr />
-        <div class="row">
-            <div class="col-md-9">
-                @*@Html.LabelFor(model => model.DauGia.TenSanPham, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>TÊN SẢN PHẨM</p>
-                @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+  @Html.AntiForgeryToken()
+  @Html.HiddenFor(model => model.MaDauGia)
+  @Html.HiddenFor(model => model.NguoiDung1)
+  @Html.HiddenFor(model => model.NguoiDung)
+  @Html.HiddenFor(model => model.GiaCuoi)
+  @Html.HiddenFor(model => model.NgayThanhToan)
+  @Html.HiddenFor(model => model.NgayDang)
+  <div class="form-horizontal">
+    <h4>DauGiaViewModel</h4>
+    <hr />
+    <div class="row">
+      <div class="col-md-9">
+        @*@Html.LabelFor(model => model.DauGia.TenSanPham, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>TÊN SẢN PHẨM</p>
+        @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
 
-            </div>
-            <div class="col-md-3">
-                @Html.HiddenFor(model => model.MaDauGia)
-                @*@Html.LabelFor(model => model.Loai.TenLoai, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>LOẠI SẢN PHẨM</p>
-                @Html.ListBoxFor(model => model.ListLoaiSanPham, (MultiSelectList)ViewBag.ListLoai, new { id = "dropdownLoai", multiple = "multiple" })
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-9">
-                @*@Html.LabelFor(model => model.DauGia.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>MÔ TẢ SẢN PHẨM</p>
-                @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
-
-            </div>
-            <div class="col-md-3">
-                @*@Html.LabelFor(model => model.DauGia.ViTri, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>VỊ TRÍ</p>
-                @Html.EditorFor(model => model.ViTri, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ViTri, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                @*@Html.LabelFor(model => model.DauGia.GiaBanDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>GIÁ KHỞI ĐIỂM</p>
-                @Html.EditorFor(model => model.GiaBanDau, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GiaBanDau, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-6">
-                @*@Html.LabelFor(model => model.DauGia.MucNangToiThieu, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>MỨC NÂNG TỐI THIỂU</p>
-                @Html.EditorFor(model => model.MucNangToiThieu, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MucNangToiThieu, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                @*@Html.LabelFor(model => model.DauGia.NgayBatDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY BẮT ĐẦU</p>
-                @Html.TextBoxFor(x => x.NgayBatDau, "{0:s}", new { @class = "form-control", @type = "datetime-local" })
-                @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-6">
-                @*@Html.LabelFor(model => model.DauGia.NgayKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY KẾT THÚC</p>
-                @Html.TextBoxFor(x => x.NgayKetThuc, "{0:s}", new { @class = "form-control", @type = "datetime-local" })
-                @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    @*<input type="file" id="file" multiple="true" name="ImageFile" accept="image/*" size="40">
-                <div class="upload-image">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <label for="file">Hình ảnh</label>
-                </div>
-                <p id="fileBoxName" style=" display: inline-block; color: black;"></p>*@
-                    <div class="form-group col-md-6">
-                        <input type="file" id="file" name="ImageFile" accept="image/*" size="40">
-                        <div class="upload-image">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <label for="file">Hình ảnh</label>
-                        </div>
-                        <p id="fileBoxName" style=" display: inline-block; color: black;"></p>
-                        <script type="text/javascript">
-                            document.getElementById('file').onchange = function () {
-                                document.getElementById('fileBoxName').innerHTML = this.value
-                            };
-
-                        </script>
-                        @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-offset-2 col-md-10" style="text-align:right">
-                <input type="submit" value="LƯU" class="btn btn-default" style="background-color:aquamarine; font-weight:bold" />
-                <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
-            </div>
-        </div>
+      </div>
+      <div class="col-md-3">
+        @Html.HiddenFor(model => model.MaDauGia)
+        @*@Html.LabelFor(model => model.Loai.TenLoai, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>LOẠI SẢN PHẨM</p>
+        @Html.ListBoxFor(model => model.ListLoaiSanPham, (MultiSelectList)ViewBag.ListLoai, new { id = "dropdownLoai", multiple = "multiple" })
+        @Html.ValidationMessageFor(model => model.ListLoaiSanPham, "", new { @class = "text-danger" })
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-9">
+        @*@Html.LabelFor(model => model.DauGia.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>MÔ TẢ SẢN PHẨM</p>
+        @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+
+      </div>
+      <div class="col-md-3">
+        @*@Html.LabelFor(model => model.DauGia.ViTri, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>VỊ TRÍ</p>
+        @Html.EditorFor(model => model.ViTri, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ViTri, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        @*@Html.LabelFor(model => model.DauGia.GiaBanDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>GIÁ KHỞI ĐIỂM</p>
+        @Html.EditorFor(model => model.GiaBanDau, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.GiaBanDau, "", new { @class = "text-danger" })
+      </div>
+      <div class="col-md-6">
+        @*@Html.LabelFor(model => model.DauGia.MucNangToiThieu, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>MỨC NÂNG TỐI THIỂU</p>
+        @Html.EditorFor(model => model.MucNangToiThieu, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.MucNangToiThieu, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        @*@Html.LabelFor(model => model.DauGia.NgayBatDau, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY BẮT ĐẦU</p>
+        @Html.TextBoxFor(x => x.NgayBatDau, "{0:s}", new { @class = "form-control", @type = "datetime-local" })
+        @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
+      </div>
+      <div class="col-md-6">
+        @*@Html.LabelFor(model => model.DauGia.NgayKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })*@ <p>NGÀY KẾT THÚC</p>
+        @Html.TextBoxFor(x => x.NgayKetThuc, "{0:s}", new { @class = "form-control", @type = "datetime-local" })
+        @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          @*<input type="file" id="file" multiple="true" name="ImageFile" accept="image/*" size="40">
+            <div class="upload-image">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <label for="file">Hình ảnh</label>
+            </div>
+            <p id="fileBoxName" style=" display: inline-block; color: black;"></p>*@
+          <div class="form-group col-md-6">
+            <input type="file" id="file" multiple="true" name="ImageFile" accept="image/*" size="40">
+            <div class="upload-image">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <label for="file">Hình ảnh</label>
+            </div>
+            <p id="fileBoxName" style=" display: inline-block; color: black;"></p>
+            <script type="text/javascript">
+              document.getElementById('file').onchange = function () {
+                document.getElementById('fileBoxName').innerHTML = this.value
+              };
+
+            </script>
+            @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-offset-2 col-md-10" style="text-align:right">
+        <input type="submit" value="LƯU" class="btn btn-default" style="background-color:aquamarine; font-weight:bold" />
+        <a href='@Url.Action("Index", "DauGia")' class="btn btn-reload btn-danger ml-3" style="color:black"><i class="fas fa-arrow-alt-circle-left"></i> QUAY LẠI </a>
+      </div>
+    </div>
+  </div>
 }
 
 @section Scripts {
-    @*    @Scripts.Render("~/bundles/jqueryval")
-    *@
-    <script>
-        $(function () {
-            $("#dropdownLoai").chosen();
-        });
+  @*    @Scripts.Render("~/bundles/jqueryval")
+  *@
+  <script>
+    $(function () {
+      $("#dropdownLoai").chosen();
+    });
 
-    </script>
+  </script>
 }

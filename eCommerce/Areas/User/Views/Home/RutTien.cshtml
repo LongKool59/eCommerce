@@ -1,18 +1,20 @@
 ﻿
 @{
-    ViewBag.Title = "Rút tiền";
-    Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
+  ViewBag.Title = "Rút tiền";
+  Layout = "~/Areas/User/Views/Shared/_LayoutUser.cshtml";
 
 }
-<section class="footer-top">
-    <div class="footer-box">
-        <div class="footer-box-content">
-            <h3 style="text-align:center">RÚT TIỀN</h3>
-            @using (Html.BeginForm("RutTien", "Home", FormMethod.Post))
-            {
-                <input type="number" name="value" placeholder="Nhập số tiền muốn rút" />
-                <button type="submit" class="btn btn-reload btn-danger ml-3" style="color:black;font-weight:bold;background-color:aqua">Rút ngay</button>
-            }
-        </div>
+<section class="body-content">
+  <section class="footer-top">
+    <div class="footerBox">
+      <div class="footerBox-content">
+        <h3 style="text-align:center">RÚT TIỀN</h3>
+        @using (Html.BeginForm("RutTien", "Home", FormMethod.Post))
+        {
+          <input type="number" name="value" placeholder="Nhập số tiền muốn rút" class="inputMoney" />
+          <button type="submit" class="btn btn-ruttien">Rút ngay</button>
+        }
+      </div>
     </div>
+  </section>
 </section>
