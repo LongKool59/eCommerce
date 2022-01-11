@@ -298,7 +298,12 @@ namespace eCommerce.Areas.Admin.Controllers
             TempData.Keep();
             DauGiaEntities db = new DauGiaEntities();
             NguoiDung nguoiDung = db.NguoiDungs.Find(id);
-            nguoiDung.IsRequesting = false;
+            if (nguoiDung != null)
+            {
+                nguoiDung.IsRequesting = false;
+                nguoiDung.TimeRequesting = null;
+                nguoiDung.IsApproved = true;
+            }
             db.SaveChanges();
             return RedirectToAction("DanhSachCapQuyen", new { page = TempData["_page"], loaiTimKiem = TempData["_loaiTimKiem"], tenTimKiem = TempData["_tenTimKiem"] });
         }
